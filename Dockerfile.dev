@@ -1,0 +1,20 @@
+FROM php:8.1-alpine
+
+RUN apk --no-cache add \
+        zip \
+        unzip \
+        git \
+        libzip-dev
+
+WORKDIR /app/boilerplate-laravel-10
+
+RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
+RUN COMPOSER_ALLOW_SUPERUSER=1
+
+COPY . .
+
+RUN COMPOSER_VENDOR_DIR="/app/boilerplate-laravel-10/vendor"
+RUN composer install --ignore-platform-req=ext-sockets
+
+
+CMD ["sh"]

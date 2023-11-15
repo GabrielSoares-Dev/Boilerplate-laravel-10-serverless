@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+  boilerplate-laravel-10:
+    container_name: boilerplate-laravel-10
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app/boilerplate-laravel-10
+      - volume-boilerplate-laravel-10:/app/boilerplate-laravel-10/vendor
+    networks:
+      - boilerplate-laravel-10-network
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    
+volumes:
+ volume-boilerplate-laravel-10:
+  name: volume-boilerplate-laravel-10
+
+networks:
+   boilerplate-laravel-10-network:
+    name: boilerplate-laravel-10-network
+    driver: bridge
