@@ -14,7 +14,6 @@ return [
         ],
     ],
 
-
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
@@ -27,7 +26,6 @@ return [
         // ],
     ],
 
-
     'passwords' => [
         'users' => [
             'provider' => 'users',
@@ -36,7 +34,6 @@ return [
             'throttle' => 60,
         ],
     ],
-
 
     'password_timeout' => 10800,
 
