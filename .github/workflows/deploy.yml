@@ -16,7 +16,7 @@ jobs:
           password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
       - uses: docker/build-push-action@v4
         with:
-          push: false
+          push: true
           context: .
           file: Dockerfile.prod
           tags: gabrielsoaresdev/boilerplate-laravel-10:latest
@@ -26,5 +26,8 @@ jobs:
         with:
           target: gabrielsoaresdev/boilerplate-laravel-10:latest
           tag: "slim"
+      - run: echo "${REPORT}"
+        env:
+          REPORT: ${{ steps.slim.outputs.report }}
 
       - run: docker image push "gabrielsoaresdev/boilerplate-laravel-10" --all-tags

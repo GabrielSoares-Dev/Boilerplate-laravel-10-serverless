@@ -6,3 +6,9 @@ vendor
 storage/framework/cache/**
 storage/framework/sessions/**
 storage/framework/views/**
+docker-compose.yml
+docker-compose-dev.yml
+docker-compose-prod.yml
+Dockerfile
+Dockerfile.dev
+Dockerfile.prod
