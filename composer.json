@@ -50,8 +50,7 @@
             "@php artisan key:generate --ansi"
         ],
         "lint": "./vendor/bin/pint",
-        "coverage":"php artisan test --coverage --min=80",
-
+        "coverage": "php artisan test --coverage --min=80"
     },
     "extra": {
         "laravel": {

@@ -1,9 +1,8 @@
-version: "3"
+version: '3.5'
 services:
-  boilerplate:
+  boilerplate-laravel-10:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
-     - 80:80
-
+      - 4010:80

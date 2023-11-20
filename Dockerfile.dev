@@ -25,7 +25,7 @@ RUN COMPOSER_ALLOW_SUPERUSER=1
 COPY . .
 
 RUN COMPOSER_VENDOR_DIR="/app/boilerplate-laravel-10/vendor"
-RUN composer install --ignore-platform-req=ext-sockets
+RUN composer install --optimize-autoloader --prefer-dist --ignore-platform-reqs
 
 
 CMD ["sh"]
