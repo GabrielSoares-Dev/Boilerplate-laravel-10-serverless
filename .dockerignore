@@ -13,3 +13,5 @@ Dockerfile
 Dockerfile.dev
 Dockerfile.prod
 composer.lock
+package-lock.json
+node_modules
