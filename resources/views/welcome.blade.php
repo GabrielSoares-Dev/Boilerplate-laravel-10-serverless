@@ -6,6 +6,6 @@
         <title>Boilerplate laravel 10</title>
     </head>
     <body>
-       <h1>Boilerplate laravel 10</h1>
+       <h1>Boilerplate laravel 10 test</h1>
     </body>
 </html>
