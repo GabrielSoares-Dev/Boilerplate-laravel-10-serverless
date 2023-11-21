@@ -20,14 +20,9 @@ jobs:
           context: .
           file: Dockerfile.prod
           tags: gabrielsoaresdev/boilerplate-laravel-10:latest
-      - uses: kitabisa/docker-slim-action@v1
-        env:
-          DSLIM_HTTP_PROBE: false
-        with:
-          target: gabrielsoaresdev/boilerplate-laravel-10:latest
-          tag: "slim"
-      - run: echo "${REPORT}"
-        env:
-          REPORT: ${{ steps.slim.outputs.report }}
-
-      - run: docker image push "gabrielsoaresdev/boilerplate-laravel-10" --all-tags
+     -  name: Update image in stack
+        uses: distributhor/workflow-webhook@v2
+         env:
+          webhook_url: ${{secrets.WEB_HOOK_DOCKER_URL}}
+          webhook_secret: 'Y0uR5ecr3t'
+          verify_ssl: false

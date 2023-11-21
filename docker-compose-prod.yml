@@ -1,8 +1,11 @@
 version: '3.5'
+
 services:
   boilerplate-laravel-10:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
+    container_name: boilerplate-laravel-10
+    image: gabrielsoaresdev/boilerplate-laravel-10:latest
+    restart: always
+    env_file:
+      - stack.env
     ports:
       - 4010:80

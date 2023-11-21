@@ -12,3 +12,4 @@ docker-compose-prod.yml
 Dockerfile
 Dockerfile.dev
 Dockerfile.prod
+composer.lock
