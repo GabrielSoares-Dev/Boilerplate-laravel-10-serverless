@@ -12,3 +12,16 @@ RUN chown -R 9999:9999 /var/www/html/
 RUN chmod -R 777 /var/www/html/storage
 RUN chmod -R 777 /var/www/html/public
 RUN chmod -R 777 /var/www/html/public
+
+RUN php artisan cache:clear
+
+RUN php artisan optimize
+
+RUN php artisan route:cache
+
+RUN php artisan config:cache
+
+RUN php artisan view:cache
+
+RUN php artisan config:clear
+

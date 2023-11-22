@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-class ExampleService
+use App\Interfaces\Services\BaseServiceInterface;
+
+class ExampleService implements BaseServiceInterface
 {
-    public function run()
+    public function run(array $input)
     {
-        $ddddddddddd = 'ddddddddddddsssssss';
     }
 }
