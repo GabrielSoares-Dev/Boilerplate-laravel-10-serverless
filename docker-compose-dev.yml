@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - .:/app/boilerplate-laravel-10
-      - volume-boilerplate-laravel-10:/app/boilerplate-laravel-10/vendor
+      - volume-boilerplate-laravel-10-vendor:/app/boilerplate-laravel-10/vendor
+      - volume-boilerplate-laravel-10-node_modules:/app/boilerplate-laravel-10/node_modules
     networks:
       - boilerplate-laravel-10-network
       - mysql-network
@@ -17,8 +18,10 @@ services:
     tty: true
 
 volumes:
- volume-boilerplate-laravel-10:
-  name: volume-boilerplate-laravel-10
+ volume-boilerplate-laravel-10-vendor:
+  name: volume-boilerplate-laravel-10-vendor
+ volume-boilerplate-laravel-10-node_modules:
+  name: volume-boilerplate-laravel-10-node_modules
 
 networks:
    boilerplate-laravel-10-network:
