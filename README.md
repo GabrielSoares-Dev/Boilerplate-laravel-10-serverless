@@ -7,6 +7,7 @@ This Laravel 10 boilerplate provides a robust initial structure for web developm
 Before you begin, make sure you have the following tools installed in your development environment:
 
 - docker
+- composer
 
 
 ## Installation
@@ -20,7 +21,7 @@ Before you begin, make sure you have the following tools installed in your devel
 2. **Start the container:**
 
    ```bash
-   composer server:up
+   docker-compose -f docker-compose-dev.yml up -d
 
 3. **Open the terminal in the docker to start the development server and run:**
 
@@ -43,7 +44,7 @@ Before you begin, make sure you have the following tools installed in your devel
    ```bash
    composer test:integration
 
-3. **Coverage e tests:**
+3. **Run coverage**
 
    ```bash
    composer test:coverage
