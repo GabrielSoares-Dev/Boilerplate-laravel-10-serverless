@@ -7,7 +7,6 @@ This Laravel 10 boilerplate provides a robust initial structure for web developm
 Before you begin, make sure you have the following tools installed in your development environment:
 
 - docker
-- composer
 
 
 ## Installation
