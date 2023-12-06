@@ -22,6 +22,10 @@ class CreateUserServiceTest extends TestCase
         ];
 
         $repositoryMock
+            ->shouldReceive('findByEmail')
+            ->andReturn(null);
+
+        $repositoryMock
             ->shouldReceive('create')
             ->andReturn($input);
 
@@ -31,9 +35,47 @@ class CreateUserServiceTest extends TestCase
 
         $expectedOutput = [
             'statusCode' => 201,
-            'Message' => 'User created successfully',
+            'message' => 'User created successfully',
         ];
 
         $this->assertEquals($expectedOutput, $output);
+
+        Mockery::close();
+    }
+
+    public function test_should_user_already_exists(): void
+    {
+
+        $repositoryMock = Mockery::mock(UserRepositoryInterface::class);
+
+        $mockFindByEmail = [
+            'id' => 1,
+            'name' => 'Gabriel',
+            'email' => 'test@gmail.com',
+            'phone_number' => '11942421224',
+        ];
+
+        $input = [
+            'name' => 'Gabriel',
+            'email' => 'test@gmail.com',
+            'phone_number' => '11942421224',
+            'password' => 'Test@20',
+        ];
+
+        $repositoryMock
+            ->shouldReceive('findByEmail')
+            ->andReturn($mockFindByEmail);
+
+        $repositoryMock
+            ->shouldReceive('create')
+            ->andReturn($input);
+
+        $service = new CreateUserService($repositoryMock);
+
+        $this->expectExceptionMessage('User already exists');
+
+        $service->run($input);
+
+        Mockery::close();
     }
 }

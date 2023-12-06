@@ -34,4 +34,37 @@ class UserRepositoryTest extends TestCase
 
         Mockery::close();
     }
+
+    public function test_should_find_user_by_email(): void
+    {
+        $mockModel = Mockery::mock(User::class);
+
+        $output = [
+            'id' => 1,
+            'name' => 'Gabriel',
+            'email' => 'test@gmail.com',
+            'phone_number' => '11942421224',
+        ];
+
+        $email = 'test@gmail.com';
+
+        $mockModel
+            ->shouldReceive('where')
+            ->with('email', $email)
+            ->andReturnSelf();
+
+        $mockModel
+            ->shouldReceive('first')
+            ->andReturn($output);
+
+        $userRepository = new UserEloquentRepository($mockModel);
+
+        $output = $userRepository->findByEmail($email);
+
+        $expectedOutput = $output;
+
+        $this->assertEquals($expectedOutput, $output);
+
+        Mockery::close();
+    }
 }

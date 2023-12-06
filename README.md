@@ -34,22 +34,28 @@ Before you begin, make sure you have the following tools installed in your devel
    ```bash
    composer lint
 
+2. **Run tests:**
+
+   ```bash
+   composer test
+
 2. **Run unit tests:**
 
    ```bash
    composer test:unit
-2. **Run integration tests:**
+
+3. **Run integration tests:**
 
    ```bash
    composer test:integration
 
-3. **Run coverage**
+4. **Run coverage**
 
    ```bash
    composer test:coverage
 
 
-4. **Default commit:**
+5. **Default commit:**
 
    ```bash
    npm run commit

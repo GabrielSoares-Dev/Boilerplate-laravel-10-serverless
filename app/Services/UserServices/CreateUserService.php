@@ -4,6 +4,7 @@ namespace App\Services\UserServices;
 
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Interfaces\Services\BaseServiceInterface;
+use App\Exceptions\BusinessException;
 
 class CreateUserService implements BaseServiceInterface
 {
@@ -14,13 +15,25 @@ class CreateUserService implements BaseServiceInterface
         $this->repository = $repository;
     }
 
+    protected function foundUserBySameEmail(string $email)
+    {
+        return $this->repository->findByEmail($email);
+    }
+
     public function run(array $input)
     {
+
+        $email = $input['email'];
+
+        if ($this->foundUserBySameEmail($email)) {
+            throw new BusinessException('User already exists', 400);
+        }
+
         $this->repository->create($input);
 
         return [
             'statusCode' => 201,
-            'Message' => 'User created successfully',
+            'message'    => 'User created successfully',
         ];
     }
 }

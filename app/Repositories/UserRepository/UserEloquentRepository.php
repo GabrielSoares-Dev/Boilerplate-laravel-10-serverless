@@ -18,4 +18,9 @@ class UserEloquentRepository implements UserRepositoryInterface
     {
         return $this->model->create($input);
     }
+
+    public function findByEmail(string $email)
+    {
+        return $this->model->where('email', $email)->first();
+    }
 }
