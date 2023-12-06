@@ -1,45 +1,55 @@
 # Laravel 10 Boilerplate
 
-Este boilerplate Laravel 10 fornece uma estrutura inicial robusta para desenvolvimento web, com a versão 10 do Laravel e da 8.1 do PHP. Inclui diversas ferramentas para aumentar a eficiência do desenvolvimento, garantindo boas práticas de codificação, testes e facilidade no deploy.
+This Laravel 10 boilerplate provides a robust initial structure for web development, using Laravel version 10 and PHP 8.1. It includes various tools to enhance development efficiency, ensuring coding best practices, testing, and ease of deployment.
 
-## Pré-requisitos
+## Prerequisites
 
-Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de desenvolvimento:
+Before you begin, make sure you have the following tools installed in your development environment:
 
 - docker
 
 
-## Instalação
+## Installation
 
-1. **Clone o repositório:**
+1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/GabrielSoares-Dev/Boilerplate-laravel-10.git
 
 
-2. **Subir container:**
+2. **Start the container:**
 
    ```bash
    composer server:up
 
-3. **Abra o terminal no docker para iniciar servidor de desenvolvimento e rode:**
+3. **Open the terminal in the docker to start the development server and run:**
 
    ```bash
    composer start:dev
 
-## Comandos
+## Commands
 
 1. **Code style:**
 
    ```bash
    composer lint
 
-2. **Coverage e tests:**
+2. **Run unit tests:**
 
    ```bash
-   composer coverage
+   composer test:unit
+2. **Run integration tests:**
 
-2. **Commit padronizado:**
+   ```bash
+   composer test:integration
+
+3. **Coverage e tests:**
+
+   ```bash
+   composer test:coverage
+
+
+4. **Default commit:**
 
    ```bash
    npm run commit
