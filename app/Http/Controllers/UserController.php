@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Services\UserServices\CreateUserService;
-
+/**
+ * @codeCoverageIgnore
+ */
 class UserController extends Controller
 {
-   
-    public function index()
+    public function store()
     {
-        //
+        return 'oi';
     }
-
 }

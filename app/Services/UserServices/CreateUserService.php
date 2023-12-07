@@ -2,9 +2,9 @@
 
 namespace App\Services\UserServices;
 
+use App\Exceptions\BusinessException;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Interfaces\Services\BaseServiceInterface;
-use App\Exceptions\BusinessException;
 
 class CreateUserService implements BaseServiceInterface
 {
@@ -33,7 +33,7 @@ class CreateUserService implements BaseServiceInterface
 
         return [
             'statusCode' => 201,
-            'message'    => 'User created successfully',
+            'message' => 'User created successfully',
         ];
     }
 }
