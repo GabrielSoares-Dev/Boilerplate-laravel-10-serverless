@@ -67,4 +67,39 @@ class UserRepositoryTest extends TestCase
 
         Mockery::close();
     }
+
+    // public function test_should_create_access_token(): void
+    // {
+    //     $mockModel = Mockery::mock(User::class);
+
+    //     $input = [
+    //         'email' => 'test@gmail.com',
+    //         'deviceName' => 'Postman',
+    //     ];
+
+    //     // $mockModel->shouldReceive('where')
+    //     //     ->with('email', $input['email'])
+    //     //     ->andReturnSelf();
+
+        
+    //     // $mockUser = Mockery::mock(User::class);
+    //     // $mockModel->shouldReceive('first')
+    //     //     ->andReturn($mockUser);
+
+        
+
+    //         $mockUser->shouldReceive('createToken')
+    //         ->with($input['device_name'])
+    //         ->andReturn((object) ['plainTextToken' => 'test-token']);
+
+    //     $userRepository = new UserEloquentRepository($mockModel);
+
+    //     $output = $userRepository->createAccessToken($input['email'], $input['deviceName']);
+
+    //     $expectedOutput = 'test-token';
+
+    //     $this->assertEquals($expectedOutput, $output);
+
+    //     Mockery::close();
+    // }
 }

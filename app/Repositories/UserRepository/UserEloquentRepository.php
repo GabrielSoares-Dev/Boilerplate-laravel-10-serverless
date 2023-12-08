@@ -14,13 +14,20 @@ class UserEloquentRepository implements UserRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(array $input): User
+    public function create(array $input)
     {
         return $this->model->create($input);
     }
 
-    public function findByEmail(string $email): User
+    public function findByEmail(string $email)
     {
         return $this->model->where('email', $email)->first();
+    }
+
+    public function createAccessToken(string $email, string $deviceName): string
+    {
+        $user = $this->model->where('email', $email)->first();
+
+        return $user->createToken($deviceName)->plainTextToken;
     }
 }

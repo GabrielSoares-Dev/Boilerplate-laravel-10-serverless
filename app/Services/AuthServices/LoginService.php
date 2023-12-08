@@ -3,17 +3,20 @@
 namespace App\Services\AuthServices;
 
 use App\Exceptions\BusinessException;
+use App\Interfaces\Helpers\CryptographyInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Interfaces\Services\BaseServiceInterface;
-use Illuminate\Support\Facades\Hash;
 
 class LoginService implements BaseServiceInterface
 {
     protected UserRepositoryInterface $repository;
 
-    public function __construct(UserRepositoryInterface $repository)
+    protected CryptographyInterface $cryptography;
+
+    public function __construct(UserRepositoryInterface $repository, CryptographyInterface $cryptography)
     {
         $this->repository = $repository;
+        $this->cryptography = $cryptography;
     }
 
     protected function foundUserByEmail(string $email)
@@ -30,7 +33,7 @@ class LoginService implements BaseServiceInterface
 
         $user = $this->foundUserByEmail($email);
 
-        $invalidCredentials = ! $user || Hash::check($password, $user->password);
+        $invalidCredentials = ! $user || ! $this->cryptography->compare($user->password, $password);
 
         if ($invalidCredentials) {
             throw new BusinessException('Invalid credentials', 401);

@@ -12,7 +12,8 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "spatie/laravel-permission": "^6.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -55,7 +56,7 @@
         "test": "php artisan test",
         "test:unit": "php artisan test --testsuite=Unit",
         "test:integration": "php artisan test --testsuite=Feature",
-        "test:coverage": "php artisan test --coverage"
+        "test:coverage": "php artisan test --coverage --coverage-html coverage"
     },
     "extra": {
         "laravel": {
