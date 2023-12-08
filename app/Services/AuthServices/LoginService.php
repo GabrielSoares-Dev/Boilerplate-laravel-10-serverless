@@ -21,7 +21,7 @@ class LoginService implements BaseServiceInterface
         return $this->repository->findByEmail($email);
     }
 
-    public function run(array $input):array
+    public function run(array $input): array
     {
 
         $email = $input['email'];

@@ -4,5 +4,5 @@ namespace App\Interfaces\Helpers;
 
 interface CryptographyInterface
 {
-    public function compare(string $hash,string $value): bool;
+    public function compare(string $hash, string $value): bool;
 }
