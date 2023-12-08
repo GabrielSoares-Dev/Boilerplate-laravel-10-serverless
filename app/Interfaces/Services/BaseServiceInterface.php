@@ -4,5 +4,5 @@ namespace App\Interfaces\Services;
 
 interface BaseServiceInterface
 {
-    public function run(array $input);
+    public function run(array $input):array;
 }
