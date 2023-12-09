@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\UserRepository;
+namespace App\Repositories\PermissionRepository;
 
-use App\Interfaces\Repositories\UserRepositoryInterface;
+use App\Interfaces\Repositories\PermissionRepositoryInterface;
 use Spatie\Permission\Models\Permission;
 
-class PermissionEloquentRepository implements UserRepositoryInterface
+class PermissionEloquentRepository implements PermissionRepositoryInterface
 {
     protected Permission $model;
 
@@ -18,5 +18,4 @@ class PermissionEloquentRepository implements UserRepositoryInterface
     {
         return $this->model->create($input);
     }
-
 }

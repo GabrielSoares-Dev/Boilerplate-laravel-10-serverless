@@ -72,25 +72,40 @@ class UserRepositoryTest extends TestCase
     // {
     //     $mockModel = Mockery::mock(User::class);
 
+    //     $mockModel
+    //         ->shouldReceive('where')
+    //         ->with('email', $email)
+    //         ->andReturnSelf();
+
+    //     $mockModel
+    //         ->shouldReceive('first')
+    //         ->andReturnUsing();
+
+    //     $userMock = Mockery::mock(User::class);
+
+    //     $modelMock->shouldReceive('first')
+    //         ->once()
+    //         ->andReturnUsing(function ($deviceName) {
+
+    //             $tokenMock = Mockery::mock();
+    //             $tokenMock->shouldReceive('plainTextToken')->andReturn('mocked_plain_text_token');
+    //             return $tokenMock;
+    //         });
+
+    //     $userMock->shouldReceive('createToken')
+    //         ->once()
+    //         ->with('TestDevice')
+    //         ->andReturnUsing(function ($deviceName) {
+
+    //             $tokenMock = Mockery::mock();
+    //             $tokenMock->shouldReceive('plainTextToken')->andReturn('mocked_plain_text_token');
+    //             return $tokenMock;
+    //         });
     //     $input = [
     //         'email' => 'test@gmail.com',
     //         'deviceName' => 'Postman',
     //     ];
 
-    //     // $mockModel->shouldReceive('where')
-    //     //     ->with('email', $input['email'])
-    //     //     ->andReturnSelf();
-
-        
-    //     // $mockUser = Mockery::mock(User::class);
-    //     // $mockModel->shouldReceive('first')
-    //     //     ->andReturn($mockUser);
-
-        
-
-    //         $mockUser->shouldReceive('createToken')
-    //         ->with($input['device_name'])
-    //         ->andReturn((object) ['plainTextToken' => 'test-token']);
 
     //     $userRepository = new UserEloquentRepository($mockModel);
 
