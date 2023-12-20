@@ -2,8 +2,8 @@
 
 namespace Src\Infra\Repositories\PermissionRepository;
 
-use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Spatie\Permission\Models\Permission;
+use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class PermissionEloquentRepository implements PermissionRepositoryInterface
 {

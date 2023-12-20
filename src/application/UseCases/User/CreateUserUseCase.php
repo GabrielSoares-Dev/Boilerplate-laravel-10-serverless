@@ -3,8 +3,8 @@
 namespace Src\Application\UseCases\User;
 
 use App\Exceptions\BusinessException;
-use Src\Domain\Repositories\UserRepositoryInterface;
 use Src\Application\UseCases\BaseUseCaseInterface;
+use Src\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCase implements BaseUseCaseInterface
 {

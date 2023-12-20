@@ -2,8 +2,8 @@
 
 namespace Src\Application\UseCases\Permission;
 
-use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Application\UseCases\BaseUseCaseInterface;
+use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class CreatePermissionUseCase implements BaseUseCaseInterface
 {
@@ -19,7 +19,7 @@ class CreatePermissionUseCase implements BaseUseCaseInterface
         $this->repository->create($input);
 
         $output = [];
-        
+
         return $output;
     }
 }
