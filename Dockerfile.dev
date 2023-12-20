@@ -20,20 +20,20 @@ RUN pear update-channels \
 
 RUN docker-php-ext-install pdo_mysql
 
-WORKDIR /app/boilerplate-laravel-10
+WORKDIR /app/boilerplate-laravel-10-clean-architecture
 
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 RUN COMPOSER_ALLOW_SUPERUSER=1
 
 COPY . .
 
-RUN COMPOSER_VENDOR_DIR="/app/boilerplate-laravel-10/vendor"
+RUN COMPOSER_VENDOR_DIR="/app/boilerplate-laravel-10-clean-architecture/vendor"
 RUN composer install --optimize-autoloader --prefer-dist --ignore-platform-reqs
 
 
 FROM node:18-alpine AS node_stage
 
-WORKDIR /app/boilerplate-laravel-10
+WORKDIR /app/boilerplate-laravel-10-clean-architecture
 
 COPY package.json .
 
@@ -41,10 +41,10 @@ RUN npm i
 
 FROM php_stage as server
 
-WORKDIR /app/boilerplate-laravel-10
+WORKDIR /app/boilerplate-laravel-10-clean-architecture
 
-COPY --from=php_stage /app/boilerplate-laravel-10 /app/boilerplate-laravel-10
-COPY --from=node_stage /app/boilerplate-laravel-10 /app/boilerplate-laravel-10
+COPY --from=php_stage /app/boilerplate-laravel-10-clean-architecture /app/boilerplate-laravel-10-clean-architecture
+COPY --from=node_stage /app/boilerplate-laravel-10-clean-architecture /app/boilerplate-laravel-10-clean-architecture
 
 RUN apk --no-cache add nodejs npm
 

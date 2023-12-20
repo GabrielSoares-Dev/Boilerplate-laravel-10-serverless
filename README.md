@@ -1,4 +1,4 @@
-# Laravel 10 Boilerplate
+# Laravel 10 Boilerplate with clean architecture
 
 This Laravel 10 boilerplate provides a robust initial structure for web development, using Laravel version 10 and PHP 8.1. It includes various tools to enhance development efficiency, ensuring coding best practices, testing, and ease of deployment.
 
@@ -14,7 +14,7 @@ Before you begin, make sure you have the following tools installed in your devel
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/GabrielSoares-Dev/Boilerplate-laravel-10.git
+   git clone https://github.com/GabrielSoares-Dev/Boilerplate-laravel-10-clean-architecture.git
 
 
 2. **Start the container:**

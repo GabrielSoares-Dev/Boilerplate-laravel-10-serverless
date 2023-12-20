@@ -106,7 +106,6 @@ class UserRepositoryTest extends TestCase
     //         'deviceName' => 'Postman',
     //     ];
 
-
     //     $userRepository = new UserEloquentRepository($mockModel);
 
     //     $output = $userRepository->createAccessToken($input['email'], $input['deviceName']);

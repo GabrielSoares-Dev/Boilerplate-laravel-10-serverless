@@ -1,9 +1,9 @@
 version: '3.5'
 
 services:
-  boilerplate-laravel-10:
-    container_name: boilerplate-laravel-10
-    image: gabrielsoaresdev/boilerplate-laravel-10:latest
+  boilerplate-laravel-10-clean-architecture:
+    container_name: boilerplate-laravel-10-clean-architecture
+    # image: your image
     restart: always
     env_file:
       - stack.env

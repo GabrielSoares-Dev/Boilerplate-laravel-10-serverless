@@ -2,23 +2,20 @@
 
 namespace Tests\Unit;
 
-use Mockery;
-use Tests\TestCase;
 use App\Interfaces\Repositories\PermissionRepositoryInterface;
 use App\Services\PermissionServices\CreatePermissionService;
+use Mockery;
+use Tests\TestCase;
 
 class CreatePermissionServiceTest extends TestCase
 {
-
     public function test_should_be_create_permission(): void
     {
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
-
         $input = [
             'name' => 'ADMIN',
         ];
-
 
         $repositoryMock
             ->shouldReceive('create')

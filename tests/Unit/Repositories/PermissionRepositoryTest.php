@@ -2,21 +2,19 @@
 
 namespace Tests\Unit;
 
-use Mockery;
-use Tests\TestCase;
 use App\Repositories\PermissionRepository\PermissionEloquentRepository;
+use Mockery;
 use Spatie\Permission\Models\Permission;
+use Tests\TestCase;
 
 class PermissionRepositoryTest extends TestCase
 {
-
     public function test_should_create_new_permission(): void
     {
         $mockModel = Mockery::mock(Permission::class);
 
-
         $input = [
-            'name' => 'ADMIN'
+            'name' => 'ADMIN',
         ];
 
         $expectedOutput = [
@@ -24,7 +22,7 @@ class PermissionRepositoryTest extends TestCase
             'name' => 'ADMIN',
             'guard_name' => null,
             'created_at' => 'now',
-            'updated_at' => 'now'
+            'updated_at' => 'now',
         ];
 
         $mockModel

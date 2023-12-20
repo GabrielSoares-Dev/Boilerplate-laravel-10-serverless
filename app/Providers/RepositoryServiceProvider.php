@@ -2,12 +2,10 @@
 
 namespace App\Providers;
 
-use App\Interfaces\Repositories\UserRepositoryInterface;
-use App\Interfaces\Repositories\PermissionRepositoryInterface;
-
-use App\Repositories\UserRepository\UserEloquentRepository;
-use App\Repositories\PermissionRepository\PermissionEloquentRepository;
-
+use Src\Domain\Repositories\UserRepositoryInterface;
+use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Src\Infra\Repositories\UserRepository\UserEloquentRepository;
+use Src\Infra\Repositories\PermissionRepository\PermissionEloquentRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

@@ -1,16 +1,16 @@
 version: '3.5'
 services:
-  boilerplate-laravel-10:
-    container_name: boilerplate-laravel-10
+  boilerplate-laravel-10-clean-architecture:
+    container_name: boilerplate-laravel-10-clean-architecture
     build:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - .:/app/boilerplate-laravel-10
-      - volume-boilerplate-laravel-10-vendor:/app/boilerplate-laravel-10/vendor
-      - volume-boilerplate-laravel-10-node_modules:/app/boilerplate-laravel-10/node_modules
+      - .:/app/boilerplate-laravel-10-clean-architecture
+      - volume-boilerplate-laravel-10-clean-architecture-vendor:/app/boilerplate-laravel-10-clean-architecture/vendor
+      - volume-boilerplate-laravel-10-clean-architecture-node_modules:/app/boilerplate-laravel-10-clean-architecture/node_modules
     networks:
-      - boilerplate-laravel-10-network
+      - boilerplate-laravel-10-clean-architecture-network
       - mysql-network
     ports:
       - "8000:8000"
@@ -18,14 +18,14 @@ services:
     tty: true
 
 volumes:
- volume-boilerplate-laravel-10-vendor:
-  name: volume-boilerplate-laravel-10-vendor
- volume-boilerplate-laravel-10-node_modules:
-  name: volume-boilerplate-laravel-10-node_modules
+ volume-boilerplate-laravel-10-clean-architecture-vendor:
+  name: volume-boilerplate-laravel-10-clean-architecture-vendor
+ volume-boilerplate-laravel-10-clean-architecture-node_modules:
+  name: volume-boilerplate-laravel-10-clean-architecture-node_modules
 
 networks:
-   boilerplate-laravel-10-network:
-    name: boilerplate-laravel-10-network
+   boilerplate-laravel-10-clean-architecture-network:
+    name: boilerplate-laravel-10-clean-architecture-network
     driver: bridge
    mysql-network:
     name: mysql-network
