@@ -14,12 +14,8 @@ class CreatePermissionUseCase implements BaseUseCaseInterface
         $this->repository = $repository;
     }
 
-    public function run(array $input): array
+    public function run(array $input): void
     {
         $this->repository->create($input);
-
-        $output = [];
-
-        return $output;
     }
 }

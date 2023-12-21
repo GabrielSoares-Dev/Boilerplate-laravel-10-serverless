@@ -2,7 +2,7 @@
 
 namespace Src\Application\UseCases\User;
 
-use App\Exceptions\BusinessException;
+use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\UserRepositoryInterface;
 
@@ -20,19 +20,16 @@ class CreateUserUseCase implements BaseUseCaseInterface
         return $this->repository->findByEmail($email);
     }
 
-    public function run(array $input): array
+    public function run(array $input): void
     {
 
         $email = $input['email'];
 
         if ($this->foundUserBySameEmail($email)) {
-            throw new BusinessException('User already exists', 400);
+            throw new BusinessException('User already exists');
         }
 
         $this->repository->create($input);
 
-        $output = [];
-
-        return $output;
     }
 }

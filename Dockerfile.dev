@@ -27,7 +27,9 @@ RUN COMPOSER_ALLOW_SUPERUSER=1
 
 COPY . .
 
+
 RUN COMPOSER_VENDOR_DIR="/app/boilerplate-laravel-10-clean-architecture/vendor"
+
 RUN composer install --optimize-autoloader --prefer-dist --ignore-platform-reqs
 
 

@@ -2,13 +2,13 @@
 
 namespace Src\Infra\Http\Controllers;
 
-use App\Exceptions\BusinessException;
-use App\Exceptions\HttpException;
-use App\Helpers\BaseResponse;
-use Illuminate\Http\Request;
+use Src\Application\Exceptions\BusinessException;
+use Src\Infra\Exceptions\HttpException;
+use Src\Infra\Helpers\BaseResponse;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Http\Requests\PermissionRequest;
+use Illuminate\Http\Request;
 
 /**
  * @codeCoverageIgnore
@@ -36,11 +36,15 @@ class PermissionController extends Controller
         $input = $request->all();
 
         try {
-            $output = $this->createPermissionUseCase->run($input);
+            $this->createPermissionUseCase->run($input);
 
             return BaseResponse::success('Permission created successfully', HttpCode::CREATED);
         } catch (BusinessException $exception) {
-            throw new HttpException($exception->getMessage(), $exception->getStatusCode() ?? 500);
+
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            throw new HttpException($errorMessage, $httpCode);
         }
     }
 

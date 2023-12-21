@@ -21,13 +21,13 @@ return [
     ],
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\RepositoryServiceProvider::class,
-        App\Providers\HelperServiceProvider::class,
+        Src\Infra\Providers\AppServiceProvider::class,
+        Src\Infra\Providers\AuthServiceProvider::class,
+        Src\Infra\Providers\RepositoryServiceProvider::class,
+        Src\Infra\Providers\HelperServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Src\Infra\Providers\EventServiceProvider::class,
+        Src\Infra\Providers\RouteServiceProvider::class,
     ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
