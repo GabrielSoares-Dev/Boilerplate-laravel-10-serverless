@@ -34,7 +34,6 @@ return [
         //
     ],
 
-
     'watchers' => [
         Watchers\BatchWatcher::class => env('TELESCOPE_BATCH_WATCHER', true),
 

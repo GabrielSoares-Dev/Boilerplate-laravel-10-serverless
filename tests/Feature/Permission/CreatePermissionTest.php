@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Src\Infra\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
@@ -31,7 +30,7 @@ class CreatePermissionTest extends TestCase
     public function test_permission_already_exists(): void
     {
         Permission::create(['name' => 'test', 'guard_name' => 'api']);
-        
+
         $input = [
             'name' => 'test',
         ];

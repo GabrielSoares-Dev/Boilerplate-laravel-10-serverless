@@ -7,8 +7,8 @@ use Src\Application\Exceptions\BusinessException;
 class Permission
 {
     private ?string $name;
-    private ?string $guardName;
 
+    private ?string $guardName;
 
     public function create(array $input)
     {
@@ -33,7 +33,7 @@ class Permission
     {
         return [
             'name' => $this->name,
-            'guard_name' => $this->guardName
+            'guard_name' => $this->guardName,
         ];
     }
 }

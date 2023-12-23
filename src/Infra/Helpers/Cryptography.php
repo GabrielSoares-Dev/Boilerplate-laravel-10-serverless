@@ -2,8 +2,8 @@
 
 namespace Src\Infra\Helpers;
 
-use Src\Domain\Helpers\CryptographyInterface;
 use Illuminate\Support\Facades\Hash;
+use Src\Domain\Helpers\CryptographyInterface;
 
 class Cryptography implements CryptographyInterface
 {

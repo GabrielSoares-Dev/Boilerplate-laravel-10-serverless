@@ -13,7 +13,7 @@ class FindAllPermissionsUseCase implements BaseUseCaseInterface
     {
         $this->repository = $repository;
     }
-    
+
     public function run(array $input)
     {
         return $this->repository->findAll();

@@ -29,6 +29,6 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
 
     public function findAll()
     {
-        return  $this->model->where('guard_name', 'api')->get();
+        return $this->model->where('guard_name', 'api')->get();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
+use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class FindAllPermissionsUseCaseTest extends TestCase
 {
@@ -28,7 +28,7 @@ class FindAllPermissionsUseCaseTest extends TestCase
                 'guard_name' => 'api',
                 'created_at' => 'now',
                 'updated_at' => 'now',
-            ]
+            ],
         ];
 
         $repositoryMock
@@ -38,7 +38,7 @@ class FindAllPermissionsUseCaseTest extends TestCase
         $input = [];
         $useCase = new FindAllPermissionsUseCase($repositoryMock);
 
-        $output =  $useCase->run($input);
+        $output = $useCase->run($input);
 
         $expectedOutput = $mockFindAll;
 

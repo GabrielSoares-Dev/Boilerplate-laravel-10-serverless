@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Src\Application\UseCases\Permission\CreatePermissionUseCase;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Src\Application\UseCases\Permission\CreatePermissionUseCase;
+use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class CreatePermissionUseCaseTest extends TestCase
 {
@@ -47,7 +47,6 @@ class CreatePermissionUseCaseTest extends TestCase
             'updated_at' => 'now',
         ];
 
-
         $input = [
             'name' => 'create_permission',
         ];
@@ -56,7 +55,6 @@ class CreatePermissionUseCaseTest extends TestCase
             ->shouldReceive('findByName')
             ->andReturn($mockFindByName);
 
-    
         $useCase = new CreatePermissionUseCase($repositoryMock);
 
         $this->expectExceptionMessage('Permission already exists');

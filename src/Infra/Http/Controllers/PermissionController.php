@@ -3,17 +3,17 @@
 namespace Src\Infra\Http\Controllers;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Infra\Exceptions\HttpException;
-use Src\Infra\Helpers\BaseResponse;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Domain\Enums\HttpCode;
+use Src\Infra\Exceptions\HttpException;
+use Src\Infra\Helpers\BaseResponse;
 use Src\Infra\Http\Requests\PermissionRequest;
-
 
 class PermissionController extends Controller
 {
     protected FindAllPermissionsUseCase $findAllPermissionsUseCase;
+
     protected CreatePermissionUseCase $createPermissionUseCase;
 
     public function __construct(
@@ -28,7 +28,7 @@ class PermissionController extends Controller
     {
         $input = [];
         try {
-            $output =  $this->findAllPermissionsUseCase->run($input);
+            $output = $this->findAllPermissionsUseCase->run($input);
 
             return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
         } catch (BusinessException $exception) {
@@ -74,7 +74,6 @@ class PermissionController extends Controller
     {
         //
     }
-
 
     public function destroy(string $id)
     {

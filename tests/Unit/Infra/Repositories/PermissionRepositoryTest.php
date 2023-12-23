@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use Src\Infra\Repositories\PermissionRepository\PermissionEloquentRepository;
 use Mockery;
 use Spatie\Permission\Models\Permission;
+use Src\Infra\Repositories\PermissionRepository\PermissionEloquentRepository;
 use Tests\TestCase;
 
 class PermissionRepositoryTest extends TestCase
@@ -44,7 +44,7 @@ class PermissionRepositoryTest extends TestCase
 
         $input = [
             'name' => 'create_permission',
-            'guard_name' => 'api'
+            'guard_name' => 'api',
         ];
 
         $expectedOutput = [
@@ -89,7 +89,7 @@ class PermissionRepositoryTest extends TestCase
                 'guard_name' => 'api',
                 'created_at' => 'now',
                 'updated_at' => 'now',
-            ]
+            ],
         ];
 
         $mockModel

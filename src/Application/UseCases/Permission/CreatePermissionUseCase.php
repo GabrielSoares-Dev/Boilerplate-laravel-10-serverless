@@ -2,18 +2,16 @@
 
 namespace Src\Application\UseCases\Permission;
 
-use Src\Application\UseCases\BaseUseCaseInterface;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
-use Src\Domain\Entities\Permission;
 use Src\Application\Exceptions\BusinessException;
-
+use Src\Application\UseCases\BaseUseCaseInterface;
+use Src\Domain\Entities\Permission;
+use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class CreatePermissionUseCase implements BaseUseCaseInterface
 {
     protected PermissionRepositoryInterface $repository;
 
     protected $defaultGuardName = 'api';
-
 
     public function __construct(PermissionRepositoryInterface $repository)
     {
@@ -29,7 +27,7 @@ class CreatePermissionUseCase implements BaseUseCaseInterface
 
     protected function alreadyExists(array $input): bool
     {
-        return !empty($this->repository->findByName($input));
+        return ! empty($this->repository->findByName($input));
     }
 
     public function run(array $input): void
