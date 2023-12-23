@@ -4,9 +4,7 @@ namespace Src\Infra\Exceptions;
 
 use Exception;
 
-/**
- * @codeCoverageIgnore
- */
+
 class HttpException extends Exception
 {
     public function render()

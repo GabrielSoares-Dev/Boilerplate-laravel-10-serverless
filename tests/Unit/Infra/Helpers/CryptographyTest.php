@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Helpers\Cryptography;
+use Src\Infra\Helpers\Cryptography;
 use Tests\TestCase;
 
 class CryptographyTest extends TestCase

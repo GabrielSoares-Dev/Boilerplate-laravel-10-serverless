@@ -20,4 +20,4 @@ jobs:
     - name: Code style
       run: composer lint
     - name: Tests and coverage
-      run: composer coverage
+      run: composer test:coverage

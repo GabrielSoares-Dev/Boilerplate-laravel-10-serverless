@@ -23,11 +23,4 @@ class UserEloquentRepository implements UserRepositoryInterface
     {
         return $this->model->where('email', $email)->first();
     }
-
-    public function createAccessToken(string $email, string $deviceName): string
-    {
-        $user = $this->model->where('email', $email)->first();
-
-        return $user->createToken($deviceName)->plainTextToken;
-    }
 }

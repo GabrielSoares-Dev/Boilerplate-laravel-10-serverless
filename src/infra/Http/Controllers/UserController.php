@@ -9,9 +9,7 @@ use Src\Application\UseCases\User\CreateUserUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Http\Requests\UserRequest;
 
-/**
- * @codeCoverageIgnore
- */
+
 class UserController extends Controller
 {
     protected CreateUserUseCase $createUserUseCase;

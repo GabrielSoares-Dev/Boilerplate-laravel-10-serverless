@@ -10,9 +10,7 @@ use Src\Domain\Enums\HttpCode;
 use Src\Infra\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 
-/**
- * @codeCoverageIgnore
- */
+
 class PermissionController extends Controller
 {
     protected CreatePermissionUseCase $createPermissionUseCase;
@@ -28,7 +26,6 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
     }
 
     public function store(PermissionRequest $request)
