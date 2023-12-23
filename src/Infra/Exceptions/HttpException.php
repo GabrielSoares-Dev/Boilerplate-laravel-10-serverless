@@ -4,7 +4,6 @@ namespace Src\Infra\Exceptions;
 
 use Exception;
 
-
 class HttpException extends Exception
 {
     public function render()

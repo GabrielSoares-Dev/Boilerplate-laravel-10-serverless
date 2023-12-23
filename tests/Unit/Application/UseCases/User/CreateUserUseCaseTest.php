@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Src\Application\UseCases\User\CreateUserUseCase;
-use Src\Domain\Repositories\UserRepositoryInterface;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Src\Application\UseCases\User\CreateUserUseCase;
+use Src\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCaseTest extends TestCase
 {

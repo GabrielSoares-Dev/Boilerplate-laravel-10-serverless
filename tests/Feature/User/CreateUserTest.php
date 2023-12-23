@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Src\Infra\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Src\Infra\Models\User;
 use Tests\TestCase;
 
 class CreateUserTest extends TestCase

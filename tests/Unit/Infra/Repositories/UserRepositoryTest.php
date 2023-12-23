@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Src\Infra\Models\User;
-use Src\Infra\Repositories\UserRepository\UserEloquentRepository;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Src\Infra\Models\User;
+use Src\Infra\Repositories\UserRepository\UserEloquentRepository;
 
 class UserRepositoryTest extends TestCase
 {

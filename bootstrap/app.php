@@ -1,10 +1,9 @@
 <?php
 
-
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-$app->useAppPath(realpath(__DIR__ . '/../src'));
+$app->useAppPath(realpath(__DIR__.'/../src'));
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     \Src\Infra\Http\Kernel::class,

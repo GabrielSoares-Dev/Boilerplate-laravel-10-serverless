@@ -2,12 +2,11 @@
 
 namespace Src\Infra\Http\Middleware;
 
-use Src\Infra\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Src\Infra\Providers\RouteServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
-
 
 class RedirectIfAuthenticated
 {
