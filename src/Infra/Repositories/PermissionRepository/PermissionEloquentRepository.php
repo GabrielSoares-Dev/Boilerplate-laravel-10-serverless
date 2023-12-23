@@ -18,4 +18,17 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
     {
         return $this->model->create($input);
     }
+
+    public function findByName(array $input)
+    {
+        return $this->model
+            ->where('guard_name', $input['guard_name'])
+            ->where('name', $input['name'])
+            ->first();
+    }
+
+    public function findAll()
+    {
+        return  $this->model->where('guard_name', 'api')->get();
+    }
 }

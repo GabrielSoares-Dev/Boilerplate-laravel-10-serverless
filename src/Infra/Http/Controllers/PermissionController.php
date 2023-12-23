@@ -6,26 +6,37 @@ use Src\Application\Exceptions\BusinessException;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
+use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Http\Requests\PermissionRequest;
-use Illuminate\Http\Request;
 
 
 class PermissionController extends Controller
 {
+    protected FindAllPermissionsUseCase $findAllPermissionsUseCase;
     protected CreatePermissionUseCase $createPermissionUseCase;
 
     public function __construct(
+        FindAllPermissionsUseCase $findAllPermissionsUseCase,
         CreatePermissionUseCase $createPermissionUseCase
     ) {
+        $this->findAllPermissionsUseCase = $findAllPermissionsUseCase;
         $this->createPermissionUseCase = $createPermissionUseCase;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        $input = [];
+        try {
+            $output =  $this->findAllPermissionsUseCase->run($input);
+
+            return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
     }
 
     public function store(PermissionRequest $request)
@@ -40,6 +51,12 @@ class PermissionController extends Controller
 
             $errorMessage = $exception->getMessage();
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isAlreadyExistsError = $errorMessage === 'Permission already exists';
+
+            if ($isAlreadyExistsError) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -58,19 +75,8 @@ class PermissionController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
     }
 }
