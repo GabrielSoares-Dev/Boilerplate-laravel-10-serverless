@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Models\User;
-use App\Repositories\UserRepository\UserEloquentRepository;
+use Src\Infra\Models\User;
+use Src\Infra\Repositories\UserRepository\UserEloquentRepository;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 

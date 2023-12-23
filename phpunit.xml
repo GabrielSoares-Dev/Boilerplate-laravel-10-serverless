@@ -17,6 +17,17 @@
         <include>
             <directory>src</directory>
         </include>
+        <exclude>
+            <directory>src/Domain/Repositories</directory>
+            <directory>src/Domain/Helpers</directory>
+            <directory>src/Infra/Console</directory>
+            <directory>src/Infra/Exceptions</directory>
+            <directory>src/Infra/Providers</directory>
+            <directory>src/Infra/Routes</directory>
+            <directory>src/Infra/Http</directory>
+            <directory>src/Infra/Models</directory>
+        
+        </exclude>
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>

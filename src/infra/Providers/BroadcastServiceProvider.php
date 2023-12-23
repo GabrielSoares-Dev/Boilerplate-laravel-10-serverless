@@ -5,9 +5,7 @@ namespace Src\Infra\Providers;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\ServiceProvider;
 
-/**
- * @codeCoverageIgnore
- */
+
 class BroadcastServiceProvider extends ServiceProvider
 {
     public function boot(): void

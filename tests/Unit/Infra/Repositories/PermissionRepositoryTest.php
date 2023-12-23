@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Repositories\PermissionRepository\PermissionEloquentRepository;
+use Src\Infra\Repositories\PermissionRepository\PermissionEloquentRepository;
 use Mockery;
 use Spatie\Permission\Models\Permission;
 use Tests\TestCase;

@@ -6,9 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-/**
- * @codeCoverageIgnore
- */
+
 class PermissionRequest extends FormRequest
 {
     public function authorize(): bool
