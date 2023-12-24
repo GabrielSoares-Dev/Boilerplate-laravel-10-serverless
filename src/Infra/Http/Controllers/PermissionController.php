@@ -4,6 +4,7 @@ namespace Src\Infra\Http\Controllers;
 
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
+use Src\Application\UseCases\Permission\DeletePermissionUseCase;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
@@ -16,12 +17,16 @@ class PermissionController extends Controller
 
     protected CreatePermissionUseCase $createPermissionUseCase;
 
+    protected DeletePermissionUseCase $deletePermissionUseCase;
+
     public function __construct(
         FindAllPermissionsUseCase $findAllPermissionsUseCase,
-        CreatePermissionUseCase $createPermissionUseCase
+        CreatePermissionUseCase $createPermissionUseCase,
+        DeletePermissionUseCase $deletePermissionUseCase
     ) {
         $this->findAllPermissionsUseCase = $findAllPermissionsUseCase;
         $this->createPermissionUseCase = $createPermissionUseCase;
+        $this->deletePermissionUseCase = $deletePermissionUseCase;
     }
 
     public function index()
@@ -77,5 +82,25 @@ class PermissionController extends Controller
 
     public function destroy(string $id)
     {
+        $input = [
+            'id' => $id,
+        ];
+
+        try {
+            $this->deletePermissionUseCase->run($input);
+
+            return BaseResponse::success('Permission deleted successfully', HttpCode::OK);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isInvalidId = $errorMessage === 'Invalid id';
+
+            if ($isInvalidId) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
     }
 }
