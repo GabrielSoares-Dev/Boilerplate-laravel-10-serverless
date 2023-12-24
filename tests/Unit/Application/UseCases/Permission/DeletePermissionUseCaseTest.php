@@ -46,7 +46,6 @@ class DeletePermissionUseCaseTest extends TestCase
         $this->expectExceptionMessage('Invalid id');
         $useCase->run($input);
 
-        $this->assertTrue(true);
         Mockery::close();
     }
 }

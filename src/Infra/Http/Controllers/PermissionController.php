@@ -6,6 +6,7 @@ use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
 use Src\Application\UseCases\Permission\DeletePermissionUseCase;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
+use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
@@ -19,14 +20,18 @@ class PermissionController extends Controller
 
     protected DeletePermissionUseCase $deletePermissionUseCase;
 
+    protected FindPermissionUseCase $findPermissionUseCase;
+
     public function __construct(
         FindAllPermissionsUseCase $findAllPermissionsUseCase,
         CreatePermissionUseCase $createPermissionUseCase,
-        DeletePermissionUseCase $deletePermissionUseCase
+        DeletePermissionUseCase $deletePermissionUseCase,
+        FindPermissionUseCase $findPermissionUseCase
     ) {
         $this->findAllPermissionsUseCase = $findAllPermissionsUseCase;
         $this->createPermissionUseCase = $createPermissionUseCase;
         $this->deletePermissionUseCase = $deletePermissionUseCase;
+        $this->findPermissionUseCase = $findPermissionUseCase;
     }
 
     public function index()
@@ -69,7 +74,26 @@ class PermissionController extends Controller
 
     public function show(string $id)
     {
-        //
+        $input = [
+            'id' => $id,
+        ];
+
+        try {
+            $output =  $this->findPermissionUseCase->run($input);
+
+            return BaseResponse::successWithContent('Permission found', HttpCode::OK, $output);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isInvalidId = $errorMessage === 'Invalid id';
+
+            if ($isInvalidId) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
     }
 
     /**

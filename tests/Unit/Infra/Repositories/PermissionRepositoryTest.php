@@ -37,6 +37,34 @@ class PermissionRepositoryTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
     }
+    public function test_should_find(): void
+    {
+        $mockModel = Mockery::mock(Permission::class);
+        $expectedOutput = [
+            'id' => 1,
+            'name' => 'create_permission',
+            'guard_name' => 'api',
+            'created_at' => 'now',
+            'updated_at' => 'now',
+        ];
+
+        $mockModel
+            ->shouldReceive('where')
+            ->andReturnSelf();
+        $mockModel
+            ->shouldReceive('first')
+            ->andReturn($expectedOutput);
+
+
+        $permissionRepository = new PermissionEloquentRepository($mockModel);
+
+        $id = 1;
+        $output = $permissionRepository->find($id);
+
+        $this->assertEquals($expectedOutput, $output);
+        Mockery::close();
+    }
+
 
     public function test_should_find_by_name(): void
     {

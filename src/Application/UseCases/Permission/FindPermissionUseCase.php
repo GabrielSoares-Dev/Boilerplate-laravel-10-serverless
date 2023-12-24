@@ -6,7 +6,7 @@ use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
-class DeletePermissionUseCase implements BaseUseCaseInterface
+class FindPermissionUseCase implements BaseUseCaseInterface
 {
     protected PermissionRepositoryInterface $repository;
 
@@ -19,10 +19,12 @@ class DeletePermissionUseCase implements BaseUseCaseInterface
     {
         $id = $input['id'];
 
-        $deleted = $this->repository->delete($id);
+        $output = $this->repository->find($id);
 
-        if (!$deleted) {
+        if (!$output) {
             throw new BusinessException('Invalid id');
         }
+
+        return $output;
     }
 }
