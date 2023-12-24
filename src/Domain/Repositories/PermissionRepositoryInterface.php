@@ -9,4 +9,6 @@ interface PermissionRepositoryInterface
     public function findByName(array $input);
 
     public function findAll();
+
+    public function delete(string $id): bool;
 }

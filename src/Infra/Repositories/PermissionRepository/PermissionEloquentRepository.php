@@ -31,4 +31,9 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
     {
         return $this->model->where('guard_name', 'api')->get();
     }
+
+    public function delete(string $id): bool
+    {
+        return $this->model->where('id', $id)->delete();
+    }
 }
