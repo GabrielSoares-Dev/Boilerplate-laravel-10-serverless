@@ -18,19 +18,19 @@ class CreatePermissionUseCase implements BaseUseCaseInterface
         $this->repository = $repository;
     }
 
-    protected function validPermission(array $input): void
+    protected function validPermission(array $input)
     {
         $permissionEntity = new Permission();
 
         $permissionEntity->create($input);
     }
 
-    protected function alreadyExists(array $input): bool
+    protected function alreadyExists(array $input)
     {
         return ! empty($this->repository->findByName($input));
     }
 
-    public function run(array $input): void
+    public function run(array $input)
     {
 
         $input['guard_name'] = $this->defaultGuardName;

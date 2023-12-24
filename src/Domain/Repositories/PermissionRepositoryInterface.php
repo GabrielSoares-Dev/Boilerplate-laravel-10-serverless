@@ -8,7 +8,9 @@ interface PermissionRepositoryInterface
 
     public function findByName(array $input);
 
+    public function find(string $id);
+
     public function findAll();
 
-    public function delete(string $id): bool;
+    public function delete(string $id);
 }

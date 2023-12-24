@@ -16,7 +16,15 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
 
     public function create(array $input)
     {
-        return $this->model->create($input);
+        return $this->model
+            ->create($input);
+    }
+
+    public function find(string $id)
+    {
+        return $this->model
+            ->where('id', $id)
+            ->first();
     }
 
     public function findByName(array $input)
@@ -29,11 +37,15 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
 
     public function findAll()
     {
-        return $this->model->where('guard_name', 'api')->get();
+        return $this->model
+            ->where('guard_name', 'api')
+            ->get();
     }
 
-    public function delete(string $id): bool
+    public function delete(string $id)
     {
-        return $this->model->where('id', $id)->delete();
+        return $this->model
+            ->where('id', $id)
+            ->delete();
     }
 }

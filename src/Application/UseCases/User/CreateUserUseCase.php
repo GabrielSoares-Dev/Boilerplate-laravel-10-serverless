@@ -20,7 +20,7 @@ class CreateUserUseCase implements BaseUseCaseInterface
         return $this->repository->findByEmail($email);
     }
 
-    public function run(array $input): void
+    public function run(array $input)
     {
 
         $email = $input['email'];
