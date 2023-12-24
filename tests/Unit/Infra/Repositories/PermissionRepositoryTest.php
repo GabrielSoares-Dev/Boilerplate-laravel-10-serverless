@@ -37,6 +37,7 @@ class PermissionRepositoryTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
     }
+
     public function test_should_find(): void
     {
         $mockModel = Mockery::mock(Permission::class);
@@ -55,7 +56,6 @@ class PermissionRepositoryTest extends TestCase
             ->shouldReceive('first')
             ->andReturn($expectedOutput);
 
-
         $permissionRepository = new PermissionEloquentRepository($mockModel);
 
         $id = 1;
@@ -64,7 +64,6 @@ class PermissionRepositoryTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
     }
-
 
     public function test_should_find_by_name(): void
     {

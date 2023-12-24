@@ -19,7 +19,7 @@ class FindPermissionUseCaseTest extends TestCase
             'name' => 'create_permission',
             'guard_name' => 'api',
             'created_at' => 'now',
-            'updated_at' => 'now'
+            'updated_at' => 'now',
         ];
 
         $repositoryMock

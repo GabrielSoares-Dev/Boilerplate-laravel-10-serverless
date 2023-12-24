@@ -13,7 +13,7 @@ class FindPermissionTest extends TestCase
     public function test_find_permission(): void
     {
 
-        $permission = Permission::create(['name' => 'test', 'guard_name' => 'api','created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
+        $permission = Permission::create(['name' => 'test', 'guard_name' => 'api', 'created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
 
         $id = $permission->id;
         $output = $this->get("/v1/permission/$id");
@@ -22,13 +22,13 @@ class FindPermissionTest extends TestCase
             'statusCode' => 200,
             'message' => 'Permission found',
             'content' => [
-                "id" => 1,
-                "name" => "test",
-                "guard_name" => "api",
-                "created_at" => "2023-12-23T20:23:11.000000Z",
-                "updated_at" => "2023-12-23T20:23:11.000000Z"
+                'id' => 1,
+                'name' => 'test',
+                'guard_name' => 'api',
+                'created_at' => '2023-12-23T20:23:11.000000Z',
+                'updated_at' => '2023-12-23T20:23:11.000000Z',
 
-            ]
+            ],
         ];
 
         $output->assertStatus(200);

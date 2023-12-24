@@ -79,7 +79,7 @@ class PermissionController extends Controller
         ];
 
         try {
-            $output =  $this->findPermissionUseCase->run($input);
+            $output = $this->findPermissionUseCase->run($input);
 
             return BaseResponse::successWithContent('Permission found', HttpCode::OK, $output);
         } catch (BusinessException $exception) {

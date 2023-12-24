@@ -27,7 +27,7 @@ class CreatePermissionUseCase implements BaseUseCaseInterface
 
     protected function alreadyExists(array $input)
     {
-        return !empty($this->repository->findByName($input));
+        return ! empty($this->repository->findByName($input));
     }
 
     public function run(array $input)
