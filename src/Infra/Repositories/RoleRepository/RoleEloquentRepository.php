@@ -41,4 +41,11 @@ class RoleEloquentRepository implements RoleRepositoryInterface
             ->where('name', $input['name'])
             ->first();
     }
+
+    public function delete(string $id)
+    {
+        return $this->model
+            ->where('id', $id)
+            ->delete();
+    }
 }
