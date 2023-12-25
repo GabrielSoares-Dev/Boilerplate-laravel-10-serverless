@@ -38,6 +38,43 @@ class RoleRepositoryTest extends TestCase
         Mockery::close();
     }
 
+    public function test_should_find_all(): void
+    {
+        $mockModel = Mockery::mock(Role::class);
+
+        $expectedOutput = [
+            [
+                'id' => 1,
+                'name' => 'admin',
+                'guard_name' => 'api',
+                'created_at' => 'now',
+                'updated_at' => 'now',
+            ],
+            [
+                'id' => 2,
+                'name' => 'operator',
+                'guard_name' => 'api',
+                'created_at' => 'now',
+                'updated_at' => 'now',
+            ],
+        ];
+
+        $mockModel
+            ->shouldReceive('where')
+            ->andReturnSelf();
+
+        $mockModel
+            ->shouldReceive('get')
+            ->andReturn($expectedOutput);
+
+        $repository = new RoleEloquentRepository($mockModel);
+
+        $output = $repository->findAll();
+
+        $this->assertEquals($expectedOutput, $output);
+        Mockery::close();
+    }
+
     public function test_should_find_by_name(): void
     {
         $mockModel = Mockery::mock(Role::class);

@@ -20,6 +20,13 @@ class RoleEloquentRepository implements RoleRepositoryInterface
             ->create($input);
     }
 
+    public function findAll()
+    {
+        return $this->model
+            ->where('guard_name', 'api')
+            ->get();
+    }
+
     public function findByName(array $input)
     {
         return $this->model
