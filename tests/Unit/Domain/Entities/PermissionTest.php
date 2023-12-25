@@ -51,4 +51,52 @@ class PermissionTest extends TestCase
 
         $permissionEntity->create($input);
     }
+
+    public function test_should_update(): void
+    {
+
+        $permissionEntity = new Permission();
+        $input = [
+            'name' => 'create_permission',
+            'guard_name' => 'api',
+        ];
+
+        $output = $permissionEntity->update($input);
+
+        $expectedOutput = [
+            'name' => 'create_permission',
+            'guard_name' => 'api',
+        ];
+        $this->assertEquals($expectedOutput, $output);
+    }
+
+    public function test_should_update_guard_name_invalid(): void
+    {
+
+        $permissionEntity = new Permission();
+        $input = [
+            'name' => 'create_permission',
+            'guard_name' => 'test',
+        ];
+
+        $this->expectExceptionMessage('Invalid guard name');
+
+        $permissionEntity->update($input);
+
+    }
+
+    public function test_should_update_name_invalid(): void
+    {
+
+        $permissionEntity = new Permission();
+        $input = [
+            'name' => '',
+            'guard_name' => 'api',
+        ];
+
+        $this->expectExceptionMessage('Invalid name');
+
+        $permissionEntity->update($input);
+
+    }
 }

@@ -7,6 +7,7 @@ use Src\Application\UseCases\Permission\CreatePermissionUseCase;
 use Src\Application\UseCases\Permission\DeletePermissionUseCase;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Application\UseCases\Permission\FindPermissionUseCase;
+use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
@@ -22,16 +23,21 @@ class PermissionController extends Controller
 
     protected FindPermissionUseCase $findPermissionUseCase;
 
+    protected UpdatePermissionUseCase $updatePermissionUseCase;
+
     public function __construct(
         FindAllPermissionsUseCase $findAllPermissionsUseCase,
         CreatePermissionUseCase $createPermissionUseCase,
         DeletePermissionUseCase $deletePermissionUseCase,
-        FindPermissionUseCase $findPermissionUseCase
+        FindPermissionUseCase $findPermissionUseCase,
+        UpdatePermissionUseCase $updatePermissionUseCase
+
     ) {
         $this->findAllPermissionsUseCase = $findAllPermissionsUseCase;
         $this->createPermissionUseCase = $createPermissionUseCase;
         $this->deletePermissionUseCase = $deletePermissionUseCase;
         $this->findPermissionUseCase = $findPermissionUseCase;
+        $this->updatePermissionUseCase = $updatePermissionUseCase;
     }
 
     public function index()
@@ -96,12 +102,27 @@ class PermissionController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(PermissionRequest $request, string $id)
     {
-        //
+        $input = $request->all();
+        $input['id'] = $id;
+
+        try {
+            $this->updatePermissionUseCase->run($input);
+
+            return BaseResponse::success('Permission Updated successfully', HttpCode::OK);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isInvalidId = $errorMessage === 'Invalid id';
+
+            if ($isInvalidId) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
     }
 
     public function destroy(string $id)

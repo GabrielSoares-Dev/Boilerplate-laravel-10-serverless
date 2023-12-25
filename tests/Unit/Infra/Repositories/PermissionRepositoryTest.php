@@ -135,6 +135,32 @@ class PermissionRepositoryTest extends TestCase
         Mockery::close();
     }
 
+    public function test_should_update(): void
+    {
+        $mockModel = Mockery::mock(Permission::class);
+
+        $mockModel
+            ->shouldReceive('where')
+            ->andReturnSelf();
+
+        $mockModel
+            ->shouldReceive('update')
+            ->andReturn(true);
+
+        $permissionRepository = new PermissionEloquentRepository($mockModel);
+
+        $id = 1;
+        $input = [
+            'name' => 'test',
+        ];
+        $output = $permissionRepository->update($input, $id);
+
+        $expectedOutput = true;
+
+        $this->assertEquals($expectedOutput, $output);
+        Mockery::close();
+    }
+
     public function test_should_delete(): void
     {
         $mockModel = Mockery::mock(Permission::class);
