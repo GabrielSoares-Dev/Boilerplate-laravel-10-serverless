@@ -4,6 +4,7 @@ namespace Src\Infra\Http\Controllers;
 
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\Role\CreateRoleUseCase;
+use Src\Application\UseCases\Role\DeleteRoleUseCase;
 use Src\Application\UseCases\Role\FindAllRolesUseCase;
 use Src\Application\UseCases\Role\FindRoleUseCase;
 use Src\Domain\Enums\HttpCode;
@@ -19,14 +20,18 @@ class RoleController extends Controller
 
     protected FindRoleUseCase $findRoleUseCase;
 
+    protected DeleteRoleUseCase $deleteRoleUseCase;
+
     public function __construct(
         CreateRoleUseCase $createRoleUseCase,
         FindAllRolesUseCase $findAllRolesUseCase,
-        FindRoleUseCase $findRoleUseCase
+        FindRoleUseCase $findRoleUseCase,
+        DeleteRoleUseCase $deleteRoleUseCase
     ) {
         $this->createRoleUseCase = $createRoleUseCase;
         $this->findAllRolesUseCase = $findAllRolesUseCase;
         $this->findRoleUseCase = $findRoleUseCase;
+        $this->deleteRoleUseCase = $deleteRoleUseCase;
     }
 
     public function index()
@@ -97,5 +102,25 @@ class RoleController extends Controller
 
     public function destroy(string $id)
     {
+        $input = [
+            'id' => $id,
+        ];
+
+        try {
+            $this->deleteRoleUseCase->run($input);
+
+            return BaseResponse::success('Role deleted successfully', HttpCode::OK);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isInvalidId = $errorMessage === 'Invalid id';
+
+            if ($isInvalidId) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
     }
 }

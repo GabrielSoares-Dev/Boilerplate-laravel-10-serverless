@@ -134,4 +134,26 @@ class RoleRepositoryTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
     }
+
+    public function test_should_delete(): void
+    {
+        $mockModel = Mockery::mock(Role::class);
+
+        $mockModel
+            ->shouldReceive('where')
+            ->andReturnSelf();
+        $mockModel
+            ->shouldReceive('delete')
+            ->andReturn(true);
+
+        $repository = new RoleEloquentRepository($mockModel);
+
+        $id = 1;
+        $output = $repository->delete($id);
+
+        $expectedOutput = true;
+
+        $this->assertEquals($expectedOutput, $output);
+        Mockery::close();
+    }
 }
