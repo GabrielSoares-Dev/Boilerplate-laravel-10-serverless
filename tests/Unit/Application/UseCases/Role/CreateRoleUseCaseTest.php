@@ -4,18 +4,18 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Src\Application\UseCases\Permission\CreatePermissionUseCase;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Src\Application\UseCases\Role\CreateRoleUseCase;
+use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class CreatePermissionUseCaseTest extends TestCase
+class CreateRoleUseCaseTest extends TestCase
 {
     public function test_should_create(): void
     {
 
-        $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
+        $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
         $input = [
-            'name' => 'create_permission',
+            'name' => 'admin',
         ];
 
         $repositoryMock
@@ -26,7 +26,7 @@ class CreatePermissionUseCaseTest extends TestCase
             ->shouldReceive('create')
             ->andReturn($input);
 
-        $useCase = new CreatePermissionUseCase($repositoryMock);
+        $useCase = new CreateRoleUseCase($repositoryMock);
 
         $useCase->run($input);
 
@@ -37,27 +37,27 @@ class CreatePermissionUseCaseTest extends TestCase
     public function test_should_already_exists(): void
     {
 
-        $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
+        $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
         $mockFindByName = [
             'id' => 1,
-            'name' => 'create_permission',
+            'name' => 'admin',
             'guard_name' => 'api',
             'created_at' => 'now',
             'updated_at' => 'now',
         ];
 
         $input = [
-            'name' => 'create_permission',
+            'name' => 'admin',
         ];
 
         $repositoryMock
             ->shouldReceive('findByName')
             ->andReturn($mockFindByName);
 
-        $useCase = new CreatePermissionUseCase($repositoryMock);
+        $useCase = new CreateRoleUseCase($repositoryMock);
 
-        $this->expectExceptionMessage('Permission already exists');
+        $this->expectExceptionMessage('Role already exists');
 
         $useCase->run($input);
 

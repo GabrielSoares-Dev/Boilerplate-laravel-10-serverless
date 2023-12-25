@@ -1,26 +1,26 @@
 <?php
 
-namespace Src\Application\UseCases\Permission;
+namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\BaseUseCaseInterface;
-use Src\Domain\Entities\Permission;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Src\Domain\Entities\Role;
+use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class CreatePermissionUseCase implements BaseUseCaseInterface
+class CreateRoleUseCase implements BaseUseCaseInterface
 {
-    protected PermissionRepositoryInterface $repository;
+    protected RoleRepositoryInterface $repository;
 
     protected $defaultGuardName = 'api';
 
-    public function __construct(PermissionRepositoryInterface $repository)
+    public function __construct(RoleRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     protected function valid(array $input)
     {
-        $entity = new Permission();
+        $entity = new Role();
 
         $entity->create($input);
     }
@@ -40,7 +40,7 @@ class CreatePermissionUseCase implements BaseUseCaseInterface
         $alreadyExists = $this->alreadyExists($input);
 
         if ($alreadyExists) {
-            throw new BusinessException('Permission already exists');
+            throw new BusinessException('Role already exists');
         }
 
         $this->repository->create($input);

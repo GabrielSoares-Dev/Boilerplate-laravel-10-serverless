@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class PermissionRepositoryTest extends TestCase
 {
-    public function test_should_create_new_permission(): void
+    public function test_should_create(): void
     {
         $mockModel = Mockery::mock(Permission::class);
 
@@ -30,9 +30,9 @@ class PermissionRepositoryTest extends TestCase
             ->with($input)
             ->andReturn($expectedOutput);
 
-        $permissionRepository = new PermissionEloquentRepository($mockModel);
+        $repository = new PermissionEloquentRepository($mockModel);
 
-        $output = $permissionRepository->create($input);
+        $output = $repository->create($input);
 
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
@@ -56,10 +56,10 @@ class PermissionRepositoryTest extends TestCase
             ->shouldReceive('first')
             ->andReturn($expectedOutput);
 
-        $permissionRepository = new PermissionEloquentRepository($mockModel);
+        $repository = new PermissionEloquentRepository($mockModel);
 
         $id = 1;
-        $output = $permissionRepository->find($id);
+        $output = $repository->find($id);
 
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
@@ -90,9 +90,9 @@ class PermissionRepositoryTest extends TestCase
             ->shouldReceive('first')
             ->andReturn($expectedOutput);
 
-        $permissionRepository = new PermissionEloquentRepository($mockModel);
+        $repository = new PermissionEloquentRepository($mockModel);
 
-        $output = $permissionRepository->findByName($input);
+        $output = $repository->findByName($input);
 
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
@@ -127,9 +127,9 @@ class PermissionRepositoryTest extends TestCase
             ->shouldReceive('get')
             ->andReturn($expectedOutput);
 
-        $permissionRepository = new PermissionEloquentRepository($mockModel);
+        $repository = new PermissionEloquentRepository($mockModel);
 
-        $output = $permissionRepository->findAll();
+        $output = $repository->findAll();
 
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
@@ -147,13 +147,13 @@ class PermissionRepositoryTest extends TestCase
             ->shouldReceive('update')
             ->andReturn(true);
 
-        $permissionRepository = new PermissionEloquentRepository($mockModel);
+        $repository = new PermissionEloquentRepository($mockModel);
 
         $id = 1;
         $input = [
             'name' => 'test',
         ];
-        $output = $permissionRepository->update($input, $id);
+        $output = $repository->update($input, $id);
 
         $expectedOutput = true;
 
@@ -172,10 +172,10 @@ class PermissionRepositoryTest extends TestCase
             ->shouldReceive('delete')
             ->andReturn(true);
 
-        $permissionRepository = new PermissionEloquentRepository($mockModel);
+        $repository = new PermissionEloquentRepository($mockModel);
 
         $id = 1;
-        $output = $permissionRepository->delete($id);
+        $output = $repository->delete($id);
 
         $expectedOutput = true;
 

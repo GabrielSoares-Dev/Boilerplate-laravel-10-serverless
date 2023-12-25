@@ -10,7 +10,7 @@ class DeletePermissionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_permission_deleted(): void
+    public function test_deleted(): void
     {
 
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api']);

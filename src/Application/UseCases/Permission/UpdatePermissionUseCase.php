@@ -18,11 +18,11 @@ class UpdatePermissionUseCase implements BaseUseCaseInterface
         $this->repository = $repository;
     }
 
-    protected function validPermission(array $input)
+    protected function valid(array $input)
     {
-        $permissionEntity = new Permission();
+        $entity = new Permission();
 
-        $permissionEntity->update($input);
+        $entity->update($input);
     }
 
     public function run(array $input)
@@ -31,7 +31,7 @@ class UpdatePermissionUseCase implements BaseUseCaseInterface
 
         $input['guard_name'] = $this->defaultGuardName;
 
-        $this->validPermission($input);
+        $this->valid($input);
 
         $updated = (bool) $this->repository->update($input, $id);
 

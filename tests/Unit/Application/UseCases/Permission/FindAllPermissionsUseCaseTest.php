@@ -9,7 +9,7 @@ use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class FindAllPermissionsUseCaseTest extends TestCase
 {
-    public function test_should_find_all_permissions(): void
+    public function test_should_find_all(): void
     {
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);

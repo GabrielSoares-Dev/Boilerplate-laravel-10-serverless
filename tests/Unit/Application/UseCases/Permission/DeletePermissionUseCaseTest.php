@@ -9,7 +9,7 @@ use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class DeletePermissionUseCaseTest extends TestCase
 {
-    public function test_should_delete_permission(): void
+    public function test_should_delete(): void
     {
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
