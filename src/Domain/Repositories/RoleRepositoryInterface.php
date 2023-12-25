@@ -12,7 +12,7 @@ interface RoleRepositoryInterface
 
     // public function update(array $input, string $id);
 
-    // public function findAll();
+    public function findAll();
 
     // public function delete(string $id);
 }
