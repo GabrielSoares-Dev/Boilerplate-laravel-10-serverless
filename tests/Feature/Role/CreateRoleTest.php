@@ -3,10 +3,10 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
-class CreatePermissionTest extends TestCase
+class CreateRoleTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -16,11 +16,11 @@ class CreatePermissionTest extends TestCase
         $input = [
             'name' => 'test',
         ];
-        $output = $this->post('/v1/permission', $input);
+        $output = $this->post('/v1/role', $input);
 
         $expectedOutput = [
             'statusCode' => 201,
-            'message' => 'Permission created successfully',
+            'message' => 'Role created successfully',
         ];
 
         $output->assertStatus(201);
@@ -29,16 +29,16 @@ class CreatePermissionTest extends TestCase
 
     public function test_already_exists(): void
     {
-        Permission::create(['name' => 'test', 'guard_name' => 'api']);
+        Role::create(['name' => 'test', 'guard_name' => 'api']);
 
         $input = [
             'name' => 'test',
         ];
-        $output = $this->post('/v1/permission', $input);
+        $output = $this->post('/v1/role', $input);
 
         $expectedOutput = [
             'statusCode' => 400,
-            'message' => 'Permission already exists',
+            'message' => 'Role already exists',
         ];
 
         $output->assertStatus(400);
@@ -48,7 +48,7 @@ class CreatePermissionTest extends TestCase
     public function test_empty_fields(): void
     {
 
-        $output = $this->post('/v1/permission');
+        $output = $this->post('/v1/role');
 
         $expectedOutput = [
             'errors' => [

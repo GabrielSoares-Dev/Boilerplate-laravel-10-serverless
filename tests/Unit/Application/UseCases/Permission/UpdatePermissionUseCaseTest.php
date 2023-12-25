@@ -9,7 +9,7 @@ use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class UpdatePermissionUseCaseTest extends TestCase
 {
-    public function test_should_update_permission(): void
+    public function test_should_update(): void
     {
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);

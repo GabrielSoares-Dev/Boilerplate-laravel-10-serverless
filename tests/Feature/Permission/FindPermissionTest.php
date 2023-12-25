@@ -10,7 +10,7 @@ class FindPermissionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_find_permission(): void
+    public function test_find(): void
     {
 
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api', 'created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
