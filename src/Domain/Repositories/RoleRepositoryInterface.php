@@ -8,7 +8,7 @@ interface RoleRepositoryInterface
 
     public function findByName(array $input);
 
-    // public function find(string $id);
+    public function find(string $id);
 
     // public function update(array $input, string $id);
 
