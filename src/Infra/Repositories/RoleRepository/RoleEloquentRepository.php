@@ -42,6 +42,13 @@ class RoleEloquentRepository implements RoleRepositoryInterface
             ->first();
     }
 
+    public function update(array $input, string $id)
+    {
+        return $this->model
+            ->where('id', $id)
+            ->update($input);
+    }
+
     public function delete(string $id)
     {
         return $this->model

@@ -10,7 +10,7 @@ interface RoleRepositoryInterface
 
     public function find(string $id);
 
-    // public function update(array $input, string $id);
+    public function update(array $input, string $id);
 
     public function findAll();
 

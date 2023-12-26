@@ -156,4 +156,30 @@ class RoleRepositoryTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
     }
+
+    public function test_should_update(): void
+    {
+        $mockModel = Mockery::mock(Role::class);
+
+        $mockModel
+            ->shouldReceive('where')
+            ->andReturnSelf();
+
+        $mockModel
+            ->shouldReceive('update')
+            ->andReturn(true);
+
+        $repository = new RoleEloquentRepository($mockModel);
+
+        $id = 1;
+        $input = [
+            'name' => 'test',
+        ];
+        $output = $repository->update($input, $id);
+
+        $expectedOutput = true;
+
+        $this->assertEquals($expectedOutput, $output);
+        Mockery::close();
+    }
 }

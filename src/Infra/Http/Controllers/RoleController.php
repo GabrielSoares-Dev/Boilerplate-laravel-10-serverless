@@ -7,6 +7,7 @@ use Src\Application\UseCases\Role\CreateRoleUseCase;
 use Src\Application\UseCases\Role\DeleteRoleUseCase;
 use Src\Application\UseCases\Role\FindAllRolesUseCase;
 use Src\Application\UseCases\Role\FindRoleUseCase;
+use Src\Application\UseCases\Role\UpdateRoleUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
@@ -16,22 +17,26 @@ class RoleController extends Controller
 {
     protected CreateRoleUseCase $createRoleUseCase;
 
+    protected DeleteRoleUseCase $deleteRoleUseCase;
+
+    protected UpdateRoleUseCase $updateRoleUseCase;
+
     protected FindAllRolesUseCase $findAllRolesUseCase;
 
     protected FindRoleUseCase $findRoleUseCase;
-
-    protected DeleteRoleUseCase $deleteRoleUseCase;
 
     public function __construct(
         CreateRoleUseCase $createRoleUseCase,
         FindAllRolesUseCase $findAllRolesUseCase,
         FindRoleUseCase $findRoleUseCase,
-        DeleteRoleUseCase $deleteRoleUseCase
+        DeleteRoleUseCase $deleteRoleUseCase,
+        UpdateRoleUseCase $updateRoleUseCase
     ) {
         $this->createRoleUseCase = $createRoleUseCase;
         $this->findAllRolesUseCase = $findAllRolesUseCase;
         $this->findRoleUseCase = $findRoleUseCase;
         $this->deleteRoleUseCase = $deleteRoleUseCase;
+        $this->updateRoleUseCase = $updateRoleUseCase;
     }
 
     public function index()
@@ -98,6 +103,25 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, string $id)
     {
+        $input = $request->all();
+        $input['id'] = $id;
+
+        try {
+            $this->updateRoleUseCase->run($input);
+
+            return BaseResponse::success('Role Updated successfully', HttpCode::OK);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isInvalidId = $errorMessage === 'Invalid id';
+
+            if ($isInvalidId) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
     }
 
     public function destroy(string $id)
