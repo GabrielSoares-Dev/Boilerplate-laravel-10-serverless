@@ -53,51 +53,51 @@ class RoleTest extends TestCase
         $entity->create($input);
     }
 
-    // public function test_should_update(): void
-    // {
+    public function test_should_update(): void
+    {
 
-    //     $permissionEntity = new Permission();
-    //     $input = [
-    //         'name' => 'create_permission',
-    //         'guard_name' => 'api',
-    //     ];
+        $entity = new Role();
+        $input = [
+            'name' => 'admin',
+            'guard_name' => 'api',
+        ];
 
-    //     $output = $permissionEntity->update($input);
+        $output = $entity->update($input);
 
-    //     $expectedOutput = [
-    //         'name' => 'create_permission',
-    //         'guard_name' => 'api',
-    //     ];
-    //     $this->assertEquals($expectedOutput, $output);
-    // }
+        $expectedOutput = [
+            'name' => 'admin',
+            'guard_name' => 'api',
+        ];
+        $this->assertEquals($expectedOutput, $output);
+    }
 
-    // public function test_should_update_guard_name_invalid(): void
-    // {
+    public function test_should_update_guard_name_invalid(): void
+    {
 
-    //     $permissionEntity = new Permission();
-    //     $input = [
-    //         'name' => 'create_permission',
-    //         'guard_name' => 'test',
-    //     ];
+        $entity = new Role();
+        $input = [
+            'name' => 'admin',
+            'guard_name' => 'test',
+        ];
 
-    //     $this->expectExceptionMessage('Invalid guard name');
+        $this->expectExceptionMessage('Invalid guard name');
 
-    //     $permissionEntity->update($input);
+        $entity->update($input);
 
-    // }
+    }
 
-    // public function test_should_update_name_invalid(): void
-    // {
+    public function test_should_update_name_invalid(): void
+    {
 
-    //     $permissionEntity = new Permission();
-    //     $input = [
-    //         'name' => '',
-    //         'guard_name' => 'api',
-    //     ];
+        $entity = new Role();
+        $input = [
+            'name' => '',
+            'guard_name' => 'api',
+        ];
 
-    //     $this->expectExceptionMessage('Invalid name');
+        $this->expectExceptionMessage('Invalid name');
 
-    //     $permissionEntity->update($input);
+        $entity->update($input);
 
-    // }
+    }
 }
