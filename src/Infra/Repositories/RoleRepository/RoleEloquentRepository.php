@@ -55,4 +55,15 @@ class RoleEloquentRepository implements RoleRepositoryInterface
             ->where('id', $id)
             ->delete();
     }
+
+    public function syncPermissions(array $input)
+    {
+        $role = $input['role'];
+        $permissions = $input['permissions'];
+
+        return $this->model
+            ->where('name', $role)
+            ->first()
+            ->syncPermissions($permissions);
+    }
 }

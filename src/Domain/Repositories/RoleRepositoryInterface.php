@@ -15,4 +15,6 @@ interface RoleRepositoryInterface
     public function findAll();
 
     public function delete(string $id);
+
+    public function syncPermissions(array $input);
 }

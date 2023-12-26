@@ -182,4 +182,35 @@ class RoleRepositoryTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
         Mockery::close();
     }
+
+    public function test_should_sync_permissions(): void
+    {
+        $mockModel = Mockery::mock(Role::class);
+
+        $mockModel
+            ->shouldReceive('where')
+            ->andReturnSelf();
+
+        $mockModel
+            ->shouldReceive('first')
+            ->andReturnSelf();
+
+        $mockModel
+            ->shouldReceive('syncPermissions')
+            ->andReturn(true);
+
+        $repository = new RoleEloquentRepository($mockModel);
+
+        $id = 1;
+        $input = [
+            'role' => 'admin',
+            'permissions' => ['create_permission'],
+        ];
+        $output = $repository->syncPermissions($input);
+
+        $expectedOutput = true;
+
+        $this->assertEquals($expectedOutput, $output);
+        Mockery::close();
+    }
 }
