@@ -59,7 +59,7 @@ class RoleEloquentRepository implements RoleRepositoryInterface
     public function syncPermissions(array $input)
     {
         $role = $input['role'];
-        $permissions  = $input['permissions'];
+        $permissions = $input['permissions'];
 
         return $this->model
             ->where('name', $role)

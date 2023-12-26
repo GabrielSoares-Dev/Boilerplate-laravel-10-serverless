@@ -7,11 +7,13 @@ use Src\Application\UseCases\Role\CreateRoleUseCase;
 use Src\Application\UseCases\Role\DeleteRoleUseCase;
 use Src\Application\UseCases\Role\FindAllRolesUseCase;
 use Src\Application\UseCases\Role\FindRoleUseCase;
+use Src\Application\UseCases\Role\SyncPermissionsWithRoleUseCase;
 use Src\Application\UseCases\Role\UpdateRoleUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
 use Src\Infra\Http\Requests\RoleRequest;
+use Src\Infra\Http\Requests\SyncPermissionsWithRoleRequest;
 
 class RoleController extends Controller
 {
@@ -25,18 +27,22 @@ class RoleController extends Controller
 
     protected FindRoleUseCase $findRoleUseCase;
 
+    protected SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase;
+
     public function __construct(
         CreateRoleUseCase $createRoleUseCase,
         FindAllRolesUseCase $findAllRolesUseCase,
         FindRoleUseCase $findRoleUseCase,
         DeleteRoleUseCase $deleteRoleUseCase,
-        UpdateRoleUseCase $updateRoleUseCase
+        UpdateRoleUseCase $updateRoleUseCase,
+        SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase
     ) {
         $this->createRoleUseCase = $createRoleUseCase;
         $this->findAllRolesUseCase = $findAllRolesUseCase;
         $this->findRoleUseCase = $findRoleUseCase;
         $this->deleteRoleUseCase = $deleteRoleUseCase;
         $this->updateRoleUseCase = $updateRoleUseCase;
+        $this->syncPermissionsWithRoleUseCase = $syncPermissionsWithRoleUseCase;
     }
 
     public function index()
@@ -141,6 +147,30 @@ class RoleController extends Controller
             $isInvalidId = $errorMessage === 'Invalid id';
 
             if ($isInvalidId) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
+    }
+
+    public function syncPermissions(SyncPermissionsWithRoleRequest $request)
+    {
+        $input = $request->all();
+
+        try {
+            $this->syncPermissionsWithRoleUseCase->run($input);
+
+            return BaseResponse::success('Role sync successfully', HttpCode::OK);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isInvalidPermission = $errorMessage === 'Invalid permission';
+
+            $isInvalidRole = $errorMessage === 'Invalid role';
+
+            if ($isInvalidPermission || $isInvalidRole) {
                 $httpCode = HttpCode::BAD_REQUEST;
             }
 

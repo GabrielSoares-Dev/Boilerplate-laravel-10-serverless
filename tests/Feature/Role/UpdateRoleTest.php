@@ -47,4 +47,21 @@ class UpdateRoleTest extends TestCase
         $output->assertStatus(400);
         $output->assertJson($expectedOutput);
     }
+
+    public function test_empty_fields(): void
+    {
+        $id = 300;
+        $output = $this->put("/v1/role/$id");
+
+        $expectedOutput = [
+            'errors' => [
+                'name' => [
+                    'The name field is required.',
+                ],
+            ],
+        ];
+
+        $output->assertStatus(422);
+        $output->assertJson($expectedOutput);
+    }
 }
