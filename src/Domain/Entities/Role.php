@@ -6,9 +6,9 @@ use Src\Application\Exceptions\BusinessException;
 
 class Role
 {
-    private ?string $name;
+    protected ?string $name;
 
-    private ?string $guardName;
+    protected ?string $guardName;
 
     public function create(array $input)
     {
