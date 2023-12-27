@@ -10,6 +10,8 @@ class UpdateRoleTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/role';
+
     public function test_updated(): void
     {
 
@@ -19,7 +21,7 @@ class UpdateRoleTest extends TestCase
         $input = [
             'name' => 'new name',
         ];
-        $output = $this->put("/v1/role/$id", $input);
+        $output = $this->put("$this->path/$id", $input);
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -37,7 +39,7 @@ class UpdateRoleTest extends TestCase
         $input = [
             'name' => 'new name',
         ];
-        $output = $this->put("/v1/role/$id", $input);
+        $output = $this->put("$this->path/$id", $input);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -51,7 +53,7 @@ class UpdateRoleTest extends TestCase
     public function test_empty_fields(): void
     {
         $id = 300;
-        $output = $this->put("/v1/role/$id");
+        $output = $this->put("$this->path/$id");
 
         $expectedOutput = [
             'errors' => [

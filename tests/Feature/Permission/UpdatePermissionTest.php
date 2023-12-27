@@ -10,6 +10,8 @@ class UpdatePermissionTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/permission';
+
     public function test_updated(): void
     {
 
@@ -19,7 +21,7 @@ class UpdatePermissionTest extends TestCase
         $input = [
             'name' => 'new name',
         ];
-        $output = $this->put("/v1/permission/$id", $input);
+        $output = $this->put("$this->path/$id", $input);
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -37,7 +39,7 @@ class UpdatePermissionTest extends TestCase
         $input = [
             'name' => 'new name',
         ];
-        $output = $this->put("/v1/permission/$id", $input);
+        $output = $this->put("$this->path/$id", $input);
 
         $expectedOutput = [
             'statusCode' => 400,

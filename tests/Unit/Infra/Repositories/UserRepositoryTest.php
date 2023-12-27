@@ -31,8 +31,6 @@ class UserRepositoryTest extends TestCase
         $expectedOutput = $input;
 
         $this->assertEquals($expectedOutput, $output);
-
-        Mockery::close();
     }
 
     public function test_should_find_user_by_email(): void
@@ -64,56 +62,10 @@ class UserRepositoryTest extends TestCase
         $expectedOutput = $output;
 
         $this->assertEquals($expectedOutput, $output);
-
-        Mockery::close();
     }
 
-    // public function test_should_create_access_token(): void
-    // {
-    //     $mockModel = Mockery::mock(User::class);
-
-    //     $mockModel
-    //         ->shouldReceive('where')
-    //         ->with('email', $email)
-    //         ->andReturnSelf();
-
-    //     $mockModel
-    //         ->shouldReceive('first')
-    //         ->andReturnUsing();
-
-    //     $userMock = Mockery::mock(User::class);
-
-    //     $modelMock->shouldReceive('first')
-    //         ->once()
-    //         ->andReturnUsing(function ($deviceName) {
-
-    //             $tokenMock = Mockery::mock();
-    //             $tokenMock->shouldReceive('plainTextToken')->andReturn('mocked_plain_text_token');
-    //             return $tokenMock;
-    //         });
-
-    //     $userMock->shouldReceive('createToken')
-    //         ->once()
-    //         ->with('TestDevice')
-    //         ->andReturnUsing(function ($deviceName) {
-
-    //             $tokenMock = Mockery::mock();
-    //             $tokenMock->shouldReceive('plainTextToken')->andReturn('mocked_plain_text_token');
-    //             return $tokenMock;
-    //         });
-    //     $input = [
-    //         'email' => 'test@gmail.com',
-    //         'deviceName' => 'Postman',
-    //     ];
-
-    //     $userRepository = new UserEloquentRepository($mockModel);
-
-    //     $output = $userRepository->createAccessToken($input['email'], $input['deviceName']);
-
-    //     $expectedOutput = 'test-token';
-
-    //     $this->assertEquals($expectedOutput, $output);
-
-    //     Mockery::close();
-    // }
+    protected function tearDown(): void
+    {
+        Mockery::close();
+    }
 }

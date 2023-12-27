@@ -52,7 +52,6 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
         $useCase->run($input);
 
         $this->assertTrue(true);
-        Mockery::close();
     }
 
     public function test_should_some_invalid_permission(): void
@@ -81,8 +80,6 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
         $this->expectExceptionMessage('Invalid permission');
 
         $useCase->run($input);
-
-        Mockery::close();
     }
 
     public function test_should_role_invalid(): void
@@ -119,7 +116,10 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
         $this->expectExceptionMessage('Invalid role');
 
         $useCase->run($input);
+    }
 
+    protected function tearDown(): void
+    {
         Mockery::close();
     }
 }

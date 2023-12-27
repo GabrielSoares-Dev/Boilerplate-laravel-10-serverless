@@ -23,6 +23,7 @@ return [
     'providers' => ServiceProvider::defaultProviders()->merge([
         Src\Infra\Providers\AppServiceProvider::class,
         Src\Infra\Providers\AuthServiceProvider::class,
+        Src\Infra\Providers\ServiceServiceProvider::class,
         Src\Infra\Providers\RepositoryServiceProvider::class,
         Src\Infra\Providers\HelperServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

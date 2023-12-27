@@ -35,7 +35,6 @@ class PermissionRepositoryTest extends TestCase
         $output = $repository->create($input);
 
         $this->assertEquals($expectedOutput, $output);
-        Mockery::close();
     }
 
     public function test_should_find(): void
@@ -62,7 +61,6 @@ class PermissionRepositoryTest extends TestCase
         $output = $repository->find($id);
 
         $this->assertEquals($expectedOutput, $output);
-        Mockery::close();
     }
 
     public function test_should_find_by_name(): void
@@ -95,7 +93,6 @@ class PermissionRepositoryTest extends TestCase
         $output = $repository->findByName($input);
 
         $this->assertEquals($expectedOutput, $output);
-        Mockery::close();
     }
 
     public function test_should_find_all(): void
@@ -132,7 +129,6 @@ class PermissionRepositoryTest extends TestCase
         $output = $repository->findAll();
 
         $this->assertEquals($expectedOutput, $output);
-        Mockery::close();
     }
 
     public function test_should_update(): void
@@ -158,7 +154,6 @@ class PermissionRepositoryTest extends TestCase
         $expectedOutput = true;
 
         $this->assertEquals($expectedOutput, $output);
-        Mockery::close();
     }
 
     public function test_should_delete(): void
@@ -180,6 +175,10 @@ class PermissionRepositoryTest extends TestCase
         $expectedOutput = true;
 
         $this->assertEquals($expectedOutput, $output);
+    }
+
+    protected function tearDown(): void
+    {
         Mockery::close();
     }
 }

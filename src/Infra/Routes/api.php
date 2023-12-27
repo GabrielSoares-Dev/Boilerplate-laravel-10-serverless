@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Src\Infra\Http\Controllers\AuthController;
 use Src\Infra\Http\Controllers\PermissionController;
 use Src\Infra\Http\Controllers\RoleController;
 use Src\Infra\Http\Controllers\UserController;
@@ -15,5 +16,9 @@ Route::prefix('v1')->group(function () {
     Route::prefix('role')->group(function () {
         Route::post('/sync-permissions', [RoleController::class, 'syncPermissions']);
         Route::post('/unsync-permissions', [RoleController::class, 'unsyncPermissions']);
+    });
+
+    Route::prefix('auth')->group(function () {
+        Route::post('/login', [AuthController::class, 'login']);
     });
 });

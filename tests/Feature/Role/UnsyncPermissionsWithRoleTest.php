@@ -11,6 +11,8 @@ class UnsyncPermissionsWithRoleTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/role/unsync-permissions';
+
     public function test_unsync(): void
     {
 
@@ -22,7 +24,7 @@ class UnsyncPermissionsWithRoleTest extends TestCase
             'permissions' => ['create_permission'],
         ];
 
-        $output = $this->post('/v1/role/unsync-permissions', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -40,7 +42,7 @@ class UnsyncPermissionsWithRoleTest extends TestCase
             'permissions' => ['create_permission'],
         ];
 
-        $output = $this->post('/v1/role/unsync-permissions', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -60,7 +62,7 @@ class UnsyncPermissionsWithRoleTest extends TestCase
             'permissions' => ['create_permission'],
         ];
 
-        $output = $this->post('/v1/role/unsync-permissions', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -73,7 +75,7 @@ class UnsyncPermissionsWithRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
-        $output = $this->post('/v1/role/unsync-permissions');
+        $output = $this->post($this->path);
 
         $expectedOutput = [
             'errors' => [

@@ -10,13 +10,15 @@ class DeleteRoleTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/role';
+
     public function test_deleted(): void
     {
 
         $role = Role::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $role->id;
-        $output = $this->delete("/v1/role/$id");
+        $output = $this->delete("$this->path/$id");
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -31,7 +33,7 @@ class DeleteRoleTest extends TestCase
     {
 
         $id = 300;
-        $output = $this->delete("/v1/role/$id");
+        $output = $this->delete("$this->path/$id");
 
         $expectedOutput = [
             'statusCode' => 400,

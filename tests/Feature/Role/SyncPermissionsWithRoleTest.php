@@ -11,6 +11,8 @@ class SyncPermissionsWithRoleTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/role/sync-permissions';
+
     public function test_sync(): void
     {
 
@@ -22,7 +24,7 @@ class SyncPermissionsWithRoleTest extends TestCase
             'permissions' => ['create_permission'],
         ];
 
-        $output = $this->post('/v1/role/sync-permissions', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -40,7 +42,7 @@ class SyncPermissionsWithRoleTest extends TestCase
             'permissions' => ['create_permission'],
         ];
 
-        $output = $this->post('/v1/role/sync-permissions', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -60,7 +62,7 @@ class SyncPermissionsWithRoleTest extends TestCase
             'permissions' => ['create_permission'],
         ];
 
-        $output = $this->post('/v1/role/sync-permissions', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -73,7 +75,7 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
-        $output = $this->post('/v1/role/sync-permissions');
+        $output = $this->post($this->path);
 
         $expectedOutput = [
             'errors' => [
