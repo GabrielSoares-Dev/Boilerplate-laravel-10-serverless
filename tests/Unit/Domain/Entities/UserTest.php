@@ -16,7 +16,7 @@ class UserTest extends TestCase
             'name' => 'admin',
             'email' => 'test@gmail.com',
             'phone_number' => 11991742156,
-            'password' => 'Test@2312'
+            'password' => 'Test@2312',
         ];
 
         $expectedOutput = [
@@ -29,7 +29,7 @@ class UserTest extends TestCase
 
         $this->assertEquals($expectedOutput, $output);
     }
-    
+
     public function test_should_create_failed_when_name_is_invalid(): void
     {
 
@@ -39,9 +39,8 @@ class UserTest extends TestCase
             'name' => '',
             'email' => 'test@gmail.com',
             'phone_number' => 11991742156,
-            'password' => 'Test@2312'
+            'password' => 'Test@2312',
         ];
-
 
         $this->expectExceptionMessage('Invalid name');
 
@@ -57,9 +56,8 @@ class UserTest extends TestCase
             'name' => 'admin',
             'email' => 'test@gmail.c',
             'phone_number' => 11991742156,
-            'password' => 'Test@2312'
+            'password' => 'Test@2312',
         ];
-
 
         $this->expectExceptionMessage('Invalid email');
 
@@ -75,9 +73,8 @@ class UserTest extends TestCase
             'name' => 'admin',
             'email' => 'test@gmail.com',
             'phone_number' => 1199174215,
-            'password' => 'Test@2312'
+            'password' => 'Test@2312',
         ];
-
 
         $this->expectExceptionMessage('Invalid phone number');
 
@@ -93,9 +90,8 @@ class UserTest extends TestCase
             'name' => 'admin',
             'email' => 'test@gmail.com',
             'phone_number' => 11991742156,
-            'password' => 'Test@'
+            'password' => 'Test@',
         ];
-
 
         $this->expectExceptionMessage('Invalid password');
 
