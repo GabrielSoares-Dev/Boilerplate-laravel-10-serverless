@@ -6,9 +6,9 @@ use Src\Application\Exceptions\BusinessException;
 
 class Permission
 {
-    private ?string $name;
+    protected ?string $name;
 
-    private ?string $guardName;
+    protected ?string $guardName;
 
     public function create(array $input)
     {
