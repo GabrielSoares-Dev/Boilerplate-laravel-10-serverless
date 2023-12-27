@@ -1,12 +1,12 @@
 <?php
 
-namespace Src\Infra\Http\Requests;
+namespace Src\Infra\Http\Requests\Role;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SyncPermissionsWithRoleRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,8 +16,7 @@ class SyncPermissionsWithRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => 'required|string',
-            'permissions' => 'required|array',
+            'name' => 'required|string',
         ];
     }
 

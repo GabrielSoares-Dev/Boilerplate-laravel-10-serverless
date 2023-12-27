@@ -11,7 +11,7 @@ use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
-use Src\Infra\Http\Requests\PermissionRequest;
+use Src\Infra\Http\Requests\Permission\PermissionRequest;
 
 class PermissionController extends Controller
 {

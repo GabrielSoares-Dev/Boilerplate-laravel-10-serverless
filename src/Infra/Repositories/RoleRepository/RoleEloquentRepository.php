@@ -66,4 +66,20 @@ class RoleEloquentRepository implements RoleRepositoryInterface
             ->first()
             ->syncPermissions($permissions);
     }
+
+    public function unsyncPermissions(array $input)
+    {
+        $role = $input['role'];
+        $permissions = $input['permissions'];
+        $output = false;
+
+        foreach ($permissions as $permission) {
+            $output = $this->model
+                ->where('name', $role)
+                ->first()
+                ->revokePermissionTo($permission);
+        }
+
+        return $output;
+    }
 }

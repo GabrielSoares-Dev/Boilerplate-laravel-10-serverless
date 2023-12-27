@@ -8,12 +8,14 @@ use Src\Application\UseCases\Role\DeleteRoleUseCase;
 use Src\Application\UseCases\Role\FindAllRolesUseCase;
 use Src\Application\UseCases\Role\FindRoleUseCase;
 use Src\Application\UseCases\Role\SyncPermissionsWithRoleUseCase;
+use Src\Application\UseCases\Role\UnsyncPermissionsWithRoleUseCase;
 use Src\Application\UseCases\Role\UpdateRoleUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
-use Src\Infra\Http\Requests\RoleRequest;
-use Src\Infra\Http\Requests\SyncPermissionsWithRoleRequest;
+use Src\Infra\Http\Requests\Role\RoleRequest;
+use Src\Infra\Http\Requests\Role\SyncPermissionsWithRoleRequest;
+use Src\Infra\Http\Requests\Role\UnsyncPermissionsWithRoleRequest;
 
 class RoleController extends Controller
 {
@@ -29,13 +31,16 @@ class RoleController extends Controller
 
     protected SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase;
 
+    protected UnsyncPermissionsWithRoleUseCase $unsyncPermissionsWithRoleUseCase;
+
     public function __construct(
         CreateRoleUseCase $createRoleUseCase,
         FindAllRolesUseCase $findAllRolesUseCase,
         FindRoleUseCase $findRoleUseCase,
         DeleteRoleUseCase $deleteRoleUseCase,
         UpdateRoleUseCase $updateRoleUseCase,
-        SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase
+        SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase,
+        UnsyncPermissionsWithRoleUseCase $unsyncPermissionsWithRoleUseCase
     ) {
         $this->createRoleUseCase = $createRoleUseCase;
         $this->findAllRolesUseCase = $findAllRolesUseCase;
@@ -43,6 +48,7 @@ class RoleController extends Controller
         $this->deleteRoleUseCase = $deleteRoleUseCase;
         $this->updateRoleUseCase = $updateRoleUseCase;
         $this->syncPermissionsWithRoleUseCase = $syncPermissionsWithRoleUseCase;
+        $this->unsyncPermissionsWithRoleUseCase = $unsyncPermissionsWithRoleUseCase;
     }
 
     public function index()
@@ -162,6 +168,30 @@ class RoleController extends Controller
             $this->syncPermissionsWithRoleUseCase->run($input);
 
             return BaseResponse::success('Role sync successfully', HttpCode::OK);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+
+            $isInvalidPermission = $errorMessage === 'Invalid permission';
+
+            $isInvalidRole = $errorMessage === 'Invalid role';
+
+            if ($isInvalidPermission || $isInvalidRole) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
+    }
+
+    public function unsyncPermissions(UnsyncPermissionsWithRoleRequest $request)
+    {
+        $input = $request->all();
+
+        try {
+            $this->unsyncPermissionsWithRoleUseCase->run($input);
+
+            return BaseResponse::success('Role unsync successfully', HttpCode::OK);
         } catch (BusinessException $exception) {
             $errorMessage = $exception->getMessage();
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
