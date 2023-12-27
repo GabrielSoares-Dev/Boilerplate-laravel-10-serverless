@@ -4,6 +4,7 @@ namespace Src\Application\UseCases\User;
 
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\BaseUseCaseInterface;
+use Src\Domain\Entities\User;
 use Src\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCase implements BaseUseCaseInterface
@@ -15,13 +16,22 @@ class CreateUserUseCase implements BaseUseCaseInterface
         $this->repository = $repository;
     }
 
+    protected function valid(array $input)
+    {
+        $entity = new User();
+
+        $entity->create($input);
+    }
+
     protected function foundUserBySameEmail(string $email)
     {
-        return $this->repository->findByEmail($email);
+        return (bool) $this->repository->findByEmail($email);
     }
 
     public function run(array $input)
     {
+
+        $this->valid($input);
 
         $email = $input['email'];
 
@@ -30,6 +40,5 @@ class CreateUserUseCase implements BaseUseCaseInterface
         }
 
         $this->repository->create($input);
-
     }
 }
