@@ -10,6 +10,8 @@ class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/user';
+
     public function test_user_created(): void
     {
 
@@ -19,7 +21,7 @@ class CreateUserTest extends TestCase
             'phone_number' => '11942421224',
             'password' => 'Boilerplate@2023',
         ];
-        $output = $this->post('/v1/user', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 201,
@@ -39,7 +41,7 @@ class CreateUserTest extends TestCase
             'phone_number' => '11942421224',
             'password' => 'Boilerplate@2023',
         ];
-        $output = $this->post('/v1/user', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -53,7 +55,7 @@ class CreateUserTest extends TestCase
     public function test_user_empty_fields(): void
     {
 
-        $output = $this->post('/v1/user');
+        $output = $this->post($this->path);
 
         $expectedOutput = [
             'errors' => [

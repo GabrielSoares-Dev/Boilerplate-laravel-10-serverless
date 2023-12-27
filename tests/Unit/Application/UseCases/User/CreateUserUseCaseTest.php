@@ -34,7 +34,6 @@ class CreateUserUseCaseTest extends TestCase
         $useCase->run($input);
 
         $this->assertTrue(true);
-        Mockery::close();
     }
 
     public function test_should_user_already_exists(): void
@@ -69,7 +68,10 @@ class CreateUserUseCaseTest extends TestCase
         $this->expectExceptionMessage('User already exists');
 
         $useCase->run($input);
+    }
 
+    protected function tearDown(): void
+    {
         Mockery::close();
     }
 }

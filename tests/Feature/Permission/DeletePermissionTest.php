@@ -10,13 +10,15 @@ class DeletePermissionTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/permission';
+
     public function test_deleted(): void
     {
 
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $permission->id;
-        $output = $this->delete("/v1/permission/$id");
+        $output = $this->delete("$this->path/$id");
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -31,7 +33,7 @@ class DeletePermissionTest extends TestCase
     {
 
         $id = 300;
-        $output = $this->delete("/v1/permission/$id");
+        $output = $this->delete("$this->path/$id");
 
         $expectedOutput = [
             'statusCode' => 400,

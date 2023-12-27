@@ -35,7 +35,6 @@ class FindRoleUseCaseTest extends TestCase
 
         $expectedOutput = $mockFind;
         $this->assertEquals($expectedOutput, $output);
-        Mockery::close();
     }
 
     public function test_should_invalid_id(): void
@@ -54,7 +53,10 @@ class FindRoleUseCaseTest extends TestCase
 
         $this->expectExceptionMessage('Invalid id');
         $useCase->run($input);
+    }
 
+    protected function tearDown(): void
+    {
         Mockery::close();
     }
 }

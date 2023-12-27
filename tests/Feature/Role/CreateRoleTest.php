@@ -10,13 +10,15 @@ class CreateRoleTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/role';
+
     public function test_created(): void
     {
 
         $input = [
             'name' => 'test',
         ];
-        $output = $this->post('/v1/role', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 201,
@@ -34,7 +36,7 @@ class CreateRoleTest extends TestCase
         $input = [
             'name' => 'test',
         ];
-        $output = $this->post('/v1/role', $input);
+        $output = $this->post($this->path, $input);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -48,7 +50,7 @@ class CreateRoleTest extends TestCase
     public function test_empty_fields(): void
     {
 
-        $output = $this->post('/v1/role');
+        $output = $this->post($this->path);
 
         $expectedOutput = [
             'errors' => [

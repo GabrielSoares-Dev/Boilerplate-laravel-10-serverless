@@ -10,13 +10,15 @@ class FindPermissionTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $path = '/v1/permission';
+
     public function test_find(): void
     {
 
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api', 'created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
 
         $id = $permission->id;
-        $output = $this->get("/v1/permission/$id");
+        $output = $this->get("$this->path/$id");
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -39,7 +41,7 @@ class FindPermissionTest extends TestCase
     {
 
         $id = 300;
-        $output = $this->get("/v1/permission/$id");
+        $output = $this->get("$this->path/$id");
 
         $expectedOutput = [
             'statusCode' => 400,

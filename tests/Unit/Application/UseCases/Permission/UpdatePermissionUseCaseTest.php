@@ -27,7 +27,6 @@ class UpdatePermissionUseCaseTest extends TestCase
         $useCase->run($input);
 
         $this->assertTrue(true);
-        Mockery::close();
     }
 
     public function test_should_invalid_id(): void
@@ -47,7 +46,10 @@ class UpdatePermissionUseCaseTest extends TestCase
 
         $this->expectExceptionMessage('Invalid id');
         $useCase->run($input);
+    }
 
+    protected function tearDown(): void
+    {
         Mockery::close();
     }
 }

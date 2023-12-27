@@ -31,7 +31,6 @@ class CreatePermissionUseCaseTest extends TestCase
         $useCase->run($input);
 
         $this->assertTrue(true);
-        Mockery::close();
     }
 
     public function test_should_already_exists(): void
@@ -60,7 +59,10 @@ class CreatePermissionUseCaseTest extends TestCase
         $this->expectExceptionMessage('Permission already exists');
 
         $useCase->run($input);
+    }
 
+    protected function tearDown(): void
+    {
         Mockery::close();
     }
 }

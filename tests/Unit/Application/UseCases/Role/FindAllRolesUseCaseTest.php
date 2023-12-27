@@ -43,6 +43,10 @@ class FindAllRolesUseCaseTest extends TestCase
         $expectedOutput = $mockFindAll;
 
         $this->assertEquals($expectedOutput, $output);
+    }
+
+    protected function tearDown(): void
+    {
         Mockery::close();
     }
 }
