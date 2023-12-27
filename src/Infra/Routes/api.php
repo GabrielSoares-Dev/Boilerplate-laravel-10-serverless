@@ -14,5 +14,6 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('role')->group(function () {
         Route::post('/sync-permissions', [RoleController::class, 'syncPermissions']);
+        Route::post('/unsync-permissions', [RoleController::class, 'unsyncPermissions']);
     });
 });
