@@ -9,7 +9,7 @@ use Src\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCaseTest extends TestCase
 {
-    public function test_should_create_new_user(): void
+    public function test_should_create(): void
     {
 
         $repositoryMock = Mockery::mock(UserRepositoryInterface::class);
@@ -29,6 +29,10 @@ class CreateUserUseCaseTest extends TestCase
             ->shouldReceive('create')
             ->andReturn($input);
 
+        $repositoryMock
+            ->shouldReceive('assignRole')
+            ->andReturn(true);
+
         $useCase = new CreateUserUseCase($repositoryMock);
 
         $useCase->run($input);
@@ -36,7 +40,7 @@ class CreateUserUseCaseTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function test_should_user_already_exists(): void
+    public function test_should_already_exists(): void
     {
 
         $repositoryMock = Mockery::mock(UserRepositoryInterface::class);
@@ -62,6 +66,10 @@ class CreateUserUseCaseTest extends TestCase
         $repositoryMock
             ->shouldReceive('create')
             ->andReturn($input);
+
+        $repositoryMock
+            ->shouldReceive('assignRole')
+            ->andReturn(false);
 
         $useCase = new CreateUserUseCase($repositoryMock);
 

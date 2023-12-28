@@ -23,4 +23,12 @@ class UserEloquentRepository implements UserRepositoryInterface
     {
         return $this->model->where('email', $email)->first();
     }
+
+    public function assignRole(array $input)
+    {
+        $role = $input['role'];
+        $email = $input['email'];
+
+        return $this->model->where('email', $email)->first()->assignRole($role);
+    }
 }
