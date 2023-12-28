@@ -14,7 +14,7 @@ class UpdateRoleTest extends TestCase
 
     public function test_updated(): void
     {
-
+        $this->withoutMiddleware();
         $role = Role::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $role->id;
@@ -34,7 +34,7 @@ class UpdateRoleTest extends TestCase
 
     public function test_invalid_id(): void
     {
-
+        $this->withoutMiddleware();
         $id = 300;
         $input = [
             'name' => 'new name',
@@ -52,6 +52,7 @@ class UpdateRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
+        $this->withoutMiddleware();
         $id = 300;
         $output = $this->put("$this->path/$id");
 

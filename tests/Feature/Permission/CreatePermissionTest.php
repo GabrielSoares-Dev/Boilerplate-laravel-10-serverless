@@ -14,10 +14,11 @@ class CreatePermissionTest extends TestCase
 
     public function test_created(): void
     {
-
+        $this->withoutMiddleware();
         $input = [
             'name' => 'test',
         ];
+
         $output = $this->post($this->path, $input);
 
         $expectedOutput = [
@@ -31,6 +32,7 @@ class CreatePermissionTest extends TestCase
 
     public function test_already_exists(): void
     {
+        $this->withoutMiddleware();
         Permission::create(['name' => 'test', 'guard_name' => 'api']);
 
         $input = [
@@ -49,7 +51,7 @@ class CreatePermissionTest extends TestCase
 
     public function test_empty_fields(): void
     {
-
+        $this->withoutMiddleware();
         $output = $this->post($this->path);
 
         $expectedOutput = [

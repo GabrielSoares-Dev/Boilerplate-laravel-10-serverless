@@ -2,13 +2,25 @@
 
 namespace Src\Infra\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Closure;
 use Illuminate\Http\Request;
+use Src\Application\UseCases\Auth\CheckAuthenticationUseCase;
 
-class Authenticate extends Middleware
+class Authenticate
 {
-    protected function redirectTo(Request $request): ?string
+    protected CheckAuthenticationUseCase $checkAuthenticationUseCase;
+
+    public function __construct(CheckAuthenticationUseCase $checkAuthenticationUseCase)
     {
-        return $request->expectsJson() ? null : route('login');
+        $this->checkAuthenticationUseCase = $checkAuthenticationUseCase;
+    }
+
+    public function handle(Request $request, Closure $next)
+    {
+        $input = [];
+
+        $this->checkAuthenticationUseCase->run($input);
+
+        return $next($request);
     }
 }

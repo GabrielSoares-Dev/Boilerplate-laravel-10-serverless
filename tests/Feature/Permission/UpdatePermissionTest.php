@@ -14,7 +14,7 @@ class UpdatePermissionTest extends TestCase
 
     public function test_updated(): void
     {
-
+        $this->withoutMiddleware();
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $permission->id;
@@ -34,7 +34,7 @@ class UpdatePermissionTest extends TestCase
 
     public function test_invalid_id(): void
     {
-
+        $this->withoutMiddleware();
         $id = 300;
         $input = [
             'name' => 'new name',
