@@ -9,4 +9,6 @@ interface AuthServiceInterface
     public function validateCredentials(array $input);
 
     public function validateToken();
+
+    public function logout();
 }

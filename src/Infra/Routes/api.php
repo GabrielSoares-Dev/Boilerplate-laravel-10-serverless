@@ -23,5 +23,9 @@ Route::prefix('v1')->group(function () {
             Route::post('/sync-permissions', [RoleController::class, 'syncPermissions']);
             Route::post('/unsync-permissions', [RoleController::class, 'unsyncPermissions']);
         });
+
+        Route::prefix('auth')->group(function () {
+            Route::post('/logout', [AuthController::class, 'logout']);
+        });
     });
 });

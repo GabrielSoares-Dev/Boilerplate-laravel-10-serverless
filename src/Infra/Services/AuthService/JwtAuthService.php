@@ -21,4 +21,9 @@ class JwtAuthService implements AuthServiceInterface
     {
         return Auth::authenticate();
     }
+
+    public function logout()
+    {
+        return Auth::logout();
+    }
 }
