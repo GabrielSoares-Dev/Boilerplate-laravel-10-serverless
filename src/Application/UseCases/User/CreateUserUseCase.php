@@ -5,6 +5,7 @@ namespace Src\Application\UseCases\User;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Entities\User;
+use Src\Domain\Enums\Role;
 use Src\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCase implements BaseUseCaseInterface
@@ -28,6 +29,16 @@ class CreateUserUseCase implements BaseUseCaseInterface
         return (bool) $this->repository->findByEmail($email);
     }
 
+    protected function assignRole(string $email)
+    {
+        $input = [
+            'email' => $email,
+            'role' => Role::ADMIN,
+        ];
+
+        $this->repository->assignRole($input);
+    }
+
     public function run(array $input)
     {
 
@@ -40,5 +51,7 @@ class CreateUserUseCase implements BaseUseCaseInterface
         }
 
         $this->repository->create($input);
+
+        $this->assignRole($email);
     }
 }

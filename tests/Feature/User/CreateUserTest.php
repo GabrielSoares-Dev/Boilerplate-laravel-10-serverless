@@ -14,7 +14,7 @@ class CreateUserTest extends TestCase
 
     public function test_user_created(): void
     {
-
+        $this->seed();
         $input = [
             'name' => 'Boilerplate',
             'email' => 'boilerplate@gmail.com',
