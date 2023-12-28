@@ -16,6 +16,7 @@ class SyncPermissionsWithRoleTest extends TestCase
     public function test_sync(): void
     {
 
+        $this->withoutMiddleware();
         Role::create(['name' => 'admin', 'guard_name' => 'api']);
         Permission::create(['name' => 'create_permission', 'guard_name' => 'api']);
 
@@ -37,6 +38,7 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     public function test_invalid_permission(): void
     {
+        $this->withoutMiddleware();
         $input = [
             'role' => 'admin',
             'permissions' => ['create_permission'],
@@ -55,6 +57,7 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     public function test_invalid_role(): void
     {
+        $this->withoutMiddleware();
         Permission::create(['name' => 'create_permission', 'guard_name' => 'api']);
 
         $input = [
@@ -75,6 +78,7 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
+        $this->withoutMiddleware();
         $output = $this->post($this->path);
 
         $expectedOutput = [

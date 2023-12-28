@@ -14,7 +14,7 @@ class FindRoleTest extends TestCase
 
     public function test_find(): void
     {
-
+        $this->withoutMiddleware();
         $role = Role::create(['name' => 'test', 'guard_name' => 'api', 'created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
 
         $id = $role->id;
@@ -39,7 +39,7 @@ class FindRoleTest extends TestCase
 
     public function test_invalid_id(): void
     {
-
+        $this->withoutMiddleware();
         $id = 300;
         $output = $this->get("$this->path/$id");
 

@@ -16,4 +16,9 @@ class JwtAuthService implements AuthServiceInterface
     {
         return Auth::validate($input);
     }
+
+    public function validateToken()
+    {
+        return Auth::authenticate();
+    }
 }

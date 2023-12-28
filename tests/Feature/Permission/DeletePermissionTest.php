@@ -14,7 +14,7 @@ class DeletePermissionTest extends TestCase
 
     public function test_deleted(): void
     {
-
+        $this->withoutMiddleware();
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $permission->id;
@@ -31,7 +31,7 @@ class DeletePermissionTest extends TestCase
 
     public function test_invalid_id(): void
     {
-
+        $this->withoutMiddleware();
         $id = 300;
         $output = $this->delete("$this->path/$id");
 

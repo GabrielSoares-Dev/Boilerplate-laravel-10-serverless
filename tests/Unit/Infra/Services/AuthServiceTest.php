@@ -53,6 +53,20 @@ class AuthServiceTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
     }
 
+    public function test_should_validate_token(): void
+    {
+        Auth::shouldReceive('authenticate')
+            ->andReturn(true);
+
+        $service = new JwtAuthService();
+
+        $output = $service->validateToken();
+
+        $expectedOutput = true;
+
+        $this->assertEquals($expectedOutput, $output);
+    }
+
     protected function tearDown(): void
     {
         Mockery::close();

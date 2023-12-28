@@ -15,7 +15,7 @@ class LoginTest extends TestCase
     public function test_authenticated(): void
     {
 
-        $user = User::factory()->create(['email' => 'boilerplate@gmail.com', 'password' => 'Boilerplate@2023']);
+        User::factory()->create(['email' => 'boilerplate@gmail.com', 'password' => 'Boilerplate@2023']);
 
         $input = [
             'email' => 'boilerplate@gmail.com',

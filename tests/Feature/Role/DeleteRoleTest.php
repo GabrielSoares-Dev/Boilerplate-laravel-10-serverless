@@ -14,7 +14,7 @@ class DeleteRoleTest extends TestCase
 
     public function test_deleted(): void
     {
-
+        $this->withoutMiddleware();
         $role = Role::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $role->id;
@@ -31,7 +31,7 @@ class DeleteRoleTest extends TestCase
 
     public function test_invalid_id(): void
     {
-
+        $this->withoutMiddleware();
         $id = 300;
         $output = $this->delete("$this->path/$id");
 
