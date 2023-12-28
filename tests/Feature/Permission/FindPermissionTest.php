@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
+use Tests\Helpers\Mocks\AuthorizeMock;
 use Tests\TestCase;
 
 class FindPermissionTest extends TestCase
@@ -12,8 +13,11 @@ class FindPermissionTest extends TestCase
 
     protected $path = '/v1/permission';
 
+    protected $permission = 'read_permission';
+
     public function test_find(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api', 'created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
 
@@ -39,6 +43,7 @@ class FindPermissionTest extends TestCase
 
     public function test_invalid_id(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $id = 300;
         $output = $this->get("$this->path/$id");
@@ -49,6 +54,23 @@ class FindPermissionTest extends TestCase
         ];
 
         $output->assertStatus(400);
+        $output->assertJson($expectedOutput);
+    }
+
+    public function test_not_have_permission(): void
+    {
+        AuthorizeMock::notHavePermissionMock();
+        $this->withoutMiddleware();
+
+        $id = 300;
+        $output = $this->get("$this->path/$id");
+
+        $expectedOutput = [
+            'statusCode' => 403,
+            'message' => 'Access to this resource was denied',
+        ];
+
+        $output->assertStatus(403);
         $output->assertJson($expectedOutput);
     }
 }

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
+use Tests\Helpers\Mocks\AuthorizeMock;
 use Tests\TestCase;
 
 class UpdateRoleTest extends TestCase
@@ -12,8 +13,11 @@ class UpdateRoleTest extends TestCase
 
     protected $path = '/v1/role';
 
+    protected $permission = 'update_role';
+
     public function test_updated(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $role = Role::create(['name' => 'test', 'guard_name' => 'api']);
 
@@ -34,6 +38,7 @@ class UpdateRoleTest extends TestCase
 
     public function test_invalid_id(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $id = 300;
         $input = [
@@ -52,6 +57,7 @@ class UpdateRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $id = 300;
         $output = $this->put("$this->path/$id");
@@ -65,6 +71,26 @@ class UpdateRoleTest extends TestCase
         ];
 
         $output->assertStatus(422);
+        $output->assertJson($expectedOutput);
+    }
+
+    public function test_not_have_permission(): void
+    {
+        AuthorizeMock::notHavePermissionMock();
+        $this->withoutMiddleware();
+
+        $id = 300;
+        $input = [
+            'name' => 'new name',
+        ];
+        $output = $this->put("$this->path/$id", $input);
+
+        $expectedOutput = [
+            'statusCode' => 403,
+            'message' => 'Access to this resource was denied',
+        ];
+
+        $output->assertStatus(403);
         $output->assertJson($expectedOutput);
     }
 }

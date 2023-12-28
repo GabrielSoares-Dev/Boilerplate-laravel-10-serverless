@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
+use Tests\Helpers\Mocks\AuthorizeMock;
 use Tests\TestCase;
 
 class CreatePermissionTest extends TestCase
@@ -12,8 +13,11 @@ class CreatePermissionTest extends TestCase
 
     protected $path = '/v1/permission';
 
+    protected $permission = 'create_permission';
+
     public function test_created(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $input = [
             'name' => 'test',
@@ -32,6 +36,7 @@ class CreatePermissionTest extends TestCase
 
     public function test_already_exists(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         Permission::create(['name' => 'test', 'guard_name' => 'api']);
 
@@ -51,7 +56,9 @@ class CreatePermissionTest extends TestCase
 
     public function test_empty_fields(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
+
         $output = $this->post($this->path);
 
         $expectedOutput = [
@@ -63,6 +70,25 @@ class CreatePermissionTest extends TestCase
         ];
 
         $output->assertStatus(422);
+        $output->assertJson($expectedOutput);
+    }
+
+    public function test_not_have_permission(): void
+    {
+        AuthorizeMock::notHavePermissionMock();
+        $this->withoutMiddleware();
+
+        $input = [
+            'name' => 'test',
+        ];
+        $output = $this->post($this->path, $input);
+
+        $expectedOutput = [
+            'statusCode' => 403,
+            'message' => 'Access to this resource was denied',
+        ];
+
+        $output->assertStatus(403);
         $output->assertJson($expectedOutput);
     }
 }
