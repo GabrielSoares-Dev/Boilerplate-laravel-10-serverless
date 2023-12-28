@@ -12,6 +12,7 @@ use Src\Application\UseCases\Role\UnsyncPermissionsWithRoleUseCase;
 use Src\Application\UseCases\Role\UpdateRoleUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
+use Src\Infra\Helpers\Authorize;
 use Src\Infra\Helpers\BaseResponse;
 use Src\Infra\Http\Requests\Role\RoleRequest;
 use Src\Infra\Http\Requests\Role\SyncPermissionsWithRoleRequest;
@@ -53,6 +54,7 @@ class RoleController extends Controller
 
     public function index()
     {
+        Authorize::hasPermission('read_all_roles');
         $input = [];
         try {
             $output = $this->findAllRolesUseCase->run($input);
@@ -68,6 +70,7 @@ class RoleController extends Controller
 
     public function store(RoleRequest $request)
     {
+        Authorize::hasPermission('create_role');
         $input = $request->all();
 
         try {
@@ -91,6 +94,7 @@ class RoleController extends Controller
 
     public function show(string $id)
     {
+        Authorize::hasPermission('read_role');
         $input = [
             'id' => $id,
         ];
@@ -115,6 +119,7 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, string $id)
     {
+        Authorize::hasPermission('update_role');
         $input = $request->all();
         $input['id'] = $id;
 
@@ -138,6 +143,7 @@ class RoleController extends Controller
 
     public function destroy(string $id)
     {
+        Authorize::hasPermission('delete_role');
         $input = [
             'id' => $id,
         ];
@@ -162,6 +168,7 @@ class RoleController extends Controller
 
     public function syncPermissions(SyncPermissionsWithRoleRequest $request)
     {
+        Authorize::hasPermission('sync_role_with_permissions');
         $input = $request->all();
 
         try {
@@ -186,6 +193,7 @@ class RoleController extends Controller
 
     public function unsyncPermissions(UnsyncPermissionsWithRoleRequest $request)
     {
+        Authorize::hasPermission('unsync_role_with_permissions');
         $input = $request->all();
 
         try {

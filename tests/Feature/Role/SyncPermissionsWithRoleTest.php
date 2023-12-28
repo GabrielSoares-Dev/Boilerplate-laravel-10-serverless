@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Tests\Helpers\Mocks\AuthorizeMock;
 use Tests\TestCase;
 
 class SyncPermissionsWithRoleTest extends TestCase
@@ -13,9 +14,11 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     protected $path = '/v1/role/sync-permissions';
 
+    protected $permission = 'sync_role_with_permissions';
+
     public function test_sync(): void
     {
-
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         Role::create(['name' => 'admin', 'guard_name' => 'api']);
         Permission::create(['name' => 'create_permission', 'guard_name' => 'api']);
@@ -38,6 +41,7 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     public function test_invalid_permission(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $input = [
             'role' => 'admin',
@@ -57,6 +61,7 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     public function test_invalid_role(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         Permission::create(['name' => 'create_permission', 'guard_name' => 'api']);
 
@@ -78,6 +83,7 @@ class SyncPermissionsWithRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
+        AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
         $output = $this->post($this->path);
 
@@ -93,6 +99,27 @@ class SyncPermissionsWithRoleTest extends TestCase
         ];
 
         $output->assertStatus(422);
+        $output->assertJson($expectedOutput);
+    }
+
+    public function test_not_have_permission(): void
+    {
+        AuthorizeMock::notHavePermissionMock();
+        $this->withoutMiddleware();
+
+        $input = [
+            'role' => 'admin',
+            'permissions' => ['create_permission'],
+        ];
+
+        $output = $this->post($this->path, $input);
+
+        $expectedOutput = [
+            'statusCode' => 403,
+            'message' => 'Access to this resource was denied',
+        ];
+
+        $output->assertStatus(403);
         $output->assertJson($expectedOutput);
     }
 }

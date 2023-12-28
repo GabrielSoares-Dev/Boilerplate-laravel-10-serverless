@@ -10,6 +10,7 @@ use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
+use Src\Infra\Helpers\Authorize;
 use Src\Infra\Helpers\BaseResponse;
 use Src\Infra\Http\Requests\Permission\PermissionRequest;
 
@@ -42,6 +43,7 @@ class PermissionController extends Controller
 
     public function index()
     {
+        Authorize::hasPermission('read_all_permissions');
         $input = [];
         try {
             $output = $this->findAllPermissionsUseCase->run($input);
@@ -57,6 +59,7 @@ class PermissionController extends Controller
 
     public function store(PermissionRequest $request)
     {
+        Authorize::hasPermission('create_permission');
         $input = $request->all();
 
         try {
@@ -80,6 +83,7 @@ class PermissionController extends Controller
 
     public function show(string $id)
     {
+        Authorize::hasPermission('read_permission');
         $input = [
             'id' => $id,
         ];
@@ -104,6 +108,7 @@ class PermissionController extends Controller
 
     public function update(PermissionRequest $request, string $id)
     {
+        Authorize::hasPermission('update_permission');
         $input = $request->all();
         $input['id'] = $id;
 
@@ -127,6 +132,7 @@ class PermissionController extends Controller
 
     public function destroy(string $id)
     {
+        Authorize::hasPermission('delete_permission');
         $input = [
             'id' => $id,
         ];
