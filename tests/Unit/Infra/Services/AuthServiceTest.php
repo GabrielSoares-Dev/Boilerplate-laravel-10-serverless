@@ -67,6 +67,20 @@ class AuthServiceTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
     }
 
+    public function test_should_logout(): void
+    {
+        Auth::shouldReceive('logout')
+            ->andReturn(true);
+
+        $service = new JwtAuthService();
+
+        $output = $service->logout();
+
+        $expectedOutput = true;
+
+        $this->assertEquals($expectedOutput, $output);
+    }
+
     protected function tearDown(): void
     {
         Mockery::close();
