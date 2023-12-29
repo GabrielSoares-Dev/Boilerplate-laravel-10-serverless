@@ -18,6 +18,6 @@ jobs:
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Code style
-      run: composer lint
+      run: composer lint:test
     - name: Tests and coverage
       run: composer test:coverage

@@ -54,11 +54,12 @@
         ],
         "server:up": "docker-compose -f docker-compose-dev.yml up -d",
         "start:dev": "php artisan serve --host=0.0.0.0 --port=8000",
-        "lint": "./vendor/bin/pint",
+        "lint:test": "./vendor/bin/pint --test",
+        "lint:fix": "./vendor/bin/pint",
         "test": "php artisan test",
         "test:unit": "php artisan test --testsuite=Unit",
         "test:integration": "php artisan test --testsuite=Feature",
-        "test:coverage": "php artisan test --coverage --coverage-html coverage"
+        "test:coverage": "php artisan test --coverage --coverage-html coverage --min=80"
     },
     "extra": {
         "laravel": {
