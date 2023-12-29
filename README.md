@@ -29,36 +29,46 @@ Before you begin, make sure you have the following tools installed in your devel
 
 ## Commands
 
-1. **Code style:**
+1. **Check Code style:**
 
    ```bash
-   composer lint
+   composer lint:test
 
-2. **Run tests:**
+2. **Fix Code style:**
+
+   ```bash
+   composer lint:fix
+
+3. **Run tests:**
 
    ```bash
    composer test
 
-2. **Run unit tests:**
+4. **Run unit tests:**
 
    ```bash
    composer test:unit
 
-3. **Run integration tests:**
+5. **Run integration tests:**
 
    ```bash
    composer test:integration
 
-4. **Run coverage**
+6. **Run coverage**
 
    ```bash
    composer test:coverage
 
 
-5. **Default commit:**
+7. **Default commit:**
 
    ```bash
    npm run commit
+
+7. **Prepare database:**
+
+   ```bash
+   php artisan db:prepare
 
 ## Docs
 
