@@ -5,6 +5,9 @@ use Src\Infra\Http\Controllers\AuthController;
 use Src\Infra\Http\Controllers\PermissionController;
 use Src\Infra\Http\Controllers\RoleController;
 use Src\Infra\Http\Controllers\UserController;
+use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
+
+Route::get('health', HealthCheckJsonResultsController::class);
 
 Route::prefix('v1')->group(function () {
     Route::resource('user', UserController::class);
