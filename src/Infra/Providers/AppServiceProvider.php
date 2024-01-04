@@ -3,11 +3,10 @@
 namespace Src\Infra\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
-use Spatie\Health\Facades\Health;
-use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
+use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
+use Spatie\Health\Facades\Health;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
         Health::checks([
             UsedDiskSpaceCheck::new(),
             DatabaseCheck::new(),
-            DebugModeCheck::new()
+            DebugModeCheck::new(),
         ]);
     }
 

@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 use Src\Infra\Http\Controllers\AuthController;
 use Src\Infra\Http\Controllers\PermissionController;
 use Src\Infra\Http\Controllers\RoleController;
 use Src\Infra\Http\Controllers\UserController;
-use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 
 Route::get('health', HealthCheckJsonResultsController::class);
 
