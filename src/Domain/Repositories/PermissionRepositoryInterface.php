@@ -2,17 +2,21 @@
 
 namespace Src\Domain\Repositories;
 
+use Src\Domain\Dtos\Repositories\Permission\CreatePermissionInputDto;
+use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionInputDto;
+use stdClass;
+
 interface PermissionRepositoryInterface
 {
-    public function create(array $input);
+    public function create(CreatePermissionInputDto $input): stdClass;
 
-    public function findByName(array $input);
+    public function findByName(string $name, string $guardName): ?stdClass;
 
-    public function find(string $id);
+    public function find(int $id): ?stdClass;
 
-    public function update(array $input, string $id);
+    public function update(UpdatePermissionInputDto $input, int $id): ?stdClass;
 
-    public function findAll();
+    public function findAll(): array;
 
-    public function delete(string $id);
+    public function delete(int $id): void;
 }
