@@ -2,6 +2,7 @@
 
 namespace Infra\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

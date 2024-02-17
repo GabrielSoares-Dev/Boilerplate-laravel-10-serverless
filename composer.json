@@ -23,6 +23,7 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
+        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.1",
         "spatie/laravel-ignition": "^2.0"
     },
@@ -60,7 +61,8 @@
         "test": "php artisan test",
         "test:unit": "php artisan test --testsuite=Unit",
         "test:integration": "php artisan test --testsuite=Feature",
-        "test:coverage": "php artisan test --coverage --coverage-html coverage --min=80"
+        "test:coverage": "php artisan test --coverage --coverage-html coverage --min=80",
+        "analyse": "vendor/bin/phpstan analyse -c phpstan.neon"
     },
     "extra": {
         "laravel": {

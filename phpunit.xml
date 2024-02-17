@@ -20,13 +20,7 @@
         <exclude>
             <directory>src/Domain/Repositories</directory>
             <directory>src/Domain/Helpers</directory>
-            <directory>src/Infra/Console</directory>
-            <directory>src/Infra/Exceptions</directory>
-            <directory>src/Infra/Providers</directory>
-            <directory>src/Infra/Routes</directory>
-            <directory>src/Infra/Http</directory>
-            <directory>src/Infra/Models</directory>
-        
+            <directory>src/Infra/*</directory>
         </exclude>
     </source>
     <php>
