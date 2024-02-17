@@ -3,7 +3,10 @@
 namespace Src\Infra\Repositories\PermissionRepository;
 
 use Spatie\Permission\Models\Permission;
+use Src\Domain\Dtos\Repositories\Permission\CreatePermissionInputDto;
+use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionInputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
+use stdClass;
 
 class PermissionEloquentRepository implements PermissionRepositoryInterface
 {
@@ -14,44 +17,53 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(array $input)
+    public function create(CreatePermissionInputDto $input): stdClass
     {
-        return $this->model
-            ->create($input);
+        $permission = $this->model
+            ->create((array) $input);
+
+        return (object) $permission->toArray();
     }
 
-    public function find(string $id)
+    public function find(int $id): ?stdClass
     {
-        return $this->model
+        $permission = $this->model
             ->where('id', $id)
             ->first();
+
+        return (object) $permission->toArray();
     }
 
-    public function findByName(array $input)
+    public function findByName(string $name, string $guardName): ?stdClass
     {
-        return $this->model
-            ->where('guard_name', $input['guard_name'])
-            ->where('name', $input['name'])
+        $permission = $this->model
+            ->where('guard_name', $guardName)
+            ->where('name', $name)
             ->first();
+
+        return (object) $permission->toArray();
     }
 
-    public function findAll()
+    public function findAll(): array
     {
         return $this->model
             ->where('guard_name', 'api')
-            ->get();
+            ->get()
+            ->toArray();
     }
 
-    public function update(array $input, string $id)
+    public function update(UpdatePermissionInputDto $input, int $id): ?stdClass
     {
-        return $this->model
+        $permission = $this->model
             ->where('id', $id)
-            ->update($input);
+            ->update((array) $input);
+
+        return (object) $permission->toArray();
     }
 
-    public function delete(string $id)
+    public function delete(int $id): void
     {
-        return $this->model
+        $this->model
             ->where('id', $id)
             ->delete();
     }
