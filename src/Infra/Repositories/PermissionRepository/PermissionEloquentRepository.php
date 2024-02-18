@@ -35,7 +35,7 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
             ->where('id', $id)
             ->first();
 
-        return (object) $permission->toArray();
+        return is_null($permission) ? null : (object) $permission->toArray();
     }
 
     public function findByName(string $name, string $guardName): ?stdClass
@@ -45,7 +45,7 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
             ->where('name', $name)
             ->first();
 
-        return (object) $permission->toArray();
+        return is_null($permission) ? null : (object) $permission->toArray();
     }
 
     public function findAll(): array
