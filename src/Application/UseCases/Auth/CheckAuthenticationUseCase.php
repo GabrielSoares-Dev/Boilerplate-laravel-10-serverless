@@ -19,7 +19,7 @@ class CheckAuthenticationUseCase
      */
     public function run(): void
     {
-        $isUnauthorized = ! $this->authService->validateToken();
+        $isUnauthorized = !$this->authService->validateToken();
 
         if ($isUnauthorized) {
             throw new BusinessException('Unauthorized');

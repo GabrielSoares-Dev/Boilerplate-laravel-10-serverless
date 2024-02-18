@@ -27,7 +27,7 @@ class LoginUseCase
             'password' => $password,
         ];
 
-        $isInvalid = ! $this->authService->validateCredentials($credentials);
+        $isInvalid = !$this->authService->validateCredentials($credentials);
 
         if ($isInvalid) {
             throw new BusinessException('Invalid credentials');

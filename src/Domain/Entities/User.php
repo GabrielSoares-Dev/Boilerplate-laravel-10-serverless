@@ -20,9 +20,9 @@ class User
         $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/';
 
         $invalidName = empty($input['name']);
-        $invalidEmail = ! (bool) preg_match($emailRegex, $input['email']);
+        $invalidEmail = !(bool) preg_match($emailRegex, $input['email']);
         $invalidPhoneNumber = strlen((string) $input['phone_number']) !== 11;
-        $invalidPassword = ! (bool) preg_match($passwordRegex, $input['password']);
+        $invalidPassword = !(bool) preg_match($passwordRegex, $input['password']);
 
         if ($invalidName) {
             throw new BusinessException('Invalid name');

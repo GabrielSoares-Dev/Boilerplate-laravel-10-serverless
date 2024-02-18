@@ -20,7 +20,7 @@ class FindRoleUseCase
 
         $output = $this->repository->find($id);
 
-        if (! $output) {
+        if (!$output) {
             throw new BusinessException('Invalid id');
         }
 

@@ -10,6 +10,7 @@ use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
 use Src\Domain\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Permission\Delete\DeletePermissionUseCaseInputDto;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\Authorize;
@@ -131,28 +132,27 @@ class PermissionController extends Controller
     //     }
     // }
 
-    // public function destroy(int $id): JsonResponse
-    // {
-    //     Authorize::hasPermission('delete_permission');
-    //     $input = [
-    //         'id' => $id,
-    //     ];
+    public function destroy(int $id): JsonResponse
+    {
+        Authorize::hasPermission('delete_permission');
 
-    //     try {
-    //         $this->deletePermissionUseCase->run($input);
+        $input = new DeletePermissionUseCaseInputDto($id);
 
-    //         return BaseResponse::success('Permission deleted successfully', HttpCode::OK);
-    //     } catch (BusinessException $exception) {
-    //         $errorMessage = $exception->getMessage();
-    //         $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+        try {
+            $this->deletePermissionUseCase->run($input);
 
-    //         $isInvalidId = $errorMessage === 'Invalid id';
+            return BaseResponse::success('Permission deleted successfully', HttpCode::OK);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-    //         if ($isInvalidId) {
-    //             $httpCode = HttpCode::BAD_REQUEST;
-    //         }
+            $isInvalidId = $errorMessage === 'Invalid id';
 
-    //         throw new HttpException($errorMessage, $httpCode);
-    //     }
-    // }
+            if ($isInvalidId) {
+                $httpCode = HttpCode::BAD_REQUEST;
+            }
+
+            throw new HttpException($errorMessage, $httpCode);
+        }
+    }
 }

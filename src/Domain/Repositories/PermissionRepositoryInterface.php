@@ -18,5 +18,5 @@ interface PermissionRepositoryInterface
 
     public function findAll(): array;
 
-    public function delete(int $id): void;
+    public function delete(int $id): bool;
 }

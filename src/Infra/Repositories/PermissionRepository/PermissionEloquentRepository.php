@@ -65,9 +65,9 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
         return (object) $permission->toArray();
     }
 
-    public function delete(int $id): void
+    public function delete(int $id): bool
     {
-        $this->model
+        return $this->model
             ->where('id', $id)
             ->delete();
     }

@@ -20,7 +20,7 @@ class DeleteRoleUseCase
 
         $deleted = $this->repository->delete($id);
 
-        if (! $deleted) {
+        if (!$deleted) {
             throw new BusinessException('Invalid id');
         }
     }

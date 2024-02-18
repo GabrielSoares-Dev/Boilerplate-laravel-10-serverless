@@ -27,7 +27,7 @@ class UpdateRoleUseCase
 
         $updated = (bool) $this->repository->update($input, $id);
 
-        if (! $updated) {
+        if (!$updated) {
             throw new BusinessException('Invalid id');
         }
     }

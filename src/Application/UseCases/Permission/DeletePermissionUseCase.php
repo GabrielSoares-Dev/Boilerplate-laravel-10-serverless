@@ -3,6 +3,7 @@
 namespace Src\Application\UseCases\Permission;
 
 use Src\Application\Exceptions\BusinessException;
+use Src\Domain\Dtos\UseCases\Permission\Delete\DeletePermissionUseCaseInputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class DeletePermissionUseCase
@@ -14,14 +15,12 @@ class DeletePermissionUseCase
         $this->repository = $repository;
     }
 
-    public function run(array $input): void
+    public function run(DeletePermissionUseCaseInputDto $input): void
     {
-        $id = $input['id'];
+        $id = $input->id;
 
         $deleted = $this->repository->delete($id);
 
-        if (! $deleted) {
-            throw new BusinessException('Invalid id');
-        }
+        if (!$deleted) throw new BusinessException('Invalid id');
     }
 }
