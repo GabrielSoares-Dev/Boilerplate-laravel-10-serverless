@@ -15,16 +15,9 @@ class FindAllPermissionsUseCaseTest extends TestCase
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
         $mockFindAll = [
-            [
+            (object) [
                 'id' => 1,
                 'name' => 'create_permission',
-                'guard_name' => 'api',
-                'created_at' => 'now',
-                'updated_at' => 'now',
-            ],
-            [
-                'id' => 2,
-                'name' => 'delete_permission',
                 'guard_name' => 'api',
                 'created_at' => 'now',
                 'updated_at' => 'now',
@@ -35,10 +28,9 @@ class FindAllPermissionsUseCaseTest extends TestCase
             ->shouldReceive('findAll')
             ->andReturn($mockFindAll);
 
-        $input = [];
         $useCase = new FindAllPermissionsUseCase($repositoryMock);
 
-        $output = $useCase->run($input);
+        $output = $useCase->run();
 
         $expectedOutput = $mockFindAll;
 
