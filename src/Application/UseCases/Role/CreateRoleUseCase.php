@@ -3,34 +3,39 @@
 namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Entities\Role;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class CreateRoleUseCase implements BaseUseCaseInterface
+class CreateRoleUseCase
 {
     protected RoleRepositoryInterface $repository;
 
-    protected $defaultGuardName = 'api';
+    protected string $defaultGuardName = 'api';
 
     public function __construct(RoleRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    protected function valid(array $input)
+    /**
+     * @throws BusinessException
+     */
+    protected function valid(array $input): void
     {
         $entity = new Role();
 
         $entity->create($input);
     }
 
-    protected function alreadyExists(array $input)
+    protected function alreadyExists(array $input): bool
     {
         return ! empty($this->repository->findByName($input));
     }
 
-    public function run(array $input)
+    /**
+     * @throws BusinessException
+     */
+    public function run(object $input): void
     {
 
         $input['guard_name'] = $this->defaultGuardName;

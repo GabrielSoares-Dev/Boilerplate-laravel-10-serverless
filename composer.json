@@ -62,7 +62,7 @@
         "test:unit": "php artisan test --testsuite=Unit",
         "test:integration": "php artisan test --testsuite=Feature",
         "test:coverage": "php artisan test --coverage --coverage-html coverage --min=80",
-        "analyse": "vendor/bin/phpstan analyse -c phpstan.neon"
+        "code:analyses": "vendor/bin/phpstan analyse -c ./phpstan.neon"
     },
     "extra": {
         "laravel": {

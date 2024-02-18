@@ -17,19 +17,19 @@ class CreateUserUseCase implements BaseUseCaseInterface
         $this->repository = $repository;
     }
 
-    protected function valid(array $input)
+    protected function valid(array $input): void
     {
         $entity = new User();
 
         $entity->create($input);
     }
 
-    protected function foundUserBySameEmail(string $email)
+    protected function foundUserBySameEmail(string $email): bool
     {
         return (bool) $this->repository->findByEmail($email);
     }
 
-    protected function assignRole(string $email)
+    protected function assignRole(string $email): void
     {
         $input = [
             'email' => $email,
@@ -39,7 +39,7 @@ class CreateUserUseCase implements BaseUseCaseInterface
         $this->repository->assignRole($input);
     }
 
-    public function run(array $input)
+    public function run(array $input): void
     {
 
         $this->valid($input);

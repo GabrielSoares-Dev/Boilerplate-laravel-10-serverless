@@ -3,10 +3,9 @@
 namespace Src\Application\UseCases\Permission;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
-class DeletePermissionUseCase implements BaseUseCaseInterface
+class DeletePermissionUseCase
 {
     protected PermissionRepositoryInterface $repository;
 
@@ -15,7 +14,7 @@ class DeletePermissionUseCase implements BaseUseCaseInterface
         $this->repository = $repository;
     }
 
-    public function run(array $input)
+    public function run(array $input): void
     {
         $id = $input['id'];
 

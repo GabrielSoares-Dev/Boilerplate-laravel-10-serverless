@@ -2,9 +2,11 @@
 
 namespace Src\Infra\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\Auth\LoginUseCase;
 use Src\Application\UseCases\Auth\LogoutUseCase;
+use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
@@ -24,9 +26,9 @@ class AuthController extends Controller
         $this->logoutUseCase = $logoutUseCase;
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
-        $input = $request->all();
+        $input = new LoginUseCaseInputDto(...$request->all());
         try {
             $output = $this->loginUseCase->run($input);
 
@@ -45,11 +47,10 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
-        $input = [];
         try {
-            $this->logoutUseCase->run($input);
+            $this->logoutUseCase->run();
 
             return BaseResponse::success('Successfully logged out', HttpCode::OK);
         } catch (BusinessException $exception) {

@@ -3,10 +3,9 @@
 namespace Src\Application\UseCases\Permission;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
-class FindPermissionUseCase implements BaseUseCaseInterface
+class FindPermissionUseCase
 {
     protected PermissionRepositoryInterface $repository;
 

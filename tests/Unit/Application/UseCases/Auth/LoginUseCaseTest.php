@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\Auth\LoginUseCase;
+use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseOutputDto;
 use Src\Domain\Repositories\UserRepositoryInterface;
 use Src\Domain\Services\AuthServiceInterface;
 
@@ -12,19 +14,15 @@ class LoginUseCaseTest extends TestCase
 {
     public function test_should_logged(): void
     {
-
         $authServiceMock = Mockery::mock(AuthServiceInterface::class);
         $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
-
         $findByEmailMock = [
             'id' => 1,
             'name' => 'test',
             'email' => 'test@gmail.com',
         ];
-        $input = [
-            'email' => 'test@gmail.com',
-            'password' => 'Test@20',
-        ];
+
+        $input = new LoginUseCaseInputDto('test@gmail.com', 'Test@20');
 
         $authServiceMock
             ->shouldReceive('validateCredentials')
@@ -44,9 +42,7 @@ class LoginUseCaseTest extends TestCase
 
         $output = $useCase->run($input);
 
-        $expectedOutput = [
-            'token' => $mockToken,
-        ];
+        $expectedOutput = new LoginUseCaseOutputDto($mockToken);
 
         $this->assertEquals($expectedOutput, $output);
     }
@@ -57,10 +53,7 @@ class LoginUseCaseTest extends TestCase
         $authServiceMock = Mockery::mock(AuthServiceInterface::class);
         $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
 
-        $input = [
-            'email' => 'test@gmail.com',
-            'password' => 'Test@20',
-        ];
+        $input = new LoginUseCaseInputDto('test@gmail.com', 'Test@20');
 
         $authServiceMock
             ->shouldReceive('validateCredentials')

@@ -3,7 +3,7 @@
 namespace Src\Infra\Repositories\PermissionRepository;
 
 use Spatie\Permission\Models\Permission;
-use Src\Domain\Dtos\Repositories\Permission\CreatePermissionInputDto;
+use Src\Domain\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
 use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionInputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use stdClass;
@@ -17,10 +17,14 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(CreatePermissionInputDto $input): stdClass
+    public function create(CreatePermissionRepositoryInputDto $input): stdClass
     {
+        $data = [
+            'name' => $input->name,
+            'guard_name' => $input->guardName,
+        ];
         $permission = $this->model
-            ->create((array) $input);
+            ->create($data);
 
         return (object) $permission->toArray();
     }

@@ -3,17 +3,16 @@
 namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class SyncPermissionsWithRoleUseCase implements BaseUseCaseInterface
+class SyncPermissionsWithRoleUseCase
 {
     protected RoleRepositoryInterface $roleRepository;
 
     protected PermissionRepositoryInterface $permissionRepository;
 
-    protected $defaultGuardName = 'api';
+    protected string $defaultGuardName = 'api';
 
     public function __construct(
         RoleRepositoryInterface $roleRepository,

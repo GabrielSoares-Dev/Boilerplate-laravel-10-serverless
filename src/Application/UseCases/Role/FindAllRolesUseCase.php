@@ -2,10 +2,9 @@
 
 namespace Src\Application\UseCases\Role;
 
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class FindAllRolesUseCase implements BaseUseCaseInterface
+class FindAllRolesUseCase
 {
     protected RoleRepositoryInterface $repository;
 

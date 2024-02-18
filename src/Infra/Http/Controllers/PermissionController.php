@@ -2,6 +2,7 @@
 
 namespace Src\Infra\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
 use Src\Application\UseCases\Permission\DeletePermissionUseCase;
@@ -41,12 +42,11 @@ class PermissionController extends Controller
         $this->updatePermissionUseCase = $updatePermissionUseCase;
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
         Authorize::hasPermission('read_all_permissions');
-        $input = [];
         try {
-            $output = $this->findAllPermissionsUseCase->run($input);
+            $output = $this->findAllPermissionsUseCase->run();
 
             return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
         } catch (BusinessException $exception) {
@@ -57,7 +57,7 @@ class PermissionController extends Controller
         }
     }
 
-    public function store(PermissionRequest $request)
+    public function store(PermissionRequest $request): JsonResponse
     {
         Authorize::hasPermission('create_permission');
         $input = $request->all();
@@ -81,7 +81,7 @@ class PermissionController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(int $id): JsonResponse
     {
         Authorize::hasPermission('read_permission');
         $input = [
@@ -106,7 +106,7 @@ class PermissionController extends Controller
         }
     }
 
-    public function update(PermissionRequest $request, string $id)
+    public function update(PermissionRequest $request, int $id): JsonResponse
     {
         Authorize::hasPermission('update_permission');
         $input = $request->all();
@@ -130,7 +130,7 @@ class PermissionController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function destroy(int $id): JsonResponse
     {
         Authorize::hasPermission('delete_permission');
         $input = [
