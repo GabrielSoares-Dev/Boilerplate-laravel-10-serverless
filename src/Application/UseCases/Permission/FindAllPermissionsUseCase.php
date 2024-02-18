@@ -13,7 +13,7 @@ class FindAllPermissionsUseCase
         $this->repository = $repository;
     }
 
-    public function run(array $input)
+    public function run(): array
     {
         return $this->repository->findAll();
     }

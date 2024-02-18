@@ -44,20 +44,20 @@ class PermissionController extends Controller
         $this->updatePermissionUseCase = $updatePermissionUseCase;
     }
 
-    // public function index(): JsonResponse
-    // {
-    //     Authorize::hasPermission('read_all_permissions');
-    //     try {
-    //         $output = $this->findAllPermissionsUseCase->run();
+    public function index(): JsonResponse
+    {
+        Authorize::hasPermission('read_all_permissions');
+        try {
+            $output = $this->findAllPermissionsUseCase->run();
 
-    //         return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
-    //     } catch (BusinessException $exception) {
-    //         $errorMessage = $exception->getMessage();
-    //         $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+            return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
+        } catch (BusinessException $exception) {
+            $errorMessage = $exception->getMessage();
+            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-    //         throw new HttpException($errorMessage, $httpCode);
-    //     }
-    // }
+            throw new HttpException($errorMessage, $httpCode);
+        }
+    }
 
     public function store(PermissionRequest $request): JsonResponse
     {
