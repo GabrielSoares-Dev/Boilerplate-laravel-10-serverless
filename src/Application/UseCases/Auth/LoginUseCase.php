@@ -3,11 +3,12 @@
 namespace Src\Application\UseCases\Auth;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
+use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseOutputDto;
 use Src\Domain\Repositories\UserRepositoryInterface;
 use Src\Domain\Services\AuthServiceInterface;
 
-class LoginUseCase implements BaseUseCaseInterface
+class LoginUseCase
 {
     protected AuthServiceInterface $authService;
 
@@ -19,7 +20,7 @@ class LoginUseCase implements BaseUseCaseInterface
         $this->userRepository = $userRepository;
     }
 
-    protected function validateCredentials(string $email, string $password)
+    protected function validateCredentials(string $email, string $password): void
     {
         $credentials = [
             'email' => $email,
@@ -33,26 +34,22 @@ class LoginUseCase implements BaseUseCaseInterface
         }
     }
 
-    protected function generateToken(string $email)
+    protected function generateToken(string $email): string
     {
         $input = $this->userRepository->findByEmail($email);
 
         return $this->authService->generateToken($input);
     }
 
-    public function run(array $input)
+    public function run(LoginUseCaseInputDto $input): LoginUseCaseOutputDto
     {
-        $email = $input['email'];
-        $password = $input['password'];
+        $email = $input->email;
+        $password = $input->password;
 
         $this->validateCredentials($email, $password);
 
         $token = $this->generateToken($email);
 
-        $output = [
-            'token' => $token,
-        ];
-
-        return $output;
+        return new LoginUseCaseOutputDto($token);
     }
 }

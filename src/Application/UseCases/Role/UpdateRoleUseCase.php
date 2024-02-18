@@ -3,29 +3,21 @@
 namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Entities\Role;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class UpdateRoleUseCase implements BaseUseCaseInterface
+class UpdateRoleUseCase
 {
     protected RoleRepositoryInterface $repository;
 
-    protected $defaultGuardName = 'api';
+    protected string $defaultGuardName = 'api';
 
     public function __construct(RoleRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    protected function valid(array $input)
-    {
-        $entity = new Role();
-
-        $entity->update($input);
-    }
-
-    public function run(array $input)
+    public function run(array $input): void
     {
         $id = $input['id'];
 
@@ -38,5 +30,12 @@ class UpdateRoleUseCase implements BaseUseCaseInterface
         if (! $updated) {
             throw new BusinessException('Invalid id');
         }
+    }
+
+    protected function valid(array $input): void
+    {
+        $entity = new Role();
+
+        $entity->update($input);
     }
 }

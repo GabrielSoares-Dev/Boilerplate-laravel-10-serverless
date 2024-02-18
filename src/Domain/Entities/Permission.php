@@ -10,10 +10,10 @@ class Permission
 
     protected ?string $guardName;
 
-    public function create(array $input)
+    public function create(string $name, string $guardName): void
     {
-        $nameIsEmpty = empty($input['name']);
-        $guardNameIsInvalid = $input['guard_name'] !== 'api';
+        $nameIsEmpty = empty($name);
+        $guardNameIsInvalid = $guardName !== 'api';
 
         if ($nameIsEmpty) {
             throw new BusinessException('Invalid name');
@@ -22,11 +22,6 @@ class Permission
         if ($guardNameIsInvalid) {
             throw new BusinessException('Invalid guard name');
         }
-
-        $this->name = $input['name'];
-        $this->guardName = $input['guard_name'];
-
-        return $this->toArray();
     }
 
     public function update(array $input)
@@ -41,18 +36,5 @@ class Permission
         if ($guardNameIsInvalid) {
             throw new BusinessException('Invalid guard name');
         }
-
-        $this->name = $input['name'];
-        $this->guardName = $input['guard_name'];
-
-        return $this->toArray();
-    }
-
-    protected function toArray()
-    {
-        return [
-            'name' => $this->name,
-            'guard_name' => $this->guardName,
-        ];
     }
 }

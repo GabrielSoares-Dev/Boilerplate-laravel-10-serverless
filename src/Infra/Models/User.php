@@ -31,17 +31,17 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-    protected static function newFactory()
+    protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
     }
 
-    public function getJWTIdentifier()
+    public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
 
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         $role = $this->getRoleNames()->first();
         $permissions = $this->getPermissionsViaRoles()->pluck('name')->toArray();

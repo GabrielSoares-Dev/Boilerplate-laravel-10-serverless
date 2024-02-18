@@ -3,17 +3,16 @@
 namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class UnsyncPermissionsWithRoleUseCase implements BaseUseCaseInterface
+class UnsyncPermissionsWithRoleUseCase
 {
     protected RoleRepositoryInterface $roleRepository;
 
     protected PermissionRepositoryInterface $permissionRepository;
 
-    protected $defaultGuardName = 'api';
+    protected string $defaultGuardName = 'api';
 
     public function __construct(
         RoleRepositoryInterface $roleRepository,
@@ -23,7 +22,7 @@ class UnsyncPermissionsWithRoleUseCase implements BaseUseCaseInterface
         $this->permissionRepository = $permissionRepository;
     }
 
-    protected function foundPermission(string $name)
+    protected function foundPermission(string $name): bool
     {
         $input = [
             'guard_name' => $this->defaultGuardName,
@@ -33,7 +32,7 @@ class UnsyncPermissionsWithRoleUseCase implements BaseUseCaseInterface
         return (bool) $this->permissionRepository->findByName($input);
     }
 
-    protected function validPermissions(array $input)
+    protected function validPermissions(array $input): void
     {
         $permissions = $input['permissions'];
 
@@ -46,7 +45,7 @@ class UnsyncPermissionsWithRoleUseCase implements BaseUseCaseInterface
         }
     }
 
-    protected function foundRole(string $name)
+    protected function foundRole(string $name): bool
     {
         $input = [
             'guard_name' => $this->defaultGuardName,
@@ -56,7 +55,7 @@ class UnsyncPermissionsWithRoleUseCase implements BaseUseCaseInterface
         return (bool) $this->roleRepository->findByName($input);
     }
 
-    protected function validRole(array $input)
+    protected function validRole(array $input): void
     {
         $role = $input['role'];
 
@@ -67,7 +66,7 @@ class UnsyncPermissionsWithRoleUseCase implements BaseUseCaseInterface
         }
     }
 
-    public function run(array $input)
+    public function run(array $input): void
     {
         $this->validPermissions($input);
 

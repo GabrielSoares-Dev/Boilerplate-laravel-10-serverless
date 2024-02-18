@@ -2,7 +2,7 @@
 
 namespace Src\Domain\Dtos\Repositories\Permission;
 
-class CreatePermissionInputDto
+class CreatePermissionRepositoryInputDto
 {
     public function __construct(
         public readonly string $name,

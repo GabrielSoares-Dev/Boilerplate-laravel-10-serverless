@@ -3,10 +3,9 @@
 namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 
-class DeleteRoleUseCase implements BaseUseCaseInterface
+class DeleteRoleUseCase
 {
     protected RoleRepositoryInterface $repository;
 

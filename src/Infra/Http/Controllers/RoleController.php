@@ -2,6 +2,7 @@
 
 namespace Src\Infra\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\UseCases\Role\CreateRoleUseCase;
 use Src\Application\UseCases\Role\DeleteRoleUseCase;
@@ -52,7 +53,7 @@ class RoleController extends Controller
         $this->unsyncPermissionsWithRoleUseCase = $unsyncPermissionsWithRoleUseCase;
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
         Authorize::hasPermission('read_all_roles');
         $input = [];
@@ -68,7 +69,7 @@ class RoleController extends Controller
         }
     }
 
-    public function store(RoleRequest $request)
+    public function store(RoleRequest $request): JsonResponse
     {
         Authorize::hasPermission('create_role');
         $input = $request->all();
@@ -92,7 +93,7 @@ class RoleController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
         Authorize::hasPermission('read_role');
         $input = [
@@ -117,7 +118,7 @@ class RoleController extends Controller
         }
     }
 
-    public function update(RoleRequest $request, string $id)
+    public function update(RoleRequest $request, string $id): JsonResponse
     {
         Authorize::hasPermission('update_role');
         $input = $request->all();
@@ -141,7 +142,7 @@ class RoleController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         Authorize::hasPermission('delete_role');
         $input = [
@@ -166,7 +167,7 @@ class RoleController extends Controller
         }
     }
 
-    public function syncPermissions(SyncPermissionsWithRoleRequest $request)
+    public function syncPermissions(SyncPermissionsWithRoleRequest $request): JsonResponse
     {
         Authorize::hasPermission('sync_role_with_permissions');
         $input = $request->all();
@@ -191,7 +192,7 @@ class RoleController extends Controller
         }
     }
 
-    public function unsyncPermissions(UnsyncPermissionsWithRoleRequest $request)
+    public function unsyncPermissions(UnsyncPermissionsWithRoleRequest $request): JsonResponse
     {
         Authorize::hasPermission('unsync_role_with_permissions');
         $input = $request->all();

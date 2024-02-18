@@ -3,10 +3,9 @@
 namespace Src\Application\UseCases\Auth;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Services\AuthServiceInterface;
 
-class CheckAuthenticationUseCase implements BaseUseCaseInterface
+class CheckAuthenticationUseCase
 {
     protected AuthServiceInterface $authService;
 
@@ -15,7 +14,10 @@ class CheckAuthenticationUseCase implements BaseUseCaseInterface
         $this->authService = $authService;
     }
 
-    public function run(array $input)
+    /**
+     * @throws BusinessException
+     */
+    public function run(): void
     {
         $isUnauthorized = ! $this->authService->validateToken();
 

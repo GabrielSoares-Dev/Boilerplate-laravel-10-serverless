@@ -2,10 +2,9 @@
 
 namespace Src\Application\UseCases\Permission;
 
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
-class FindAllPermissionsUseCase implements BaseUseCaseInterface
+class FindAllPermissionsUseCase
 {
     protected PermissionRepositoryInterface $repository;
 

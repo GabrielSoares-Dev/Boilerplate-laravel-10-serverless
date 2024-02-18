@@ -8,6 +8,7 @@ use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
 use Src\Infra\Http\Requests\User\UserRequest;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -19,7 +20,7 @@ class UserController extends Controller
         $this->createUserUseCase = $createUserUseCase;
     }
 
-    public function store(UserRequest $request)
+    public function store(UserRequest $request): JsonResponse
     {
         $input = $request->all();
 

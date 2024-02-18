@@ -3,15 +3,14 @@
 namespace Src\Application\UseCases\Permission;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Application\UseCases\BaseUseCaseInterface;
 use Src\Domain\Entities\Permission;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
-class UpdatePermissionUseCase implements BaseUseCaseInterface
+class UpdatePermissionUseCase
 {
     protected PermissionRepositoryInterface $repository;
 
-    protected $defaultGuardName = 'api';
+    protected string $defaultGuardName = 'api';
 
     public function __construct(PermissionRepositoryInterface $repository)
     {

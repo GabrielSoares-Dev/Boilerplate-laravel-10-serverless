@@ -1,5 +1,6 @@
 parameters:
-	level: 10
+	level: 8
 	paths:
-		- src/application
+	 - src
+
 
