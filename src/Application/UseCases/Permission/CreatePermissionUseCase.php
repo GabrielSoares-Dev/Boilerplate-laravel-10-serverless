@@ -28,7 +28,7 @@ class CreatePermissionUseCase
 
     protected function alreadyExists(string $name, string $guardName): bool
     {
-        return ! empty($this->repository->findByName($name, $guardName));
+        return !empty($this->repository->findByName($name, $guardName));
     }
 
     public function run(CreatePermissionUseCaseInputDto $input): void
@@ -40,9 +40,7 @@ class CreatePermissionUseCase
 
         $alreadyExists = $this->alreadyExists($name, $guardName);
 
-        if ($alreadyExists) {
-            throw new BusinessException('Permission already exists');
-        }
+        if ($alreadyExists) throw new BusinessException('Permission already exists');
 
         $data = new CreatePermissionRepositoryInputDto($name, $guardName);
 

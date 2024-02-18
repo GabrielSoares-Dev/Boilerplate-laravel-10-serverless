@@ -37,7 +37,7 @@ class UnsyncPermissionsWithRoleUseCase
         $permissions = $input['permissions'];
 
         foreach ($permissions as $permission) {
-            $notFound = ! $this->foundPermission($permission);
+            $notFound = !$this->foundPermission($permission);
 
             if ($notFound) {
                 throw new BusinessException('Invalid permission');
@@ -59,7 +59,7 @@ class UnsyncPermissionsWithRoleUseCase
     {
         $role = $input['role'];
 
-        $notFound = ! $this->foundRole($role);
+        $notFound = !$this->foundRole($role);
 
         if ($notFound) {
             throw new BusinessException('Invalid role');

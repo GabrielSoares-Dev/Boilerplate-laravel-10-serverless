@@ -29,7 +29,7 @@ class CreateRoleUseCase
 
     protected function alreadyExists(array $input): bool
     {
-        return ! empty($this->repository->findByName($input));
+        return !empty($this->repository->findByName($input));
     }
 
     /**

@@ -15,7 +15,7 @@ class Authorize
     {
         $permissions = Auth::user()->getPermissionsViaRoles()->pluck('name')->toArray();
 
-        $notHavePermission = ! in_array($permission, $permissions);
+        $notHavePermission = !in_array($permission, $permissions);
 
         if ($notHavePermission) {
             throw new HttpException('Access to this resource was denied', HttpCode::FORBIDDEN);
