@@ -9,6 +9,7 @@ use Src\Application\UseCases\Permission\DeletePermissionUseCase;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
+use Src\Domain\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\Authorize;
@@ -42,25 +43,25 @@ class PermissionController extends Controller
         $this->updatePermissionUseCase = $updatePermissionUseCase;
     }
 
-    public function index(): JsonResponse
-    {
-        Authorize::hasPermission('read_all_permissions');
-        try {
-            $output = $this->findAllPermissionsUseCase->run();
+    // public function index(): JsonResponse
+    // {
+    //     Authorize::hasPermission('read_all_permissions');
+    //     try {
+    //         $output = $this->findAllPermissionsUseCase->run();
 
-            return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
-        } catch (BusinessException $exception) {
-            $errorMessage = $exception->getMessage();
-            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+    //         return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
+    //     } catch (BusinessException $exception) {
+    //         $errorMessage = $exception->getMessage();
+    //         $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-            throw new HttpException($errorMessage, $httpCode);
-        }
-    }
+    //         throw new HttpException($errorMessage, $httpCode);
+    //     }
+    // }
 
     public function store(PermissionRequest $request): JsonResponse
     {
         Authorize::hasPermission('create_permission');
-        $input = $request->all();
+        $input = new CreatePermissionUseCaseInputDto(...$request->all());
 
         try {
             $this->createPermissionUseCase->run($input);
@@ -81,77 +82,77 @@ class PermissionController extends Controller
         }
     }
 
-    public function show(int $id): JsonResponse
-    {
-        Authorize::hasPermission('read_permission');
-        $input = [
-            'id' => $id,
-        ];
+    // public function show(int $id): JsonResponse
+    // {
+    //     Authorize::hasPermission('read_permission');
+    //     $input = [
+    //         'id' => $id,
+    //     ];
 
-        try {
-            $output = $this->findPermissionUseCase->run($input);
+    //     try {
+    //         $output = $this->findPermissionUseCase->run($input);
 
-            return BaseResponse::successWithContent('Permission found', HttpCode::OK, $output);
-        } catch (BusinessException $exception) {
-            $errorMessage = $exception->getMessage();
-            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+    //         return BaseResponse::successWithContent('Permission found', HttpCode::OK, $output);
+    //     } catch (BusinessException $exception) {
+    //         $errorMessage = $exception->getMessage();
+    //         $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-            $isInvalidId = $errorMessage === 'Invalid id';
+    //         $isInvalidId = $errorMessage === 'Invalid id';
 
-            if ($isInvalidId) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+    //         if ($isInvalidId) {
+    //             $httpCode = HttpCode::BAD_REQUEST;
+    //         }
 
-            throw new HttpException($errorMessage, $httpCode);
-        }
-    }
+    //         throw new HttpException($errorMessage, $httpCode);
+    //     }
+    // }
 
-    public function update(PermissionRequest $request, int $id): JsonResponse
-    {
-        Authorize::hasPermission('update_permission');
-        $input = $request->all();
-        $input['id'] = $id;
+    // public function update(PermissionRequest $request, int $id): JsonResponse
+    // {
+    //     Authorize::hasPermission('update_permission');
+    //     $input = $request->all();
+    //     $input['id'] = $id;
 
-        try {
-            $this->updatePermissionUseCase->run($input);
+    //     try {
+    //         $this->updatePermissionUseCase->run($input);
 
-            return BaseResponse::success('Permission Updated successfully', HttpCode::OK);
-        } catch (BusinessException $exception) {
-            $errorMessage = $exception->getMessage();
-            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+    //         return BaseResponse::success('Permission Updated successfully', HttpCode::OK);
+    //     } catch (BusinessException $exception) {
+    //         $errorMessage = $exception->getMessage();
+    //         $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-            $isInvalidId = $errorMessage === 'Invalid id';
+    //         $isInvalidId = $errorMessage === 'Invalid id';
 
-            if ($isInvalidId) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+    //         if ($isInvalidId) {
+    //             $httpCode = HttpCode::BAD_REQUEST;
+    //         }
 
-            throw new HttpException($errorMessage, $httpCode);
-        }
-    }
+    //         throw new HttpException($errorMessage, $httpCode);
+    //     }
+    // }
 
-    public function destroy(int $id): JsonResponse
-    {
-        Authorize::hasPermission('delete_permission');
-        $input = [
-            'id' => $id,
-        ];
+    // public function destroy(int $id): JsonResponse
+    // {
+    //     Authorize::hasPermission('delete_permission');
+    //     $input = [
+    //         'id' => $id,
+    //     ];
 
-        try {
-            $this->deletePermissionUseCase->run($input);
+    //     try {
+    //         $this->deletePermissionUseCase->run($input);
 
-            return BaseResponse::success('Permission deleted successfully', HttpCode::OK);
-        } catch (BusinessException $exception) {
-            $errorMessage = $exception->getMessage();
-            $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
+    //         return BaseResponse::success('Permission deleted successfully', HttpCode::OK);
+    //     } catch (BusinessException $exception) {
+    //         $errorMessage = $exception->getMessage();
+    //         $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-            $isInvalidId = $errorMessage === 'Invalid id';
+    //         $isInvalidId = $errorMessage === 'Invalid id';
 
-            if ($isInvalidId) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+    //         if ($isInvalidId) {
+    //             $httpCode = HttpCode::BAD_REQUEST;
+    //         }
 
-            throw new HttpException($errorMessage, $httpCode);
-        }
-    }
+    //         throw new HttpException($errorMessage, $httpCode);
+    //     }
+    // }
 }
