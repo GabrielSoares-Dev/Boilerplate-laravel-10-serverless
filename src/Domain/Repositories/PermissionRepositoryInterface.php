@@ -3,7 +3,7 @@
 namespace Src\Domain\Repositories;
 
 use Src\Domain\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
-use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionInputDto;
+use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
 use stdClass;
 
 interface PermissionRepositoryInterface
@@ -14,7 +14,7 @@ interface PermissionRepositoryInterface
 
     public function find(int $id): ?stdClass;
 
-    public function update(UpdatePermissionInputDto $input, int $id): ?stdClass;
+    public function update(UpdatePermissionRepositoryInputDto $input, int $id): bool;
 
     public function findAll(): array;
 

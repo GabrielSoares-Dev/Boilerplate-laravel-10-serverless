@@ -3,6 +3,8 @@
 namespace Src\Application\UseCases\Permission;
 
 use Src\Application\Exceptions\BusinessException;
+use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseOutputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class FindPermissionUseCase
@@ -14,16 +16,14 @@ class FindPermissionUseCase
         $this->repository = $repository;
     }
 
-    public function run(array $input)
+    public function run(FindPermissionUseCaseInputDto $input): FindPermissionUseCaseOutputDto
     {
-        $id = $input['id'];
+        $id = $input->id;
 
-        $output = $this->repository->find($id);
+        $permission = (array) $this->repository->find($id);
 
-        if (!$output) {
-            throw new BusinessException('Invalid id');
-        }
+        if (!$permission) throw new BusinessException('Invalid id');
 
-        return $output;
+        return new FindPermissionUseCaseOutputDto($permission->id, $permission->name, $permission->guard_name, $permission->created_at, $permission->updated_at);
     }
 }
