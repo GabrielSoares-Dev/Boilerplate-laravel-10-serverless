@@ -11,6 +11,7 @@ use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
 use Src\Domain\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
 use Src\Domain\Dtos\UseCases\Permission\Delete\DeletePermissionUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
 use Src\Domain\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
@@ -85,9 +86,7 @@ class PermissionController extends Controller
     public function show(int $id): JsonResponse
     {
         Authorize::hasPermission('read_permission');
-        $input = [
-            'id' => $id,
-        ];
+        $input = new FindPermissionUseCaseInputDto($id);
 
         try {
             $output = $this->findPermissionUseCase->run($input);
