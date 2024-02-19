@@ -2,9 +2,14 @@
 
 namespace Src\Domain\Repositories;
 
+use stdClass;
+use Src\Domain\Dtos\Repositories\Role\{
+    CreateRoleRepositoryInputDto
+};
+
 interface RoleRepositoryInterface
 {
-    public function create(array $input);
+    public function create(CreateRoleRepositoryInputDto $input): stdClass;
 
     public function findByName(array $input);
 

@@ -2,8 +2,12 @@
 
 namespace Src\Infra\Repositories\RoleRepository;
 
+use stdClass;
 use Spatie\Permission\Models\Role;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\Repositories\Role\{
+    CreateRoleRepositoryInputDto
+};
 
 class RoleEloquentRepository implements RoleRepositoryInterface
 {
@@ -14,10 +18,16 @@ class RoleEloquentRepository implements RoleRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(array $input)
+    public function create(CreateRoleRepositoryInputDto $input): stdClass
     {
-        return $this->model
-            ->create($input);
+        $data = [
+            'name' => $input->name,
+            'guard_name' => $input->guardName,
+        ];
+        $role = $this->model
+            ->create($data);
+
+        return (object) $role->toArray();
     }
 
     public function find(string $id)
