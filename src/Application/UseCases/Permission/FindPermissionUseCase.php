@@ -20,10 +20,10 @@ class FindPermissionUseCase
     {
         $id = $input->id;
 
-        $permission = (array) $this->repository->find($id);
+        $permission = $this->repository->find($id);
 
         if (!$permission) throw new BusinessException('Invalid id');
 
-        return new FindPermissionUseCaseOutputDto($permission->id, $permission->name, $permission->guard_name, $permission->created_at, $permission->updated_at);
+        return new FindPermissionUseCaseOutputDto(...(array) $permission);
     }
 }

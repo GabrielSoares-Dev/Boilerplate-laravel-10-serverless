@@ -6,6 +6,7 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseOutputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class FindPermissionUseCaseTest extends TestCase
@@ -33,27 +34,27 @@ class FindPermissionUseCaseTest extends TestCase
 
         $output = $useCase->run($input);
 
-        $expectedOutput = $mockFind;
+        $expectedOutput = new FindPermissionUseCaseOutputDto(...(array) $mockFind);
         $this->assertEquals($expectedOutput, $output);
     }
 
-    // public function test_should_invalid_id(): void
-    // {
+    public function test_should_invalid_id(): void
+    {
 
-    //     $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
+        $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
-    //     $repositoryMock
-    //         ->shouldReceive('find')
-    //         ->andReturn(null);
+        $repositoryMock
+            ->shouldReceive('find')
+            ->andReturn(null);
 
-    //     $input = [
-    //         'id' => 1,
-    //     ];
-    //     $useCase = new FindPermissionUseCase($repositoryMock);
+        $input = new FindPermissionUseCaseInputDto(1);
 
-    //     $this->expectExceptionMessage('Invalid id');
-    //     $useCase->run($input);
-    // }
+        $useCase = new FindPermissionUseCase($repositoryMock);
+
+        $this->expectExceptionMessage('Invalid id');
+
+        $useCase->run($input);
+    }
 
     protected function tearDown(): void
     {
