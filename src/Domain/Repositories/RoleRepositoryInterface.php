@@ -11,9 +11,9 @@ interface RoleRepositoryInterface
 {
     public function create(CreateRoleRepositoryInputDto $input): stdClass;
 
-    public function findByName(array $input);
+    public function find(int $id): ?stdClass;
 
-    public function find(string $id);
+    public function findByName(string $name, string $guardName): ?stdClass;
 
     public function update(array $input, string $id);
 

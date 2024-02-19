@@ -8,7 +8,6 @@ use Src\Domain\Dtos\Repositories\Permission\{
     UpdatePermissionRepositoryInputDto
 };
 
-
 interface PermissionRepositoryInterface
 {
     public function create(CreatePermissionRepositoryInputDto $input): stdClass;

@@ -30,11 +30,23 @@ class RoleEloquentRepository implements RoleRepositoryInterface
         return (object) $role->toArray();
     }
 
-    public function find(string $id)
+    public function find(int $id): ?stdClass
     {
-        return $this->model
+        $role = $this->model
             ->where('id', $id)
             ->first();
+
+        return is_null($role) ? null : (object) $role->toArray();
+    }
+
+    public function findByName(string $name, string $guardName): ?stdClass
+    {
+        $role = $this->model
+            ->where('guard_name', $guardName)
+            ->where('name', $name)
+            ->first();
+
+        return is_null($role) ? null : (object) $role->toArray();
     }
 
     public function findAll()
@@ -42,14 +54,6 @@ class RoleEloquentRepository implements RoleRepositoryInterface
         return $this->model
             ->where('guard_name', 'api')
             ->get();
-    }
-
-    public function findByName(array $input)
-    {
-        return $this->model
-            ->where('guard_name', $input['guard_name'])
-            ->where('name', $input['name'])
-            ->first();
     }
 
     public function update(array $input, string $id)
