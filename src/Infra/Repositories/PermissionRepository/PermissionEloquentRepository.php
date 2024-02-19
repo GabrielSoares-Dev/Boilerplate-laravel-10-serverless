@@ -4,7 +4,7 @@ namespace Src\Infra\Repositories\PermissionRepository;
 
 use Spatie\Permission\Models\Permission;
 use Src\Domain\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
-use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionInputDto;
+use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use stdClass;
 
@@ -56,13 +56,11 @@ class PermissionEloquentRepository implements PermissionRepositoryInterface
             ->toArray();
     }
 
-    public function update(UpdatePermissionInputDto $input, int $id): ?stdClass
+    public function update(UpdatePermissionRepositoryInputDto $input, int $id): bool
     {
-        $permission = $this->model
+        return $this->model
             ->where('id', $id)
             ->update((array) $input);
-
-        return (object) $permission->toArray();
     }
 
     public function delete(int $id): bool

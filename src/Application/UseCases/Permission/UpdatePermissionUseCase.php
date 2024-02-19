@@ -3,6 +3,8 @@
 namespace Src\Application\UseCases\Permission;
 
 use Src\Application\Exceptions\BusinessException;
+use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
+use Src\Domain\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Domain\Entities\Permission;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
@@ -17,25 +19,25 @@ class UpdatePermissionUseCase
         $this->repository = $repository;
     }
 
-    protected function valid(array $input)
+    protected function valid(string $name, string $guardName): void
     {
         $entity = new Permission();
 
-        $entity->update($input);
+        $entity->create($name, $guardName);
     }
 
-    public function run(array $input)
+    public function run(UpdatePermissionUseCaseInputDto $input): void
     {
-        $id = $input['id'];
+        $id = $input->id;
+        $name = $input->name;
+        $guardName = $this->defaultGuardName;
 
-        $input['guard_name'] = $this->defaultGuardName;
+        $this->valid($name, $guardName);
 
-        $this->valid($input);
+        $data = new UpdatePermissionRepositoryInputDto($name);
 
-        $updated = (bool) $this->repository->update($input, $id);
+        $updated = $this->repository->update($data, $id);
 
-        if (!$updated) {
-            throw new BusinessException('Invalid id');
-        }
+        if (!$updated)  throw new BusinessException('Invalid id');
     }
 }
