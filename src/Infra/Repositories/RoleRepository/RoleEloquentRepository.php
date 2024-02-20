@@ -2,8 +2,15 @@
 
 namespace Src\Infra\Repositories\RoleRepository;
 
+use stdClass;
 use Spatie\Permission\Models\Role;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\Repositories\Role\{
+    CreateRoleRepositoryInputDto,
+    UpdateRoleRepositoryInputDto,
+    SyncPermissionsRoleRepositoryDto,
+    UnsyncPermissionsRoleRepositoryDto
+};
 
 class RoleEloquentRepository implements RoleRepositoryInterface
 {
@@ -14,52 +21,62 @@ class RoleEloquentRepository implements RoleRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(array $input)
+    public function create(CreateRoleRepositoryInputDto $input): stdClass
     {
-        return $this->model
-            ->create($input);
+        $data = [
+            'name' => $input->name,
+            'guard_name' => $input->guardName,
+        ];
+        $role = $this->model
+            ->create($data);
+
+        return (object) $role->toArray();
     }
 
-    public function find(string $id)
+    public function find(int $id): ?stdClass
     {
-        return $this->model
+        $role = $this->model
             ->where('id', $id)
             ->first();
+
+        return is_null($role) ? null : (object) $role->toArray();
     }
 
-    public function findAll()
+    public function findByName(string $name, string $guardName): ?stdClass
+    {
+        $role = $this->model
+            ->where('guard_name', $guardName)
+            ->where('name', $name)
+            ->first();
+
+        return is_null($role) ? null : (object) $role->toArray();
+    }
+
+    public function findAll(): array
     {
         return $this->model
             ->where('guard_name', 'api')
             ->get();
     }
 
-    public function findByName(array $input)
-    {
-        return $this->model
-            ->where('guard_name', $input['guard_name'])
-            ->where('name', $input['name'])
-            ->first();
-    }
-
-    public function update(array $input, string $id)
+    public function update(UpdateRoleRepositoryInputDto $input, int $id): bool
     {
         return $this->model
             ->where('id', $id)
-            ->update($input);
+            ->update((array) $input);
     }
 
-    public function delete(string $id)
+    public function delete(int $id): bool
     {
         return $this->model
             ->where('id', $id)
             ->delete();
     }
 
-    public function syncPermissions(array $input)
+    public function syncPermissions(SyncPermissionsRoleRepositoryDto $input): bool
     {
-        $role = $input['role'];
-        $permissions = $input['permissions'];
+        $role = $input->role;
+        $permissions = $input->permissions;
 
         return $this->model
             ->where('name', $role)
@@ -67,10 +84,10 @@ class RoleEloquentRepository implements RoleRepositoryInterface
             ->syncPermissions($permissions);
     }
 
-    public function unsyncPermissions(array $input)
+    public function unsyncPermissions(UnsyncPermissionsRoleRepositoryDto $input): bool
     {
-        $role = $input['role'];
-        $permissions = $input['permissions'];
+        $role = $input->role;
+        $permissions = $input->permissions;
         $output = false;
 
         foreach ($permissions as $permission) {

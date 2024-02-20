@@ -2,9 +2,11 @@
 
 namespace Src\Domain\Repositories;
 
-use Src\Domain\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
-use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
 use stdClass;
+use Src\Domain\Dtos\Repositories\Permission\{
+    CreatePermissionRepositoryInputDto,
+    UpdatePermissionRepositoryInputDto
+};
 
 interface PermissionRepositoryInterface
 {

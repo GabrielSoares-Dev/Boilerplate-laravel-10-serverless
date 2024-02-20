@@ -3,9 +3,11 @@
 namespace Src\Application\UseCases\Permission;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseOutputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Permission\Find\{
+    FindPermissionUseCaseInputDto,
+    FindPermissionUseCaseOutputDto
+};
 
 class FindPermissionUseCase
 {

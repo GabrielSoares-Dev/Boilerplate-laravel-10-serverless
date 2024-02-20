@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
-    protected $defaultGuardName = 'api';
+    protected string $defaultGuardName = 'api';
 
     public function run(): void
     {
