@@ -6,7 +6,10 @@ use stdClass;
 use Spatie\Permission\Models\Role;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 use Src\Domain\Dtos\Repositories\Role\{
-    CreateRoleRepositoryInputDto
+    CreateRoleRepositoryInputDto,
+    UpdateRoleRepositoryInputDto,
+    SyncPermissionsRoleRepositoryDto,
+    UnsyncPermissionsRoleRepositoryDto
 };
 
 class RoleEloquentRepository implements RoleRepositoryInterface
@@ -49,31 +52,31 @@ class RoleEloquentRepository implements RoleRepositoryInterface
         return is_null($role) ? null : (object) $role->toArray();
     }
 
-    public function findAll()
+    public function findAll(): array
     {
         return $this->model
             ->where('guard_name', 'api')
             ->get();
     }
 
-    public function update(array $input, string $id)
+    public function update(UpdateRoleRepositoryInputDto $input, int $id): bool
     {
         return $this->model
             ->where('id', $id)
-            ->update($input);
+            ->update((array) $input);
     }
 
-    public function delete(string $id)
+    public function delete(int $id): bool
     {
         return $this->model
             ->where('id', $id)
             ->delete();
     }
 
-    public function syncPermissions(array $input)
+    public function syncPermissions(SyncPermissionsRoleRepositoryDto $input): bool
     {
-        $role = $input['role'];
-        $permissions = $input['permissions'];
+        $role = $input->role;
+        $permissions = $input->permissions;
 
         return $this->model
             ->where('name', $role)
@@ -81,10 +84,10 @@ class RoleEloquentRepository implements RoleRepositoryInterface
             ->syncPermissions($permissions);
     }
 
-    public function unsyncPermissions(array $input)
+    public function unsyncPermissions(UnsyncPermissionsRoleRepositoryDto $input): bool
     {
-        $role = $input['role'];
-        $permissions = $input['permissions'];
+        $role = $input->role;
+        $permissions = $input->permissions;
         $output = false;
 
         foreach ($permissions as $permission) {

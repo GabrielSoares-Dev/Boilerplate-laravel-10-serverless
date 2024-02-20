@@ -4,7 +4,10 @@ namespace Src\Domain\Repositories;
 
 use stdClass;
 use Src\Domain\Dtos\Repositories\Role\{
-    CreateRoleRepositoryInputDto
+    CreateRoleRepositoryInputDto,
+    UpdateRoleRepositoryInputDto,
+    SyncPermissionsRoleRepositoryDto,
+    UnsyncPermissionsRoleRepositoryDto
 };
 
 interface RoleRepositoryInterface
@@ -15,13 +18,13 @@ interface RoleRepositoryInterface
 
     public function findByName(string $name, string $guardName): ?stdClass;
 
-    public function update(array $input, string $id);
+    public function update(UpdateRoleRepositoryInputDto $input, int $id): bool;
 
-    public function findAll();
+    public function findAll(): array;
 
-    public function delete(string $id);
+    public function delete(int $id): bool;
 
-    public function syncPermissions(array $input);
+    public function syncPermissions(SyncPermissionsRoleRepositoryDto $input): bool;
 
-    public function unsyncPermissions(array $input);
+    public function unsyncPermissions(UnsyncPermissionsRoleRepositoryDto $input): bool;
 }
