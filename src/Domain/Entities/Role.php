@@ -10,49 +10,24 @@ class Role
 
     protected ?string $guardName;
 
-    public function create(array $input)
+    public function create(string $name, string $guardName)
     {
-        $nameIsEmpty = empty($input['name']);
-        $guardNameIsInvalid = $input['guard_name'] !== 'api';
+        $nameIsEmpty = empty($name);
+        $guardNameIsInvalid = $guardName !== 'api';
 
-        if ($nameIsEmpty) {
-            throw new BusinessException('Invalid name');
-        }
+        if ($nameIsEmpty) throw new BusinessException('Invalid name');
 
-        if ($guardNameIsInvalid) {
-            throw new BusinessException('Invalid guard name');
-        }
-
-        $this->name = $input['name'];
-        $this->guardName = $input['guard_name'];
-
-        return $this->toArray();
+        if ($guardNameIsInvalid) throw new BusinessException('Invalid guard name');
     }
 
-    public function update(array $input)
+    public function update(string $name, string $guardName)
     {
-        $nameIsEmpty = empty($input['name']);
-        $guardNameIsInvalid = $input['guard_name'] !== 'api';
+        $nameIsEmpty = empty($name);
+        $guardNameIsInvalid = $guardName !== 'api';
 
-        if ($nameIsEmpty) {
-            throw new BusinessException('Invalid name');
-        }
+        if ($nameIsEmpty) throw new BusinessException('Invalid name');
 
-        if ($guardNameIsInvalid) {
-            throw new BusinessException('Invalid guard name');
-        }
+        if ($guardNameIsInvalid) throw new BusinessException('Invalid guard name');
 
-        $this->name = $input['name'];
-        $this->guardName = $input['guard_name'];
-
-        return $this->toArray();
-    }
-
-    protected function toArray()
-    {
-        return [
-            'name' => $this->name,
-            'guard_name' => $this->guardName,
-        ];
     }
 }
