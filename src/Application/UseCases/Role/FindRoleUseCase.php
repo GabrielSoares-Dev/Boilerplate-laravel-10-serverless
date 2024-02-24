@@ -4,6 +4,10 @@ namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\Find\{
+    FindRoleUseCaseInputDto,
+    FindRoleUseCaseOutputDto
+};
 
 class FindRoleUseCase
 {
@@ -14,16 +18,14 @@ class FindRoleUseCase
         $this->repository = $repository;
     }
 
-    public function run(array $input)
+    public function run(FindRoleUseCaseInputDto $input): FindRoleUseCaseOutputDto
     {
-        $id = $input['id'];
+        $id = $input->id;
 
-        $output = $this->repository->find($id);
+        $role = $this->repository->find($id);
 
-        if (!$output) {
-            throw new BusinessException('Invalid id');
-        }
+        if (!$role)  throw new BusinessException('Invalid id');
 
-        return $output;
+        return new FindRoleUseCaseOutputDto(...(array) $role);
     }
 }

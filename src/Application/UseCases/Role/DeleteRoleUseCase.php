@@ -15,13 +15,12 @@ class DeleteRoleUseCase
         $this->repository = $repository;
     }
 
-    public function run(DeleteRoleUseCaseInputDto $input)
+    public function run(DeleteRoleUseCaseInputDto $input): void
     {
         $id = $input->id;
 
         $deleted = $this->repository->delete($id);
 
         if (!$deleted)  throw new BusinessException('Invalid id');
-
     }
 }

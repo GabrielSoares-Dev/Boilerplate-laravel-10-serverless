@@ -6,6 +6,7 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\Role\UpdateRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
 
 class UpdateRoleUseCaseTest extends TestCase
 {
@@ -18,10 +19,8 @@ class UpdateRoleUseCaseTest extends TestCase
             ->shouldReceive('update')
             ->andReturn(true);
 
-        $input = [
-            'id' => 1,
-            'name' => 'test',
-        ];
+        $input = new UpdateRoleUseCaseInputDto(1, 'test');
+
         $useCase = new UpdateRoleUseCase($repositoryMock);
 
         $useCase->run($input);
@@ -38,10 +37,8 @@ class UpdateRoleUseCaseTest extends TestCase
             ->shouldReceive('update')
             ->andReturn(false);
 
-        $input = [
-            'id' => 1,
-            'name' => 'test',
-        ];
+        $input = new UpdateRoleUseCaseInputDto(1, 'test');
+
         $useCase = new UpdateRoleUseCase($repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');

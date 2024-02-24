@@ -38,7 +38,7 @@ class DeleteRoleUseCaseTest extends TestCase
             ->andReturn(false);
 
         $input = new DeleteRoleUseCaseInputDto(1);
-        
+
         $useCase = new DeleteRoleUseCase($repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');

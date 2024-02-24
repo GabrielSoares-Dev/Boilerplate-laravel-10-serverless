@@ -15,9 +15,17 @@ use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\Authorize;
 use Src\Infra\Helpers\BaseResponse;
-use Src\Infra\Http\Requests\Role\RoleRequest;
-use Src\Infra\Http\Requests\Role\SyncPermissionsWithRoleRequest;
-use Src\Infra\Http\Requests\Role\UnsyncPermissionsWithRoleRequest;
+use Src\Domain\Dtos\UseCases\Role\Create\CreateRoleUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Role\Find\FindRoleUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Role\SyncPermissionsWithRole\SyncPermissionsWithRoleUseCaseInputDto;
+use Src\Domain\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
+use Src\Infra\Http\Requests\Role\{
+    RoleRequest,
+    SyncPermissionsWithRoleRequest,
+    UnsyncPermissionsWithRoleRequest
+};
 
 class RoleController extends Controller
 {
@@ -56,9 +64,9 @@ class RoleController extends Controller
     public function index(): JsonResponse
     {
         Authorize::hasPermission('read_all_roles');
-        $input = [];
+
         try {
-            $output = $this->findAllRolesUseCase->run($input);
+            $output = $this->findAllRolesUseCase->run();
 
             return BaseResponse::successWithContent('Found roles', HttpCode::OK, $output);
         } catch (BusinessException $exception) {
@@ -72,7 +80,8 @@ class RoleController extends Controller
     public function store(RoleRequest $request): JsonResponse
     {
         Authorize::hasPermission('create_role');
-        $input = $request->all();
+
+        $input = new CreateRoleUseCaseInputDto(...$request->all());
 
         try {
             $this->createRoleUseCase->run($input);
@@ -85,20 +94,16 @@ class RoleController extends Controller
 
             $isAlreadyExistsError = $errorMessage === 'Role already exists';
 
-            if ($isAlreadyExistsError) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+            if ($isAlreadyExistsError) $httpCode = HttpCode::BAD_REQUEST;
 
             throw new HttpException($errorMessage, $httpCode);
         }
     }
 
-    public function show(string $id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         Authorize::hasPermission('read_role');
-        $input = [
-            'id' => $id,
-        ];
+        $input = new FindRoleUseCaseInputDto($id);
 
         try {
             $output = $this->findRoleUseCase->run($input);
@@ -110,19 +115,17 @@ class RoleController extends Controller
 
             $isInvalidId = $errorMessage === 'Invalid id';
 
-            if ($isInvalidId) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+            if ($isInvalidId) $httpCode = HttpCode::BAD_REQUEST;
 
             throw new HttpException($errorMessage, $httpCode);
         }
     }
 
-    public function update(RoleRequest $request, string $id): JsonResponse
+    public function update(RoleRequest $request, int $id): JsonResponse
     {
         Authorize::hasPermission('update_role');
-        $input = $request->all();
-        $input['id'] = $id;
+
+        $input = new UpdateRoleUseCaseInputDto($id, ...$request->all());
 
         try {
             $this->updateRoleUseCase->run($input);
@@ -134,20 +137,17 @@ class RoleController extends Controller
 
             $isInvalidId = $errorMessage === 'Invalid id';
 
-            if ($isInvalidId) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+            if ($isInvalidId)  $httpCode = HttpCode::BAD_REQUEST;
 
             throw new HttpException($errorMessage, $httpCode);
         }
     }
 
-    public function destroy(string $id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         Authorize::hasPermission('delete_role');
-        $input = [
-            'id' => $id,
-        ];
+
+        $input = new DeleteRoleUseCaseInputDto($id);
 
         try {
             $this->deleteRoleUseCase->run($input);
@@ -159,9 +159,7 @@ class RoleController extends Controller
 
             $isInvalidId = $errorMessage === 'Invalid id';
 
-            if ($isInvalidId) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+            if ($isInvalidId) $httpCode = HttpCode::BAD_REQUEST;
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -170,7 +168,7 @@ class RoleController extends Controller
     public function syncPermissions(SyncPermissionsWithRoleRequest $request): JsonResponse
     {
         Authorize::hasPermission('sync_role_with_permissions');
-        $input = $request->all();
+        $input = new SyncPermissionsWithRoleUseCaseInputDto(...$request->all());
 
         try {
             $this->syncPermissionsWithRoleUseCase->run($input);
@@ -184,9 +182,7 @@ class RoleController extends Controller
 
             $isInvalidRole = $errorMessage === 'Invalid role';
 
-            if ($isInvalidPermission || $isInvalidRole) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+            if ($isInvalidPermission || $isInvalidRole) $httpCode = HttpCode::BAD_REQUEST;
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -195,7 +191,7 @@ class RoleController extends Controller
     public function unsyncPermissions(UnsyncPermissionsWithRoleRequest $request): JsonResponse
     {
         Authorize::hasPermission('unsync_role_with_permissions');
-        $input = $request->all();
+        $input = new UnsyncPermissionsWithRoleUseCaseInputDto(...$request->all());
 
         try {
             $this->unsyncPermissionsWithRoleUseCase->run($input);
@@ -209,9 +205,7 @@ class RoleController extends Controller
 
             $isInvalidRole = $errorMessage === 'Invalid role';
 
-            if ($isInvalidPermission || $isInvalidRole) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+            if ($isInvalidPermission || $isInvalidRole) $httpCode = HttpCode::BAD_REQUEST;
 
             throw new HttpException($errorMessage, $httpCode);
         }

@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\Role\UnsyncPermissionsWithRoleUseCase;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
 
 class UnsyncPermissionsWithRoleUseCaseTest extends TestCase
 {
@@ -15,7 +16,7 @@ class UnsyncPermissionsWithRoleUseCaseTest extends TestCase
         $roleRepositoryMock = Mockery::mock(RoleRepositoryInterface::class);
         $permissionRepositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
-        $mockFindPermissionByNameOutput = [
+        $mockFindPermissionByNameOutput = (object) [
             'id' => 1,
             'name' => 'create_permission',
             'guard_name' => 'api',
@@ -27,7 +28,7 @@ class UnsyncPermissionsWithRoleUseCaseTest extends TestCase
             ->shouldReceive('findByName')
             ->andReturn($mockFindPermissionByNameOutput);
 
-        $mockFindRoleByNameOutput = [
+        $mockFindRoleByNameOutput = (object) [
             'id' => 1,
             'name' => 'admin',
             'guard_name' => 'api',
@@ -43,10 +44,10 @@ class UnsyncPermissionsWithRoleUseCaseTest extends TestCase
             ->shouldReceive('unsyncPermissions')
             ->andReturn(true);
 
-        $input = [
-            'role' => 'admin',
-            'permissions' => ['create_permission'],
-        ];
+        $role = 'admin';
+        $permissions = ['create_permission'];
+        $input = new UnsyncPermissionsWithRoleUseCaseInputDto($role, $permissions);
+
         $useCase = new UnsyncPermissionsWithRoleUseCase($roleRepositoryMock, $permissionRepositoryMock);
 
         $useCase->run($input);
@@ -71,10 +72,10 @@ class UnsyncPermissionsWithRoleUseCaseTest extends TestCase
             ->shouldReceive('unsyncPermissions')
             ->andReturn(false);
 
-        $input = [
-            'role' => 'admin',
-            'permissions' => ['create_permission'],
-        ];
+        $role = 'admin';
+        $permissions = ['create_permission'];
+        $input = new UnsyncPermissionsWithRoleUseCaseInputDto($role, $permissions);
+
         $useCase = new UnsyncPermissionsWithRoleUseCase($roleRepositoryMock, $permissionRepositoryMock);
 
         $this->expectExceptionMessage('Invalid permission');
@@ -87,7 +88,7 @@ class UnsyncPermissionsWithRoleUseCaseTest extends TestCase
         $roleRepositoryMock = Mockery::mock(RoleRepositoryInterface::class);
         $permissionRepositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
-        $mockFindPermissionByNameOutput = [
+        $mockFindPermissionByNameOutput = (object) [
             'id' => 1,
             'name' => 'create_permission',
             'guard_name' => 'api',
@@ -107,10 +108,10 @@ class UnsyncPermissionsWithRoleUseCaseTest extends TestCase
             ->shouldReceive('unsyncPermissions')
             ->andReturn(false);
 
-        $input = [
-            'role' => 'admin',
-            'permissions' => ['create_permission'],
-        ];
+        $role = 'admin';
+        $permissions = ['create_permission'];
+        $input = new UnsyncPermissionsWithRoleUseCaseInputDto($role, $permissions);
+
         $useCase = new UnsyncPermissionsWithRoleUseCase($roleRepositoryMock, $permissionRepositoryMock);
 
         $this->expectExceptionMessage('Invalid role');
