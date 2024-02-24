@@ -6,6 +6,7 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\Role\CreateRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\Create\CreateRoleUseCaseInputDto;
 
 class CreateRoleUseCaseTest extends TestCase
 {
@@ -14,9 +15,7 @@ class CreateRoleUseCaseTest extends TestCase
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
-        $input = [
-            'name' => 'admin',
-        ];
+        $input = new CreateRoleUseCaseInputDto('admin');
 
         $repositoryMock
             ->shouldReceive('findByName')
@@ -24,7 +23,7 @@ class CreateRoleUseCaseTest extends TestCase
 
         $repositoryMock
             ->shouldReceive('create')
-            ->andReturn($input);
+            ->andReturn((object) []);
 
         $useCase = new CreateRoleUseCase($repositoryMock);
 
@@ -38,7 +37,7 @@ class CreateRoleUseCaseTest extends TestCase
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
-        $mockFindByName = [
+        $mockFindByName = (object) [
             'id' => 1,
             'name' => 'admin',
             'guard_name' => 'api',
@@ -46,9 +45,7 @@ class CreateRoleUseCaseTest extends TestCase
             'updated_at' => 'now',
         ];
 
-        $input = [
-            'name' => 'admin',
-        ];
+        $input = new CreateRoleUseCaseInputDto('admin');
 
         $repositoryMock
             ->shouldReceive('findByName')

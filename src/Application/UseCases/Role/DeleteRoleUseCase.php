@@ -4,6 +4,7 @@ namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
 
 class DeleteRoleUseCase
 {
@@ -14,14 +15,12 @@ class DeleteRoleUseCase
         $this->repository = $repository;
     }
 
-    public function run(array $input)
+    public function run(DeleteRoleUseCaseInputDto $input): void
     {
-        $id = $input['id'];
+        $id = $input->id;
 
         $deleted = $this->repository->delete($id);
 
-        if (!$deleted) {
-            throw new BusinessException('Invalid id');
-        }
+        if (!$deleted)  throw new BusinessException('Invalid id');
     }
 }

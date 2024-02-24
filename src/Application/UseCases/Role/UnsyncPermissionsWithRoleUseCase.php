@@ -5,6 +5,8 @@ namespace Src\Application\UseCases\Role;
 use Src\Application\Exceptions\BusinessException;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
+use Src\Domain\Dtos\Repositories\Role\UnsyncPermissionsRoleRepositoryDto;
 
 class UnsyncPermissionsWithRoleUseCase
 {
@@ -24,54 +26,46 @@ class UnsyncPermissionsWithRoleUseCase
 
     protected function foundPermission(string $name): bool
     {
-        $input = [
-            'guard_name' => $this->defaultGuardName,
-            'name' => $name,
-        ];
+        $guardName = $this->defaultGuardName;
 
-        return (bool) $this->permissionRepository->findByName($input);
+        return (bool) $this->permissionRepository->findByName($name, $guardName);
     }
 
-    protected function validPermissions(array $input): void
+    protected function validPermissions(array $permissions): void
     {
-        $permissions = $input['permissions'];
 
         foreach ($permissions as $permission) {
             $notFound = !$this->foundPermission($permission);
 
-            if ($notFound) {
-                throw new BusinessException('Invalid permission');
-            }
+            if ($notFound) throw new BusinessException('Invalid permission');
         }
     }
 
     protected function foundRole(string $name): bool
     {
-        $input = [
-            'guard_name' => $this->defaultGuardName,
-            'name' => $name,
-        ];
+        $guardName = $this->defaultGuardName;
 
-        return (bool) $this->roleRepository->findByName($input);
+        return (bool) $this->roleRepository->findByName($name, $guardName);
     }
 
-    protected function validRole(array $input): void
+    protected function validRole(string $role): void
     {
-        $role = $input['role'];
-
         $notFound = !$this->foundRole($role);
 
-        if ($notFound) {
-            throw new BusinessException('Invalid role');
-        }
+        if ($notFound) throw new BusinessException('Invalid role');
     }
 
-    public function run(array $input): void
+    public function run(UnsyncPermissionsWithRoleUseCaseInputDto $input): void
     {
-        $this->validPermissions($input);
+        $permissions = $input->permissions;
+        $role = $input->role;
 
-        $this->validRole($input);
+        $this->validPermissions($permissions);
 
-        $this->roleRepository->unsyncPermissions($input);
+        $this->validRole($role);
+
+        $data = new UnsyncPermissionsRoleRepositoryDto($role, $permissions);
+
+        $this->roleRepository->unsyncPermissions($data);
     }
 }

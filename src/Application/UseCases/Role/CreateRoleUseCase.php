@@ -5,6 +5,8 @@ namespace Src\Application\UseCases\Role;
 use Src\Application\Exceptions\BusinessException;
 use Src\Domain\Entities\Role;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\Create\CreateRoleUseCaseInputDto;
+use Src\Domain\Dtos\Repositories\Role\CreateRoleRepositoryInputDto;
 
 class CreateRoleUseCase
 {
@@ -17,37 +19,32 @@ class CreateRoleUseCase
         $this->repository = $repository;
     }
 
-    /**
-     * @throws BusinessException
-     */
-    protected function valid(array $input): void
+    protected function valid(string $name, string $guardName): void
     {
         $entity = new Role();
 
-        $entity->create($input);
+        $entity->create($name, $guardName);
     }
 
-    protected function alreadyExists(array $input): bool
+    protected function alreadyExists(string $name, string $guardName): bool
     {
-        return !empty($this->repository->findByName($input));
+        return !empty($this->repository->findByName($name, $guardName));
     }
 
-    /**
-     * @throws BusinessException
-     */
-    public function run(object $input): void
+    public function run(CreateRoleUseCaseInputDto $input): void
     {
 
-        $input['guard_name'] = $this->defaultGuardName;
+        $name = $input->name;
+        $guardName = $this->defaultGuardName;
 
-        $this->valid($input);
+        $this->valid($name, $guardName);
 
-        $alreadyExists = $this->alreadyExists($input);
+        $alreadyExists = $this->alreadyExists($name, $guardName);
 
-        if ($alreadyExists) {
-            throw new BusinessException('Role already exists');
-        }
+        if ($alreadyExists) throw new BusinessException('Role already exists');
 
-        $this->repository->create($input);
+        $data = new CreateRoleRepositoryInputDto($name, $guardName);
+
+        $this->repository->create($data);
     }
 }

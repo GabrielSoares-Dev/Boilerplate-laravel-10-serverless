@@ -19,6 +19,7 @@ class CreateRoleTest extends TestCase
     {
         AuthorizeMock::hasPermissionMock($this->permission);
         $this->withoutMiddleware();
+
         $input = [
             'name' => 'test',
         ];

@@ -56,7 +56,8 @@ class RoleEloquentRepository implements RoleRepositoryInterface
     {
         return $this->model
             ->where('guard_name', 'api')
-            ->get();
+            ->get()
+            ->toArray();
     }
 
     public function update(UpdateRoleRepositoryInputDto $input, int $id): bool
@@ -78,7 +79,7 @@ class RoleEloquentRepository implements RoleRepositoryInterface
         $role = $input->role;
         $permissions = $input->permissions;
 
-        return $this->model
+        return (bool) $this->model
             ->where('name', $role)
             ->first()
             ->syncPermissions($permissions);
@@ -91,7 +92,7 @@ class RoleEloquentRepository implements RoleRepositoryInterface
         $output = false;
 
         foreach ($permissions as $permission) {
-            $output = $this->model
+            $output = (bool) $this->model
                 ->where('name', $role)
                 ->first()
                 ->revokePermissionTo($permission);

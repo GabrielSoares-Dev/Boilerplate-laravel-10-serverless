@@ -6,6 +6,7 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\Role\DeleteRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
 
 class DeleteRoleUseCaseTest extends TestCase
 {
@@ -18,9 +19,8 @@ class DeleteRoleUseCaseTest extends TestCase
             ->shouldReceive('delete')
             ->andReturn(true);
 
-        $input = [
-            'id' => 1,
-        ];
+        $input = new DeleteRoleUseCaseInputDto(1);
+
         $useCase = new DeleteRoleUseCase($repositoryMock);
 
         $useCase->run($input);
@@ -37,9 +37,8 @@ class DeleteRoleUseCaseTest extends TestCase
             ->shouldReceive('delete')
             ->andReturn(false);
 
-        $input = [
-            'id' => 1,
-        ];
+        $input = new DeleteRoleUseCaseInputDto(1);
+
         $useCase = new DeleteRoleUseCase($repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');

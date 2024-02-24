@@ -15,16 +15,9 @@ class FindAllRolesUseCaseTest extends TestCase
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
         $mockFindAll = [
-            [
+            (object) [
                 'id' => 1,
                 'name' => 'admin',
-                'guard_name' => 'api',
-                'created_at' => 'now',
-                'updated_at' => 'now',
-            ],
-            [
-                'id' => 2,
-                'name' => 'operator',
                 'guard_name' => 'api',
                 'created_at' => 'now',
                 'updated_at' => 'now',
@@ -35,10 +28,9 @@ class FindAllRolesUseCaseTest extends TestCase
             ->shouldReceive('findAll')
             ->andReturn($mockFindAll);
 
-        $input = [];
         $useCase = new FindAllRolesUseCase($repositoryMock);
 
-        $output = $useCase->run($input);
+        $output = $useCase->run();
 
         $expectedOutput = $mockFindAll;
 

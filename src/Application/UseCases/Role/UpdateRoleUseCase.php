@@ -5,6 +5,8 @@ namespace Src\Application\UseCases\Role;
 use Src\Application\Exceptions\BusinessException;
 use Src\Domain\Entities\Role;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\Repositories\Role\UpdateRoleRepositoryInputDto;
+use Src\Domain\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
 
 class UpdateRoleUseCase
 {
@@ -17,25 +19,25 @@ class UpdateRoleUseCase
         $this->repository = $repository;
     }
 
-    public function run(array $input): void
+    protected function valid(string $name): void
     {
-        $id = $input['id'];
+        $guardName = $this->defaultGuardName;
 
-        $input['guard_name'] = $this->defaultGuardName;
-
-        $this->valid($input);
-
-        $updated = (bool) $this->repository->update($input, $id);
-
-        if (!$updated) {
-            throw new BusinessException('Invalid id');
-        }
-    }
-
-    protected function valid(array $input): void
-    {
         $entity = new Role();
 
-        $entity->update($input);
+        $entity->update($name, $guardName);
+    }
+
+    public function run(UpdateRoleUseCaseInputDto $input): void
+    {
+        $id = $input->id;
+        $name = $input->name;
+
+        $this->valid($name);
+
+        $data = new UpdateRoleRepositoryInputDto($name);
+        $updated = (bool) $this->repository->update($data, $id);
+
+        if (!$updated) throw new BusinessException('Invalid id');
     }
 }

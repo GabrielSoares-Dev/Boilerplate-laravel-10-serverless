@@ -6,6 +6,10 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\Role\FindRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Domain\Dtos\UseCases\Role\Find\{
+    FindRoleUseCaseInputDto,
+    FindRoleUseCaseOutputDto
+};
 
 class FindRoleUseCaseTest extends TestCase
 {
@@ -14,7 +18,7 @@ class FindRoleUseCaseTest extends TestCase
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
-        $mockFind = [
+        $mockFind = (object) [
             'id' => 1,
             'name' => 'admin',
             'guard_name' => 'api',
@@ -26,14 +30,14 @@ class FindRoleUseCaseTest extends TestCase
             ->shouldReceive('find')
             ->andReturn($mockFind);
 
-        $input = [
-            'id' => 1,
-        ];
+        $input = new FindRoleUseCaseInputDto(1);
+
         $useCase = new FindRoleUseCase($repositoryMock);
 
         $output = $useCase->run($input);
 
-        $expectedOutput = $mockFind;
+        $expectedOutput = new FindRoleUseCaseOutputDto(...(array) $mockFind);
+
         $this->assertEquals($expectedOutput, $output);
     }
 
@@ -46,9 +50,8 @@ class FindRoleUseCaseTest extends TestCase
             ->shouldReceive('find')
             ->andReturn(null);
 
-        $input = [
-            'id' => 1,
-        ];
+        $input = new FindRoleUseCaseInputDto(1);
+
         $useCase = new FindRoleUseCase($repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');

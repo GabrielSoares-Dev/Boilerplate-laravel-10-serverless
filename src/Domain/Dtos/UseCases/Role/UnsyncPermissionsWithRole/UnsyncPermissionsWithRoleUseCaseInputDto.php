@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Domain\Dtos\Repositories\Role;
+namespace Src\Domain\Dtos\UseCases\Role\UnsyncPermissionsWithRole;
 
-class SyncPermissionsRoleRepositoryDto
+class UnsyncPermissionsWithRoleUseCaseInputDto
 {
     public function __construct(
         public readonly string $role,
