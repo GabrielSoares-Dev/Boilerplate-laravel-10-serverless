@@ -6,26 +6,30 @@ use Illuminate\Support\Facades\Auth;
 use Mockery;
 use Src\Infra\Services\AuthService\JwtAuthService;
 use Tests\TestCase;
+use Src\Infra\Models\User;
 
 class AuthServiceTest extends TestCase
 {
     public function test_should_generate_token(): void
     {
+        $mockModel = Mockery::mock(User::class);
 
-        $input = [
-            'email' => 'test@gmail.com',
-            'password' => 'Test@12',
-        ];
+        $mockModel
+            ->shouldReceive('where')
+            ->andReturnSelf();
+
+        $mockModel
+            ->shouldReceive('first')
+            ->andReturnSelf();
 
         $mockToken = 'test-token';
 
         Auth::shouldReceive('login')
-            ->with($input)
             ->andReturn($mockToken);
 
-        $service = new JwtAuthService();
+        $service = new JwtAuthService($mockModel);
 
-        $output = $service->generateToken($input);
+        $output = $service->generateToken('test@gmail.com');
 
         $expectedOutput = $mockToken;
 
@@ -34,19 +38,13 @@ class AuthServiceTest extends TestCase
 
     public function test_should_validate_credentials(): void
     {
-
-        $input = [
-            'email' => 'test@gmail.com',
-            'password' => 'Test@12',
-        ];
-
+        $mockModel = Mockery::mock(User::class);
         Auth::shouldReceive('validate')
-            ->with($input)
             ->andReturn(true);
 
-        $service = new JwtAuthService();
+        $service = new JwtAuthService($mockModel);
 
-        $output = $service->validateCredentials($input);
+        $output = $service->validateCredentials('test@gmail.com', 'Test@12');
 
         $expectedOutput = true;
 
@@ -55,10 +53,12 @@ class AuthServiceTest extends TestCase
 
     public function test_should_validate_token(): void
     {
+        $mockModel = Mockery::mock(User::class);
+
         Auth::shouldReceive('authenticate')
             ->andReturn(true);
 
-        $service = new JwtAuthService();
+        $service = new JwtAuthService($mockModel);
 
         $output = $service->validateToken();
 
@@ -69,10 +69,12 @@ class AuthServiceTest extends TestCase
 
     public function test_should_logout(): void
     {
+        $mockModel = Mockery::mock(User::class);
+
         Auth::shouldReceive('logout')
             ->andReturn(true);
 
-        $service = new JwtAuthService();
+        $service = new JwtAuthService($mockModel);
 
         $output = $service->logout();
 

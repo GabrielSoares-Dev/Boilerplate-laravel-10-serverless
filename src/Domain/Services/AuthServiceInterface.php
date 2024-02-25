@@ -4,11 +4,11 @@ namespace Src\Domain\Services;
 
 interface AuthServiceInterface
 {
-    public function generateToken($input);
+    public function generateToken(string $email): string;
 
-    public function validateCredentials(array $input);
+    public function validateCredentials(string $email, string $password): bool;
 
-    public function validateToken();
+    public function validateToken(): bool;
 
-    public function logout();
+    public function logout(): bool;
 }

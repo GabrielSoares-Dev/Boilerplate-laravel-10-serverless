@@ -2,8 +2,13 @@
 
 namespace Src\Infra\Repositories\UserRepository;
 
+use stdClass;
 use Src\Domain\Repositories\UserRepositoryInterface;
 use Src\Infra\Models\User;
+use Src\Domain\Dtos\Repositories\User\{
+    CreateUserRepositoryInputDto,
+    AssignRoleRepositoryInputDto
+};
 
 class UserEloquentRepository implements UserRepositoryInterface
 {
@@ -14,21 +19,32 @@ class UserEloquentRepository implements UserRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(array $input)
+    public function create(CreateUserRepositoryInputDto $input): stdClass
     {
-        return $this->model->create($input);
+        $data = [
+            'name' => $input->name,
+            'email' => $input->email,
+            'phone_number' => $input->phoneNumber,
+            'password' => $input->password,
+        ];
+
+        $user = $this->model->create($data);
+
+        return (object) $user->toArray();
     }
 
-    public function findByEmail(string $email)
+    public function findByEmail(string $email): ?stdClass
     {
-        return $this->model->where('email', $email)->first();
+        $user = $this->model->where('email', $email)->first();
+
+        return is_null($user) ? null : (object) $user->toArray();
     }
 
-    public function assignRole(array $input)
+    public function assignRole(AssignRoleRepositoryInputDto $input): bool
     {
-        $role = $input['role'];
-        $email = $input['email'];
+        $role = $input->role;
+        $email = $input->email;
 
-        return $this->model->where('email', $email)->first()->assignRole($role);
+        return (bool) $this->model->where('email', $email)->first()->assignRole($role);
     }
 }

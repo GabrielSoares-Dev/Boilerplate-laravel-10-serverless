@@ -16,7 +16,8 @@ class LoginUseCaseTest extends TestCase
     {
         $authServiceMock = Mockery::mock(AuthServiceInterface::class);
         $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
-        $findByEmailMock = [
+
+        $findByEmailMock = (object) [
             'id' => 1,
             'name' => 'test',
             'email' => 'test@gmail.com',
