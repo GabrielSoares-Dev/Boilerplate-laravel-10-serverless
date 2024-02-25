@@ -22,23 +22,14 @@ class LoginUseCase
 
     protected function validateCredentials(string $email, string $password): void
     {
-        $credentials = [
-            'email' => $email,
-            'password' => $password,
-        ];
+        $isInvalid = !$this->authService->validateCredentials($email, $password);
 
-        $isInvalid = !$this->authService->validateCredentials($credentials);
-
-        if ($isInvalid) {
-            throw new BusinessException('Invalid credentials');
-        }
+        if ($isInvalid) throw new BusinessException('Invalid credentials');
     }
 
     protected function generateToken(string $email): string
     {
-        $input = $this->userRepository->findByEmail($email);
-
-        return $this->authService->generateToken($input);
+        return $this->authService->generateToken($email);
     }
 
     public function run(LoginUseCaseInputDto $input): LoginUseCaseOutputDto

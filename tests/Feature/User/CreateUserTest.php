@@ -18,7 +18,7 @@ class CreateUserTest extends TestCase
         $input = [
             'name' => 'Boilerplate',
             'email' => 'boilerplate@gmail.com',
-            'phone_number' => '11942421224',
+            'phoneNumber' => '11942421224',
             'password' => 'Boilerplate@2023',
         ];
         $output = $this->post($this->path, $input);
@@ -38,7 +38,7 @@ class CreateUserTest extends TestCase
         $input = [
             'name' => 'Boilerplate',
             'email' => $createdUser->email,
-            'phone_number' => '11942421224',
+            'phoneNumber' => '11942421224',
             'password' => 'Boilerplate@2023',
         ];
         $output = $this->post($this->path, $input);
@@ -65,7 +65,7 @@ class CreateUserTest extends TestCase
                 'email' => [
                     'The email field is required.',
                 ],
-                'phone_number' => [
+                'phoneNumber' => [
                     'The phone number field is required.',
                 ],
                 'password' => [

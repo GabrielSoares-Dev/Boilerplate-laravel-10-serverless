@@ -9,6 +9,7 @@ use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
 use Src\Infra\Http\Requests\User\UserRequest;
+use Src\Domain\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 
 class UserController extends Controller
 {
@@ -22,7 +23,7 @@ class UserController extends Controller
 
     public function store(UserRequest $request): JsonResponse
     {
-        $input = $request->all();
+        $input = new CreateUserUseCaseInputDto(...$request->all());
 
         try {
             $this->createUserUseCase->run($input);
@@ -35,9 +36,7 @@ class UserController extends Controller
 
             $isAlreadyExistsError = $errorMessage === 'User already exists';
 
-            if ($isAlreadyExistsError) {
-                $httpCode = HttpCode::BAD_REQUEST;
-            }
+            if ($isAlreadyExistsError) $httpCode = HttpCode::BAD_REQUEST;
 
             throw new HttpException($errorMessage, $httpCode);
         }

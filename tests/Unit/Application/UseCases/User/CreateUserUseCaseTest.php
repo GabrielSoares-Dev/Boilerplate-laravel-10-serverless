@@ -6,6 +6,7 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\Application\UseCases\User\CreateUserUseCase;
 use Src\Domain\Repositories\UserRepositoryInterface;
+use Src\Domain\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 
 class CreateUserUseCaseTest extends TestCase
 {
@@ -14,7 +15,9 @@ class CreateUserUseCaseTest extends TestCase
 
         $repositoryMock = Mockery::mock(UserRepositoryInterface::class);
 
-        $input = [
+        $input = new CreateUserUseCaseInputDto('Gabriel', 'test@gmail.com', '11942421224', 'Test@20');
+
+        $mockCreateUserOutput = (object) [
             'name' => 'Gabriel',
             'email' => 'test@gmail.com',
             'phone_number' => '11942421224',
@@ -27,7 +30,7 @@ class CreateUserUseCaseTest extends TestCase
 
         $repositoryMock
             ->shouldReceive('create')
-            ->andReturn($input);
+            ->andReturn($mockCreateUserOutput);
 
         $repositoryMock
             ->shouldReceive('assignRole')
@@ -45,19 +48,14 @@ class CreateUserUseCaseTest extends TestCase
 
         $repositoryMock = Mockery::mock(UserRepositoryInterface::class);
 
-        $mockFindByEmail = [
+        $mockFindByEmail = (object) [
             'id' => 1,
             'name' => 'Gabriel',
             'email' => 'test@gmail.com',
             'phone_number' => '11942421224',
         ];
 
-        $input = [
-            'name' => 'Gabriel',
-            'email' => 'test@gmail.com',
-            'phone_number' => '11942421224',
-            'password' => 'Test@20',
-        ];
+        $input = new CreateUserUseCaseInputDto('Gabriel', 'test@gmail.com', '11942421224', 'Test@20');
 
         $repositoryMock
             ->shouldReceive('findByEmail')
@@ -65,7 +63,7 @@ class CreateUserUseCaseTest extends TestCase
 
         $repositoryMock
             ->shouldReceive('create')
-            ->andReturn($input);
+            ->andReturn(null);
 
         $repositoryMock
             ->shouldReceive('assignRole')

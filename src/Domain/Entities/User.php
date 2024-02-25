@@ -14,45 +14,30 @@ class User
 
     protected ?string $password;
 
-    public function create(array $input)
+    public function __construct(?string $name, ?string $email, ?int $phoneNumber, ?string $password)
+    {
+        $this->name = $name;
+        $this->email = $email;
+        $this->phoneNumber = $phoneNumber;
+        $this->password = $password;
+    }
+
+    public function create(): void
     {
         $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
         $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/';
 
-        $invalidName = empty($input['name']);
-        $invalidEmail = !(bool) preg_match($emailRegex, $input['email']);
-        $invalidPhoneNumber = strlen((string) $input['phone_number']) !== 11;
-        $invalidPassword = !(bool) preg_match($passwordRegex, $input['password']);
+        $invalidName = empty($this->name);
+        $invalidEmail = !(bool) preg_match($emailRegex, $this->email);
+        $invalidPhoneNumber = strlen((string) $this->phoneNumber) !== 11;
+        $invalidPassword = !(bool) preg_match($passwordRegex, $this->password);
 
-        if ($invalidName) {
-            throw new BusinessException('Invalid name');
-        }
+        if ($invalidName) throw new BusinessException('Invalid name');
 
-        if ($invalidEmail) {
-            throw new BusinessException('Invalid email');
-        }
+        if ($invalidEmail)  throw new BusinessException('Invalid email');
 
-        if ($invalidPhoneNumber) {
-            throw new BusinessException('Invalid phone number');
-        }
+        if ($invalidPhoneNumber) throw new BusinessException('Invalid phone number');
 
-        if ($invalidPassword) {
-            throw new BusinessException('Invalid password');
-        }
-
-        $this->name = $input['name'];
-        $this->email = $input['email'];
-        $this->phoneNumber = $input['phone_number'];
-
-        return $this->toArray();
-    }
-
-    protected function toArray()
-    {
-        return [
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone_number' => $this->phoneNumber,
-        ];
+        if ($invalidPassword) throw new BusinessException('Invalid password');
     }
 }

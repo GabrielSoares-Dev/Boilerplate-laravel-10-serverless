@@ -14,15 +14,10 @@ class CheckAuthenticationUseCase
         $this->authService = $authService;
     }
 
-    /**
-     * @throws BusinessException
-     */
     public function run(): void
     {
         $isUnauthorized = !$this->authService->validateToken();
 
-        if ($isUnauthorized) {
-            throw new BusinessException('Unauthorized');
-        }
+        if ($isUnauthorized) throw new BusinessException('Unauthorized');
     }
 }

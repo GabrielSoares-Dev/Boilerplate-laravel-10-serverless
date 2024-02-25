@@ -4,26 +4,41 @@ namespace Src\Infra\Services\AuthService;
 
 use Illuminate\Support\Facades\Auth;
 use Src\Domain\Services\AuthServiceInterface;
+use Src\Infra\Models\User;
 
 class JwtAuthService implements AuthServiceInterface
 {
-    public function generateToken($input)
+    protected User $model;
+
+    public function __construct(User $model)
     {
-        return Auth::login($input);
+        $this->model = $model;
     }
 
-    public function validateCredentials(array $input)
+    public function generateToken(string $email): string
     {
+        $user = $this->model->where('email', $email)->first();
+
+        return Auth::login($user);
+    }
+
+    public function validateCredentials(string $email, string $password): bool
+    {
+        $input = [
+            'email' => $email,
+            'password' => $password,
+        ];
+
         return Auth::validate($input);
     }
 
-    public function validateToken()
+    public function validateToken(): bool
     {
-        return Auth::authenticate();
+        return (bool) Auth::authenticate();
     }
 
-    public function logout()
+    public function logout(): bool
     {
-        return Auth::logout();
+        return (bool) Auth::logout();
     }
 }

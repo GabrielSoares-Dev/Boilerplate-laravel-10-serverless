@@ -2,11 +2,17 @@
 
 namespace Src\Domain\Repositories;
 
+use stdClass;
+use Src\Domain\Dtos\Repositories\User\{
+    CreateUserRepositoryInputDto,
+    AssignRoleRepositoryInputDto
+};
+
 interface UserRepositoryInterface
 {
-    public function create(array $input);
+    public function create(CreateUserRepositoryInputDto $input): stdClass;
 
-    public function findByEmail(string $email);
+    public function findByEmail(string $email): ?stdClass;
 
-    public function assignRole(array $input);
+    public function assignRole(AssignRoleRepositoryInputDto $input): bool;
 }
