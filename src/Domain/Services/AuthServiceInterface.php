@@ -10,5 +10,5 @@ interface AuthServiceInterface
 
     public function validateToken(): bool;
 
-    public function logout(): bool;
+    public function logout(): void;
 }

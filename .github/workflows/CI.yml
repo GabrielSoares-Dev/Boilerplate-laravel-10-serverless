@@ -19,5 +19,7 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Code style
       run: composer lint:test
+    - name: Code analyses
+      run: composer code:analyses
     - name: Tests and coverage
       run: composer test:coverage

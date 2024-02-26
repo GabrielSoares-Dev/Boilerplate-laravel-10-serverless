@@ -33,10 +33,8 @@ class SyncPermissionsWithRoleUseCase
 
     protected function validPermissions(array $permissions): void
     {
-        $guardName = $this->defaultGuardName;
-
         foreach ($permissions as $permission) {
-            $notFound = !$this->foundPermission($permission, $guardName);
+            $notFound = !$this->foundPermission($permission);
 
             if ($notFound) throw new BusinessException('Invalid permission');
         }

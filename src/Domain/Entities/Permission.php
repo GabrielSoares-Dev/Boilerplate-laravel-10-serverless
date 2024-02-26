@@ -20,7 +20,7 @@ class Permission
         if ($guardNameIsInvalid)  throw new BusinessException('Invalid guard name');
     }
 
-    public function update(string $name, string $guardName)
+    public function update(string $name, string $guardName): void
     {
         $nameIsEmpty = empty($name);
         $guardNameIsInvalid = $guardName !== 'api';

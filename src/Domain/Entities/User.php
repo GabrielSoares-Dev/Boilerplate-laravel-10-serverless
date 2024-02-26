@@ -6,15 +6,15 @@ use Src\Application\Exceptions\BusinessException;
 
 class User
 {
-    protected ?string $name;
+    protected string $name;
 
-    protected ?string $email;
+    protected string $email;
 
-    protected ?int $phoneNumber;
+    protected string $phoneNumber;
 
-    protected ?string $password;
+    protected string $password;
 
-    public function __construct(?string $name, ?string $email, ?int $phoneNumber, ?string $password)
+    public function __construct(string $name, string $email, string $phoneNumber, string $password)
     {
         $this->name = $name;
         $this->email = $email;
@@ -29,7 +29,7 @@ class User
 
         $invalidName = empty($this->name);
         $invalidEmail = !(bool) preg_match($emailRegex, $this->email);
-        $invalidPhoneNumber = strlen((string) $this->phoneNumber) !== 11;
+        $invalidPhoneNumber = strlen($this->phoneNumber) !== 11;
         $invalidPassword = !(bool) preg_match($passwordRegex, $this->password);
 
         if ($invalidName) throw new BusinessException('Invalid name');

@@ -2,12 +2,14 @@
 
 namespace Src\Infra\Helpers;
 
+use Illuminate\Http\JsonResponse;
+
 /**
  * @codeCoverageIgnore
  */
 class BaseResponse
 {
-    public static function success($message, $statusCode)
+    public static function success(string $message, int $statusCode): JsonResponse
     {
         $response = [
             'statusCode' => $statusCode,
@@ -17,7 +19,7 @@ class BaseResponse
         return response()->json($response, $statusCode);
     }
 
-    public static function successWithContent($message, int $statusCode, $content)
+    public static function successWithContent(string $message, int $statusCode, mixed $content): JsonResponse
     {
 
         $body = [

@@ -76,11 +76,9 @@ class AuthServiceTest extends TestCase
 
         $service = new JwtAuthService($mockModel);
 
-        $output = $service->logout();
+        $service->logout();
 
-        $expectedOutput = true;
-
-        $this->assertEquals($expectedOutput, $output);
+        $this->assertTrue(true);
     }
 
     protected function tearDown(): void

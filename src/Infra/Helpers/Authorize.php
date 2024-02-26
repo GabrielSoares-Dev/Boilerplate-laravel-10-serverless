@@ -11,14 +11,12 @@ use Src\Infra\Exceptions\HttpException;
  */
 class Authorize
 {
-    public static function hasPermission(string $permission)
+    public static function hasPermission(string $permission): void
     {
         $permissions = Auth::user()->getPermissionsViaRoles()->pluck('name')->toArray();
 
         $notHavePermission = !in_array($permission, $permissions);
 
-        if ($notHavePermission) {
-            throw new HttpException('Access to this resource was denied', HttpCode::FORBIDDEN);
-        }
+        if ($notHavePermission) throw new HttpException('Access to this resource was denied', HttpCode::FORBIDDEN);
     }
 }

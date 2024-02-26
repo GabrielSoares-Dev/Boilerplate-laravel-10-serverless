@@ -107,7 +107,7 @@ class PermissionController extends Controller
     public function update(PermissionRequest $request, int $id): JsonResponse
     {
         Authorize::hasPermission('update_permission');
-        $name = $request->name;
+        $name = $request->input('name');
 
         $input = new UpdatePermissionUseCaseInputDto($id, $name);
 
