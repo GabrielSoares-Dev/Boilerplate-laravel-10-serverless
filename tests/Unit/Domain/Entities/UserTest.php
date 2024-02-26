@@ -12,7 +12,7 @@ class UserTest extends TestCase
         $input = [
             'name' => 'admin',
             'email' => 'test@gmail.com',
-            'phoneNumber' => 11991742156,
+            'phoneNumber' => '11991742156',
             'password' => 'Test@2312',
         ];
 
@@ -28,7 +28,7 @@ class UserTest extends TestCase
         $input = [
             'name' => '',
             'email' => 'test@gmail.com',
-            'phoneNumber' => 11991742156,
+            'phoneNumber' => '11991742156',
             'password' => 'Test@2312',
         ];
 
@@ -44,7 +44,7 @@ class UserTest extends TestCase
         $input = [
             'name' => 'admin',
             'email' => 'test@gmail.c',
-            'phoneNumber' => 11991742156,
+            'phoneNumber' => '11991742156',
             'password' => 'Test@2312',
         ];
 
@@ -60,7 +60,7 @@ class UserTest extends TestCase
         $input = [
             'name' => 'admin',
             'email' => 'test@gmail.com',
-            'phoneNumber' => 1199174215,
+            'phoneNumber' => '1199174215',
             'password' => 'Test@2312',
         ];
 
@@ -76,7 +76,7 @@ class UserTest extends TestCase
         $input = [
             'name' => 'admin',
             'email' => 'test@gmail.com',
-            'phoneNumber' => 11991742156,
+            'phoneNumber' => '11991742156',
             'password' => 'Test@',
         ];
 

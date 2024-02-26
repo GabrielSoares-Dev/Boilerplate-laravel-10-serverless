@@ -17,9 +17,7 @@ class Authenticate
 
     public function handle(Request $request, Closure $next): mixed
     {
-        $input = [];
-
-        $this->checkAuthenticationUseCase->run($input);
+        $this->checkAuthenticationUseCase->run();
 
         return $next($request);
     }

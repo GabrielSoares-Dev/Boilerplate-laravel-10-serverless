@@ -19,7 +19,7 @@ class JwtAuthService implements AuthServiceInterface
     {
         $user = $this->model->where('email', $email)->first();
 
-        return Auth::login($user);
+        return (string) Auth::login($user);
     }
 
     public function validateCredentials(string $email, string $password): bool
@@ -37,8 +37,8 @@ class JwtAuthService implements AuthServiceInterface
         return (bool) Auth::authenticate();
     }
 
-    public function logout(): bool
+    public function logout(): void
     {
-        return (bool) Auth::logout();
+        Auth::logout();
     }
 }

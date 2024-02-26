@@ -3,10 +3,11 @@
 namespace Src\Infra\Exceptions;
 
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class HttpException extends Exception
 {
-    public function render()
+    public function render(): JsonResponse
     {
         return response()->json([
             'statusCode' => $this->getCode(),

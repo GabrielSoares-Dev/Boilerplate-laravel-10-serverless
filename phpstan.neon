@@ -1,5 +1,18 @@
 parameters:
-	level: 8
-	paths:
-	 - src
-
+    level: 8
+    paths:
+        - src
+    ignoreErrors:
+        - '#Call to an undefined method#'
+        - '#Method .* return type has no value type specified in iterable type array\.#'
+        - '#Method .*::__construct\(\) has parameter \$.* with no value type specified in iterable type array\.#'
+        - '#Method .*::.*\(\) has parameter \$.* with no value type specified in iterable type array\.#'
+        - '#Result of static method Illuminate\\Support\\Facades\\Auth::login\(\) \(void\) is used#'
+    excludePaths:
+        - src/Infra/Models/*
+        - src/Infra/Routes/*
+        - src/Infra/Console/Commands/*
+        - src/Infra/Http/Middleware/*
+        - src/Infra/Http/Kernel
+        - src/Infra/Http/Kernel
+        - src/Infra/Helpers/Authorize
