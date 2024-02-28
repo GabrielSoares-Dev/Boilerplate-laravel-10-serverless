@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Role\FindRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 use Src\Domain\Dtos\UseCases\Role\Find\{
@@ -15,6 +16,7 @@ class FindRoleUseCaseTest extends TestCase
 {
     public function test_should_find(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -32,7 +34,7 @@ class FindRoleUseCaseTest extends TestCase
 
         $input = new FindRoleUseCaseInputDto(1);
 
-        $useCase = new FindRoleUseCase($repositoryMock);
+        $useCase = new FindRoleUseCase($loggerMock, $repositoryMock);
 
         $output = $useCase->run($input);
 
@@ -43,6 +45,7 @@ class FindRoleUseCaseTest extends TestCase
 
     public function test_should_invalid_id(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -52,7 +55,7 @@ class FindRoleUseCaseTest extends TestCase
 
         $input = new FindRoleUseCaseInputDto(1);
 
-        $useCase = new FindRoleUseCase($repositoryMock);
+        $useCase = new FindRoleUseCase($loggerMock, $repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');
         $useCase->run($input);

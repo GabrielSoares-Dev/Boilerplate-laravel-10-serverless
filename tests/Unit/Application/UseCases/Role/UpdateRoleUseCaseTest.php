@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Role\UpdateRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 use Src\Domain\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
@@ -12,6 +13,7 @@ class UpdateRoleUseCaseTest extends TestCase
 {
     public function test_should_update(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -21,7 +23,7 @@ class UpdateRoleUseCaseTest extends TestCase
 
         $input = new UpdateRoleUseCaseInputDto(1, 'test');
 
-        $useCase = new UpdateRoleUseCase($repositoryMock);
+        $useCase = new UpdateRoleUseCase($loggerMock, $repositoryMock);
 
         $useCase->run($input);
 
@@ -30,6 +32,7 @@ class UpdateRoleUseCaseTest extends TestCase
 
     public function test_should_invalid_id(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -39,7 +42,7 @@ class UpdateRoleUseCaseTest extends TestCase
 
         $input = new UpdateRoleUseCaseInputDto(1, 'test');
 
-        $useCase = new UpdateRoleUseCase($repositoryMock);
+        $useCase = new UpdateRoleUseCase($loggerMock, $repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');
         $useCase->run($input);

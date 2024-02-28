@@ -5,6 +5,7 @@ namespace Src\Application\UseCases\User;
 use Src\Application\Exceptions\BusinessException;
 use Src\Domain\Entities\User;
 use Src\Domain\Enums\Role;
+use Src\Domain\Services\LoggerServiceInterface;
 use Src\Domain\Repositories\UserRepositoryInterface;
 use Src\Domain\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 use Src\Domain\Dtos\Repositories\User\{
@@ -14,10 +15,15 @@ use Src\Domain\Dtos\Repositories\User\{
 
 class CreateUserUseCase
 {
+    protected LoggerServiceInterface $loggerService;
+
     protected UserRepositoryInterface $repository;
 
-    public function __construct(UserRepositoryInterface $repository)
-    {
+    public function __construct(
+        LoggerServiceInterface $loggerService,
+        UserRepositoryInterface $repository
+    ) {
+        $this->loggerService = $loggerService;
         $this->repository = $repository;
     }
 
@@ -42,6 +48,9 @@ class CreateUserUseCase
 
     public function run(CreateUserUseCaseInputDto $input): void
     {
+        $this->loggerService->info('START CreateUserUseCase');
+
+        $this->loggerService->debug('Input CreateUserUseCase', $input);
 
         $this->valid($input);
 
@@ -54,5 +63,8 @@ class CreateUserUseCase
         $this->repository->create($data);
 
         $this->assignRole($email);
+
+        $this->loggerService->info('FINISH CreateUserUseCase');
+
     }
 }

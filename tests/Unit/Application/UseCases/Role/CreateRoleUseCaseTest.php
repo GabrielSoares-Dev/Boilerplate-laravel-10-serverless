@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Role\CreateRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 use Src\Domain\Dtos\UseCases\Role\Create\CreateRoleUseCaseInputDto;
@@ -12,6 +13,7 @@ class CreateRoleUseCaseTest extends TestCase
 {
     public function test_should_create(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -25,7 +27,7 @@ class CreateRoleUseCaseTest extends TestCase
             ->shouldReceive('create')
             ->andReturn((object) []);
 
-        $useCase = new CreateRoleUseCase($repositoryMock);
+        $useCase = new CreateRoleUseCase($loggerMock, $repositoryMock);
 
         $useCase->run($input);
 
@@ -34,6 +36,7 @@ class CreateRoleUseCaseTest extends TestCase
 
     public function test_should_already_exists(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -51,7 +54,7 @@ class CreateRoleUseCaseTest extends TestCase
             ->shouldReceive('findByName')
             ->andReturn($mockFindByName);
 
-        $useCase = new CreateRoleUseCase($repositoryMock);
+        $useCase = new CreateRoleUseCase($loggerMock, $repositoryMock);
 
         $this->expectExceptionMessage('Role already exists');
 

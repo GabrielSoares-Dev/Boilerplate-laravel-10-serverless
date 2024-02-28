@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
@@ -11,6 +12,7 @@ class FindAllPermissionsUseCaseTest extends TestCase
 {
     public function test_should_find_all(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
@@ -28,7 +30,7 @@ class FindAllPermissionsUseCaseTest extends TestCase
             ->shouldReceive('findAll')
             ->andReturn($mockFindAll);
 
-        $useCase = new FindAllPermissionsUseCase($repositoryMock);
+        $useCase = new FindAllPermissionsUseCase($loggerMock, $repositoryMock);
 
         $output = $useCase->run();
 
