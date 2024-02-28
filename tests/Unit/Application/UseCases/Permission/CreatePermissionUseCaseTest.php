@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
 use Src\Domain\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
@@ -12,6 +13,7 @@ class CreatePermissionUseCaseTest extends TestCase
 {
     public function test_should_create(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
@@ -25,7 +27,7 @@ class CreatePermissionUseCaseTest extends TestCase
             ->shouldReceive('create')
             ->andReturn((object) []);
 
-        $useCase = new CreatePermissionUseCase($repositoryMock);
+        $useCase = new CreatePermissionUseCase($loggerMock, $repositoryMock);
 
         $useCase->run($input);
 
@@ -34,6 +36,7 @@ class CreatePermissionUseCaseTest extends TestCase
 
     public function test_should_already_exists(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
@@ -51,7 +54,7 @@ class CreatePermissionUseCaseTest extends TestCase
             ->shouldReceive('findByName')
             ->andReturn($mockFindByName);
 
-        $useCase = new CreatePermissionUseCase($repositoryMock);
+        $useCase = new CreatePermissionUseCase($loggerMock, $repositoryMock);
 
         $this->expectExceptionMessage('Permission already exists');
 

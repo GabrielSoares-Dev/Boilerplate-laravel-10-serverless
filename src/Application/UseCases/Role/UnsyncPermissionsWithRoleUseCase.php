@@ -3,6 +3,7 @@
 namespace Src\Application\UseCases\Role;
 
 use Src\Application\Exceptions\BusinessException;
+use Src\Domain\Services\LoggerServiceInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 use Src\Domain\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
@@ -10,6 +11,8 @@ use Src\Domain\Dtos\Repositories\Role\UnsyncPermissionsRoleRepositoryDto;
 
 class UnsyncPermissionsWithRoleUseCase
 {
+    protected LoggerServiceInterface $loggerService;
+
     protected RoleRepositoryInterface $roleRepository;
 
     protected PermissionRepositoryInterface $permissionRepository;
@@ -17,9 +20,11 @@ class UnsyncPermissionsWithRoleUseCase
     protected string $defaultGuardName = 'api';
 
     public function __construct(
+        LoggerServiceInterface $loggerService,
         RoleRepositoryInterface $roleRepository,
         PermissionRepositoryInterface $permissionRepository
     ) {
+        $this->loggerService = $loggerService;
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
     }
@@ -57,6 +62,10 @@ class UnsyncPermissionsWithRoleUseCase
 
     public function run(UnsyncPermissionsWithRoleUseCaseInputDto $input): void
     {
+        $this->loggerService->info('START UnsyncPermissionsWithRoleUseCase');
+
+        $this->loggerService->debug('Input UnsyncPermissionsWithRoleUseCase', $input);
+
         $permissions = $input->permissions;
         $role = $input->role;
 
@@ -67,5 +76,7 @@ class UnsyncPermissionsWithRoleUseCase
         $data = new UnsyncPermissionsRoleRepositoryDto($role, $permissions);
 
         $this->roleRepository->unsyncPermissions($data);
+
+        $this->loggerService->info('FINISH UnsyncPermissionsWithRoleUseCase');
     }
 }

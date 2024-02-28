@@ -6,16 +6,22 @@ use Src\Application\Exceptions\BusinessException;
 use Src\Domain\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
 use Src\Domain\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
 use Src\Domain\Entities\Permission;
+use Src\Domain\Services\LoggerServiceInterface;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class CreatePermissionUseCase
 {
+    protected LoggerServiceInterface $loggerService;
+
     protected PermissionRepositoryInterface $repository;
 
     protected string $defaultGuardName = 'api';
 
-    public function __construct(PermissionRepositoryInterface $repository)
-    {
+    public function __construct(
+        LoggerServiceInterface $loggerService,
+        PermissionRepositoryInterface $repository
+    ) {
+        $this->loggerService = $loggerService;
         $this->repository = $repository;
     }
 
@@ -33,6 +39,10 @@ class CreatePermissionUseCase
 
     public function run(CreatePermissionUseCaseInputDto $input): void
     {
+        $this->loggerService->info('START CreatePermissionUseCase');
+
+        $this->loggerService->debug('Input CreatePermissionUseCase', $input);
+
         $name = $input->name;
         $guardName = $this->defaultGuardName;
 
@@ -45,5 +55,7 @@ class CreatePermissionUseCase
         $data = new CreatePermissionRepositoryInputDto($name, $guardName);
 
         $this->repository->create($data);
+
+        $this->loggerService->info('FINISH CreatePermissionUseCase');
     }
 }

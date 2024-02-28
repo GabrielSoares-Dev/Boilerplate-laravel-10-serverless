@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Domain\Dtos\UseCases\Permission\Find\{
@@ -15,6 +16,7 @@ class FindPermissionUseCaseTest extends TestCase
 {
     public function test_should_find(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
@@ -32,7 +34,7 @@ class FindPermissionUseCaseTest extends TestCase
 
         $input = new FindPermissionUseCaseInputDto(1);
 
-        $useCase = new FindPermissionUseCase($repositoryMock);
+        $useCase = new FindPermissionUseCase($loggerMock, $repositoryMock);
 
         $output = $useCase->run($input);
 
@@ -42,6 +44,7 @@ class FindPermissionUseCaseTest extends TestCase
 
     public function test_should_invalid_id(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
@@ -51,7 +54,7 @@ class FindPermissionUseCaseTest extends TestCase
 
         $input = new FindPermissionUseCaseInputDto(1);
 
-        $useCase = new FindPermissionUseCase($repositoryMock);
+        $useCase = new FindPermissionUseCase($loggerMock, $repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');
 

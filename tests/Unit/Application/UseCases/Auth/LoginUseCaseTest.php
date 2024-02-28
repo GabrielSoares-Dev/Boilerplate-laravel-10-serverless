@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Auth\LoginUseCase;
 use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
 use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseOutputDto;
@@ -14,7 +15,10 @@ class LoginUseCaseTest extends TestCase
 {
     public function test_should_logged(): void
     {
+        $loggerMock = LoggerMock::mock();
+
         $authServiceMock = Mockery::mock(AuthServiceInterface::class);
+
         $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
 
         $findByEmailMock = (object) [
@@ -39,7 +43,7 @@ class LoginUseCaseTest extends TestCase
             ->shouldReceive('generateToken')
             ->andReturn($mockToken);
 
-        $useCase = new LoginUseCase($authServiceMock, $userRepositoryMock);
+        $useCase = new LoginUseCase($loggerMock, $authServiceMock, $userRepositoryMock);
 
         $output = $useCase->run($input);
 
@@ -50,8 +54,10 @@ class LoginUseCaseTest extends TestCase
 
     public function test_should_invalid_credentials(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $authServiceMock = Mockery::mock(AuthServiceInterface::class);
+
         $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
 
         $input = new LoginUseCaseInputDto('test@gmail.com', 'Test@20');
@@ -70,7 +76,7 @@ class LoginUseCaseTest extends TestCase
             ->shouldReceive('generateToken')
             ->andReturn($mockToken);
 
-        $useCase = new LoginUseCase($authServiceMock, $userRepositoryMock);
+        $useCase = new LoginUseCase($loggerMock, $authServiceMock, $userRepositoryMock);
 
         $this->expectExceptionMessage('Invalid credentials');
 

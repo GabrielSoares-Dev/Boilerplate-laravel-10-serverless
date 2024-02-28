@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Role\DeleteRoleUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 use Src\Domain\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
@@ -12,6 +13,7 @@ class DeleteRoleUseCaseTest extends TestCase
 {
     public function test_should_delete(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -21,7 +23,7 @@ class DeleteRoleUseCaseTest extends TestCase
 
         $input = new DeleteRoleUseCaseInputDto(1);
 
-        $useCase = new DeleteRoleUseCase($repositoryMock);
+        $useCase = new DeleteRoleUseCase($loggerMock, $repositoryMock);
 
         $useCase->run($input);
 
@@ -30,6 +32,7 @@ class DeleteRoleUseCaseTest extends TestCase
 
     public function test_should_invalid_id(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -39,9 +42,10 @@ class DeleteRoleUseCaseTest extends TestCase
 
         $input = new DeleteRoleUseCaseInputDto(1);
 
-        $useCase = new DeleteRoleUseCase($repositoryMock);
+        $useCase = new DeleteRoleUseCase($loggerMock, $repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');
+
         $useCase->run($input);
     }
 

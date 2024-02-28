@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Role\SyncPermissionsWithRoleUseCase;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
 use Src\Domain\Repositories\RoleRepositoryInterface;
@@ -13,7 +14,10 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
 {
     public function test_should_sync(): void
     {
+        $loggerMock = LoggerMock::mock();
+
         $roleRepositoryMock = Mockery::mock(RoleRepositoryInterface::class);
+
         $permissionRepositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
         $mockFindPermissionByNameOutput = (object) [
@@ -48,7 +52,7 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
         $permissions = ['create_permission'];
         $input = new SyncPermissionsWithRoleUseCaseInputDto($role, $permissions);
 
-        $useCase = new SyncPermissionsWithRoleUseCase($roleRepositoryMock, $permissionRepositoryMock);
+        $useCase = new SyncPermissionsWithRoleUseCase($loggerMock, $roleRepositoryMock, $permissionRepositoryMock);
 
         $useCase->run($input);
 
@@ -57,7 +61,10 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
 
     public function test_should_some_invalid_permission(): void
     {
+        $loggerMock = LoggerMock::mock();
+
         $roleRepositoryMock = Mockery::mock(RoleRepositoryInterface::class);
+
         $permissionRepositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
         $permissionRepositoryMock
@@ -76,7 +83,7 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
         $permissions = ['create_permission'];
         $input = new SyncPermissionsWithRoleUseCaseInputDto($role, $permissions);
 
-        $useCase = new SyncPermissionsWithRoleUseCase($roleRepositoryMock, $permissionRepositoryMock);
+        $useCase = new SyncPermissionsWithRoleUseCase($loggerMock, $roleRepositoryMock, $permissionRepositoryMock);
 
         $this->expectExceptionMessage('Invalid permission');
 
@@ -85,7 +92,10 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
 
     public function test_should_role_invalid(): void
     {
+        $loggerMock = LoggerMock::mock();
+
         $roleRepositoryMock = Mockery::mock(RoleRepositoryInterface::class);
+
         $permissionRepositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
         $mockFindPermissionByNameOutput = (object) [
@@ -112,7 +122,7 @@ class SyncPermissionsWithRoleUseCaseTest extends TestCase
         $permissions = ['create_permission'];
         $input = new SyncPermissionsWithRoleUseCaseInputDto($role, $permissions);
 
-        $useCase = new SyncPermissionsWithRoleUseCase($roleRepositoryMock, $permissionRepositoryMock);
+        $useCase = new SyncPermissionsWithRoleUseCase($loggerMock, $roleRepositoryMock, $permissionRepositoryMock);
 
         $this->expectExceptionMessage('Invalid role');
 

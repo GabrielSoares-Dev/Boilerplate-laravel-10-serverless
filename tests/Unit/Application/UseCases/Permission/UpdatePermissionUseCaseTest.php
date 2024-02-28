@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
 use Src\Domain\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Domain\Repositories\PermissionRepositoryInterface;
@@ -12,6 +13,8 @@ class UpdatePermissionUseCaseTest extends TestCase
 {
     public function test_should_update(): void
     {
+        $loggerMock = LoggerMock::mock();
+
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
         $repositoryMock
@@ -20,7 +23,7 @@ class UpdatePermissionUseCaseTest extends TestCase
 
         $input = new UpdatePermissionUseCaseInputDto(1, 'test');
 
-        $useCase = new UpdatePermissionUseCase($repositoryMock);
+        $useCase = new UpdatePermissionUseCase($loggerMock, $repositoryMock);
 
         $useCase->run($input);
 
@@ -29,6 +32,7 @@ class UpdatePermissionUseCaseTest extends TestCase
 
     public function test_should_invalid_id(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(PermissionRepositoryInterface::class);
 
@@ -38,7 +42,7 @@ class UpdatePermissionUseCaseTest extends TestCase
 
         $input = new UpdatePermissionUseCaseInputDto(1, 'test');
 
-        $useCase = new UpdatePermissionUseCase($repositoryMock);
+        $useCase = new UpdatePermissionUseCase($loggerMock, $repositoryMock);
 
         $this->expectExceptionMessage('Invalid id');
         $useCase->run($input);

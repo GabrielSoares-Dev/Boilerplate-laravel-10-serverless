@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\Mocks\LoggerMock;
 use Src\Application\UseCases\Role\FindAllRolesUseCase;
 use Src\Domain\Repositories\RoleRepositoryInterface;
 
@@ -11,6 +12,7 @@ class FindAllRolesUseCaseTest extends TestCase
 {
     public function test_should_find_all(): void
     {
+        $loggerMock = LoggerMock::mock();
 
         $repositoryMock = Mockery::mock(RoleRepositoryInterface::class);
 
@@ -28,7 +30,7 @@ class FindAllRolesUseCaseTest extends TestCase
             ->shouldReceive('findAll')
             ->andReturn($mockFindAll);
 
-        $useCase = new FindAllRolesUseCase($repositoryMock);
+        $useCase = new FindAllRolesUseCase($loggerMock, $repositoryMock);
 
         $output = $useCase->run();
 

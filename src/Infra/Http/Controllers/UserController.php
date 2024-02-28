@@ -4,6 +4,7 @@ namespace Src\Infra\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Src\Application\Exceptions\BusinessException;
+use Src\Domain\Services\LoggerServiceInterface;
 use Src\Application\UseCases\User\CreateUserUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
@@ -13,11 +14,15 @@ use Src\Domain\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 
 class UserController extends Controller
 {
+    protected LoggerServiceInterface $loggerService;
+
     protected CreateUserUseCase $createUserUseCase;
 
     public function __construct(
+        LoggerServiceInterface $loggerService,
         CreateUserUseCase $createUserUseCase
     ) {
+        $this->loggerService = $loggerService;
         $this->createUserUseCase = $createUserUseCase;
     }
 
@@ -26,17 +31,28 @@ class UserController extends Controller
         $input = new CreateUserUseCaseInputDto(...$request->all());
 
         try {
+
+            $this->loggerService->info('START UserController store');
+
+            $this->loggerService->debug('Input UserController store', $input);
+
             $this->createUserUseCase->run($input);
 
+            $this->loggerService->info('FINISH UserController store');
+
             return BaseResponse::success('User created successfully', HttpCode::CREATED);
+
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
+
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
             $isAlreadyExistsError = $errorMessage === 'User already exists';
 
             if ($isAlreadyExistsError) $httpCode = HttpCode::BAD_REQUEST;
+
+            $this->loggerService->error('Error UserController store', $exception);
 
             throw new HttpException($errorMessage, $httpCode);
         }
