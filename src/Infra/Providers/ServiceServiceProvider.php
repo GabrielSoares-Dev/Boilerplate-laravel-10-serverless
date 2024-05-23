@@ -13,7 +13,6 @@ class ServiceServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(AuthServiceInterface::class, JwtAuthService::class);
-
         $this->app->bind(LoggerServiceInterface::class, LoggerService::class);
     }
 }

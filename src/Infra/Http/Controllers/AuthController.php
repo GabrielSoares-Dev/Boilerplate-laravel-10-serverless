@@ -48,7 +48,6 @@ class AuthController extends Controller
             $this->loggerService->info('FINISH AuthController login');
 
             return BaseResponse::successWithContent('Authenticated', HttpCode::OK, $output);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -59,7 +58,7 @@ class AuthController extends Controller
 
             if ($isInvalidCredentialsError) $httpCode = HttpCode::UNAUTHORIZED;
 
-            $this->loggerService->error('Error AuthController login', $exception);
+            $this->loggerService->error('Error AuthController login', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -76,14 +75,13 @@ class AuthController extends Controller
             $this->loggerService->info('FINISH AuthController logout');
 
             return BaseResponse::success('Successfully logged out', HttpCode::OK);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
 
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-            $this->loggerService->error('Error AuthController logout', $exception);
+            $this->loggerService->error('Error AuthController logout', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }

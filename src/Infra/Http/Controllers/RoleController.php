@@ -77,7 +77,6 @@ class RoleController extends Controller
             $this->loggerService->info('FINISH RoleController index');
 
             return BaseResponse::successWithContent('Found roles', HttpCode::OK, $output);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -107,7 +106,6 @@ class RoleController extends Controller
             $this->loggerService->info('FINISH RoleController store');
 
             return BaseResponse::success('Role created successfully', HttpCode::CREATED);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -118,7 +116,7 @@ class RoleController extends Controller
 
             if ($isAlreadyExistsError) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error RoleController store', $exception);
+            $this->loggerService->error('Error RoleController store', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -143,7 +141,6 @@ class RoleController extends Controller
             $this->loggerService->info('FINISH RoleController show');
 
             return BaseResponse::successWithContent('Role found', HttpCode::OK, $output);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -154,7 +151,7 @@ class RoleController extends Controller
 
             if ($isInvalidId) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error RoleController show', $exception);
+            $this->loggerService->error('Error RoleController show', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -177,7 +174,6 @@ class RoleController extends Controller
             $this->loggerService->info('FINISH RoleController update');
 
             return BaseResponse::success('Role Updated successfully', HttpCode::OK);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -188,7 +184,7 @@ class RoleController extends Controller
 
             if ($isInvalidId)  $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error RoleController update', $exception);
+            $this->loggerService->error('Error RoleController update', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -211,7 +207,6 @@ class RoleController extends Controller
             $this->loggerService->info('FINISH RoleController destroy');
 
             return BaseResponse::success('Role deleted successfully', HttpCode::OK);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -222,7 +217,7 @@ class RoleController extends Controller
 
             if ($isInvalidId) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error RoleController destroy', $exception);
+            $this->loggerService->error('Error RoleController destroy', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -245,7 +240,6 @@ class RoleController extends Controller
             $this->loggerService->info('FINISH RoleController syncPermissions');
 
             return BaseResponse::success('Role sync successfully', HttpCode::OK);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -258,7 +252,7 @@ class RoleController extends Controller
 
             if ($isInvalidPermission || $isInvalidRole) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error RoleController syncPermissions', $exception);
+            $this->loggerService->error('Error RoleController syncPermissions', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -281,7 +275,6 @@ class RoleController extends Controller
             $this->loggerService->info('FINISH RoleController unsyncPermissions');
 
             return BaseResponse::success('Role unsync successfully', HttpCode::OK);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -294,7 +287,7 @@ class RoleController extends Controller
 
             if ($isInvalidPermission || $isInvalidRole) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error RoleController unsyncPermissions', $exception);
+            $this->loggerService->error('Error RoleController unsyncPermissions', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }

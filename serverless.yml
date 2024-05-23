@@ -1,0 +1,24 @@
+service: boilerplate-laravel-10-serverless
+
+provider:
+    name: aws
+    region: us-east-2
+    environment:
+        APP_ENV: ${sls:stage}
+        APP_NAME: TEST
+
+package:
+    patterns:
+        - '!node_modules/**'
+        - '!public/storage'
+        - '!resources/assets/**'
+        - '!storage/**'
+        - '!tests/**'
+functions:
+    web:
+        handler: public/index.php
+        runtime: php-81-fpm
+        events:
+            - httpApi: '*'
+plugins:
+    - ./vendor/bref/bref
