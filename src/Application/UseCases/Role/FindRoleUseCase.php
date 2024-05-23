@@ -2,13 +2,11 @@
 
 namespace Src\Application\UseCases\Role;
 
+use Src\Application\Dtos\UseCases\Role\Find\{FindRoleUseCaseOutputDto};
+use Src\Application\Dtos\UseCases\Role\Find\FindRoleUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\UseCases\Role\Find\{
-    FindRoleUseCaseInputDto,
-    FindRoleUseCaseOutputDto
-};
+use Src\Application\Repositories\RoleRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class FindRoleUseCase
 {

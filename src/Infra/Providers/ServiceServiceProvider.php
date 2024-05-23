@@ -3,8 +3,8 @@
 namespace Src\Infra\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Domain\Services\AuthServiceInterface;
-use Src\Domain\Services\LoggerServiceInterface;
+use Src\Application\Services\AuthServiceInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Infra\Services\AuthService\JwtAuthService;
 use Src\Infra\Services\LoggerService\LoggerService;
 

@@ -3,11 +3,11 @@
 namespace Src\Infra\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Src\Application\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Application\UseCases\Auth\LoginUseCase;
 use Src\Application\UseCases\Auth\LogoutUseCase;
-use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;

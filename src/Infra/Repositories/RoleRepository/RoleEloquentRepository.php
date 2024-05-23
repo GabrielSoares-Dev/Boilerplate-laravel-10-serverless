@@ -2,15 +2,13 @@
 
 namespace Src\Infra\Repositories\RoleRepository;
 
-use stdClass;
 use Spatie\Permission\Models\Role;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\Repositories\Role\{
-    CreateRoleRepositoryInputDto,
-    UpdateRoleRepositoryInputDto,
-    SyncPermissionsRoleRepositoryDto,
-    UnsyncPermissionsRoleRepositoryDto
-};
+use Src\Application\Dtos\Repositories\Role\{SyncPermissionsRoleRepositoryDto};
+use Src\Application\Dtos\Repositories\Role\CreateRoleRepositoryInputDto;
+use Src\Application\Dtos\Repositories\Role\UnsyncPermissionsRoleRepositoryDto;
+use Src\Application\Dtos\Repositories\Role\UpdateRoleRepositoryInputDto;
+use Src\Application\Repositories\RoleRepositoryInterface;
+use stdClass;
 
 class RoleEloquentRepository implements RoleRepositoryInterface
 {

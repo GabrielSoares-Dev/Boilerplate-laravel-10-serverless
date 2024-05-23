@@ -2,13 +2,11 @@
 
 namespace Src\Application\UseCases\Permission;
 
+use Src\Application\Dtos\UseCases\Permission\Find\{FindPermissionUseCaseOutputDto};
+use Src\Application\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
-use Src\Domain\Dtos\UseCases\Permission\Find\{
-    FindPermissionUseCaseInputDto,
-    FindPermissionUseCaseOutputDto
-};
+use Src\Application\Repositories\PermissionRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class FindPermissionUseCase
 {

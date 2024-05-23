@@ -2,12 +2,12 @@
 
 namespace Src\Application\UseCases\Auth;
 
+use Src\Application\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Auth\Login\LoginUseCaseOutputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseOutputDto;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\UserRepositoryInterface;
-use Src\Domain\Services\AuthServiceInterface;
+use Src\Application\Repositories\UserRepositoryInterface;
+use Src\Application\Services\AuthServiceInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class LoginUseCase
 {

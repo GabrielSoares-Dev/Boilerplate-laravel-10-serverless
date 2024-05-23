@@ -2,12 +2,12 @@
 
 namespace Src\Application\UseCases\Role;
 
+use Src\Application\Dtos\Repositories\Role\UpdateRoleRepositoryInputDto;
+use Src\Application\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
+use Src\Application\Repositories\RoleRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Domain\Entities\Role;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\Repositories\Role\UpdateRoleRepositoryInputDto;
-use Src\Domain\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
 
 class UpdateRoleUseCase
 {

@@ -2,16 +2,13 @@
 
 namespace Src\Application\UseCases\User;
 
+use Src\Application\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
+use Src\Application\Repositories\UserRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
+use Src\Application\Dtos\Repositories\User\{AssignRoleRepositoryInputDto,CreateUserRepositoryInputDto};
 use Src\Domain\Entities\User;
 use Src\Domain\Enums\Role;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\UserRepositoryInterface;
-use Src\Domain\Dtos\UseCases\User\CreateUserUseCaseInputDto;
-use Src\Domain\Dtos\Repositories\User\{
-    CreateUserRepositoryInputDto,
-    AssignRoleRepositoryInputDto
-};
 
 class CreateUserUseCase
 {

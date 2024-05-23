@@ -2,12 +2,12 @@
 
 namespace Src\Application\UseCases\Permission;
 
+use Src\Application\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
+use Src\Application\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
-use Src\Domain\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
+use Src\Application\Repositories\PermissionRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Domain\Entities\Permission;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class CreatePermissionUseCase
 {

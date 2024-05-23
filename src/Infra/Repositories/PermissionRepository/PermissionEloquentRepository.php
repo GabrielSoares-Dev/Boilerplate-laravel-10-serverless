@@ -3,9 +3,9 @@
 namespace Src\Infra\Repositories\PermissionRepository;
 
 use Spatie\Permission\Models\Permission;
-use Src\Domain\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
-use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Src\Application\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
+use Src\Application\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
+use Src\Application\Repositories\PermissionRepositoryInterface;
 use stdClass;
 
 class PermissionEloquentRepository implements PermissionRepositoryInterface

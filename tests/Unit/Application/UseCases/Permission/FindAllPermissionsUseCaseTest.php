@@ -4,9 +4,9 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Repositories\PermissionRepositoryInterface;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class FindAllPermissionsUseCaseTest extends TestCase
 {

@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Dtos\UseCases\User\CreateUserUseCaseInputDto;
+use Src\Application\Repositories\UserRepositoryInterface;
 use Src\Application\UseCases\User\CreateUserUseCase;
-use Src\Domain\Repositories\UserRepositoryInterface;
-use Src\Domain\Dtos\UseCases\User\CreateUserUseCaseInputDto;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class CreateUserUseCaseTest extends TestCase
 {

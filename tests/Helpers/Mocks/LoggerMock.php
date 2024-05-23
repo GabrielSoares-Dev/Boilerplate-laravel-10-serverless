@@ -2,8 +2,8 @@
 
 namespace Tests\Helpers\Mocks;
 
-use Src\Domain\Services\LoggerServiceInterface;
 use Mockery;
+use Src\Application\Services\LoggerServiceInterface;
 
 class LoggerMock
 {

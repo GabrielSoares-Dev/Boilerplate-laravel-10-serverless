@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
+use Src\Application\Repositories\PermissionRepositoryInterface;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
-use Src\Domain\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class UpdatePermissionUseCaseTest extends TestCase
 {
