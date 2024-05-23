@@ -1,4 +1,4 @@
-# Laravel 10 Boilerplate with clean architecture
+# Laravel 10 Boilerplate with serverless framework
 
 This Laravel 10 boilerplate provides a robust initial structure for web development, using Laravel version 10 and PHP 8.1. It includes various tools to enhance development efficiency, ensuring coding best practices, testing, and ease of deployment.
 

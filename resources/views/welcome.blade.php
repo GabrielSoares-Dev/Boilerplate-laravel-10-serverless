@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1>Boilerplate laravel 10</h1>
+    <h1>Boilerplate laravel 10 serverless</h1>
 </body>
 
 </html>
