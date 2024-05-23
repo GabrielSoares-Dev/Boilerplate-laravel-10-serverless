@@ -66,14 +66,13 @@ class PermissionController extends Controller
             $this->loggerService->info('FINISH PermissionController index');
 
             return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
 
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
 
-            $this->loggerService->error('Error PermissionController index', $exception);
+            $this->loggerService->error('Error PermissionController index', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -96,7 +95,6 @@ class PermissionController extends Controller
             $this->loggerService->info('FINISH PermissionController store');
 
             return BaseResponse::success('Permission created successfully', HttpCode::CREATED);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -107,7 +105,7 @@ class PermissionController extends Controller
 
             if ($isAlreadyExistsError) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error PermissionController store', $exception);
+            $this->loggerService->error('Error PermissionController store', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -132,7 +130,6 @@ class PermissionController extends Controller
             $this->loggerService->info('FINISH PermissionController show');
 
             return BaseResponse::successWithContent('Permission found', HttpCode::OK, $output);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -143,7 +140,7 @@ class PermissionController extends Controller
 
             if ($isInvalidId) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error PermissionController show', $exception);
+            $this->loggerService->error('Error PermissionController show', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -168,7 +165,6 @@ class PermissionController extends Controller
             $this->loggerService->info('FINISH PermissionController update');
 
             return BaseResponse::success('Permission Updated successfully', HttpCode::OK);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -179,7 +175,7 @@ class PermissionController extends Controller
 
             if ($isInvalidId) $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error PermissionController update', $exception);
+            $this->loggerService->error('Error PermissionController update', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
@@ -202,7 +198,6 @@ class PermissionController extends Controller
             $this->loggerService->info('FINISH PermissionController destroy');
 
             return BaseResponse::success('Permission deleted successfully', HttpCode::OK);
-
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -213,7 +208,7 @@ class PermissionController extends Controller
 
             if ($isInvalidId)  $httpCode = HttpCode::BAD_REQUEST;
 
-            $this->loggerService->error('Error PermissionController destroy', $exception);
+            $this->loggerService->error('Error PermissionController destroy', (object) ['message' => $errorMessage]);
 
             throw new HttpException($errorMessage, $httpCode);
         }
