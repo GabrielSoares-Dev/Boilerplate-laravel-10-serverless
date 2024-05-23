@@ -6,7 +6,8 @@ provider:
     environment:
         APP_ENV: ${sls:stage}
         APP_NAME: TEST
-
+custom:
+  functionsDir: ./src/Infra/Functions
 package:
     patterns:
         - '!node_modules/**'
@@ -15,10 +16,9 @@ package:
         - '!storage/**'
         - '!tests/**'
 functions:
-    web:
-        handler: public/index.php
-        runtime: php-81-fpm
-        events:
-            - httpApi: '*'
+    ${file(${self:custom.functionsDir}/Web/handler.yml)}
 plugins:
     - ./vendor/bref/bref
+
+
+

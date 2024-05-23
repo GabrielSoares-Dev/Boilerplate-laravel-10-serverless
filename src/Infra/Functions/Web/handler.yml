@@ -1,0 +1,5 @@
+web:
+    handler: public/index.php
+    runtime: php-81-fpm
+    events:
+      - httpApi: '*'
