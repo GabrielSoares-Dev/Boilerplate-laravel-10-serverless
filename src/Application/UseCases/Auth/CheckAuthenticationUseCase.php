@@ -3,8 +3,8 @@
 namespace Src\Application\UseCases\Auth;
 
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Services\AuthServiceInterface;
+use Src\Application\Services\AuthServiceInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class CheckAuthenticationUseCase
 {

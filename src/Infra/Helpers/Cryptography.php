@@ -3,9 +3,8 @@
 namespace Src\Infra\Helpers;
 
 use Illuminate\Support\Facades\Hash;
-use Src\Domain\Helpers\CryptographyInterface;
 
-class Cryptography implements CryptographyInterface
+class Cryptography implements \Src\Application\Helpers\CryptographyInterface
 {
     public function compare(string $hash, string $value): bool
     {

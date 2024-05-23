@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Dtos\UseCases\Permission\Delete\DeletePermissionUseCaseInputDto;
+use Src\Application\Repositories\PermissionRepositoryInterface;
 use Src\Application\UseCases\Permission\DeletePermissionUseCase;
-use Src\Domain\Dtos\UseCases\Permission\Delete\DeletePermissionUseCaseInputDto;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class DeletePermissionUseCaseTest extends TestCase
 {

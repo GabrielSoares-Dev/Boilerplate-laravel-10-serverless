@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
+use Src\Application\Repositories\RoleRepositoryInterface;
 use Src\Application\UseCases\Role\UpdateRoleUseCase;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class UpdateRoleUseCaseTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace Src\Infra\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Domain\Helpers\CryptographyInterface;
+use Src\Application\Helpers\CryptographyInterface;
 use Src\Infra\Helpers\Cryptography;
 
 class HelperServiceProvider extends ServiceProvider

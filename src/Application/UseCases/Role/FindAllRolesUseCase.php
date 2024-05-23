@@ -2,8 +2,8 @@
 
 namespace Src\Application\UseCases\Role;
 
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\RoleRepositoryInterface;
+use Src\Application\Repositories\RoleRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class FindAllRolesUseCase
 {

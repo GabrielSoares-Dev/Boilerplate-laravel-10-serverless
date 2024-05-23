@@ -4,13 +4,11 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Dtos\UseCases\Role\Find\{FindRoleUseCaseOutputDto};
+use Src\Application\Dtos\UseCases\Role\Find\FindRoleUseCaseInputDto;
+use Src\Application\Repositories\RoleRepositoryInterface;
 use Src\Application\UseCases\Role\FindRoleUseCase;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\UseCases\Role\Find\{
-    FindRoleUseCaseInputDto,
-    FindRoleUseCaseOutputDto
-};
+use Tests\Helpers\Mocks\LoggerMock;
 
 class FindRoleUseCaseTest extends TestCase
 {

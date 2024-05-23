@@ -2,12 +2,12 @@
 
 namespace Src\Application\UseCases\Role;
 
+use Src\Application\Dtos\Repositories\Role\UnsyncPermissionsRoleRepositoryDto;
+use Src\Application\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
-use Src\Domain\Dtos\Repositories\Role\UnsyncPermissionsRoleRepositoryDto;
+use Src\Application\Repositories\PermissionRepositoryInterface;
+use Src\Application\Repositories\RoleRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class UnsyncPermissionsWithRoleUseCase
 {

@@ -4,9 +4,9 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Repositories\RoleRepositoryInterface;
 use Src\Application\UseCases\Role\FindAllRolesUseCase;
-use Src\Domain\Repositories\RoleRepositoryInterface;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class FindAllRolesUseCaseTest extends TestCase
 {

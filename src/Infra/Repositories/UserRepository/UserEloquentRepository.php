@@ -2,13 +2,11 @@
 
 namespace Src\Infra\Repositories\UserRepository;
 
-use stdClass;
-use Src\Domain\Repositories\UserRepositoryInterface;
+use Src\Application\Dtos\Repositories\User\{CreateUserRepositoryInputDto};
+use Src\Application\Dtos\Repositories\User\AssignRoleRepositoryInputDto;
+use Src\Application\Repositories\UserRepositoryInterface;
 use Src\Infra\Models\User;
-use Src\Domain\Dtos\Repositories\User\{
-    CreateUserRepositoryInputDto,
-    AssignRoleRepositoryInputDto
-};
+use stdClass;
 
 class UserEloquentRepository implements UserRepositoryInterface
 {

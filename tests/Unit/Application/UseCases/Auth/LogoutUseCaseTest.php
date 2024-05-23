@@ -4,9 +4,9 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Services\AuthServiceInterface;
 use Src\Application\UseCases\Auth\LogoutUseCase;
-use Src\Domain\Services\AuthServiceInterface;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class LogoutUseCaseTest extends TestCase
 {

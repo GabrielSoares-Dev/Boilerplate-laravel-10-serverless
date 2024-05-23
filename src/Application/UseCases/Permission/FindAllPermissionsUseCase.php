@@ -2,8 +2,8 @@
 
 namespace Src\Application\UseCases\Permission;
 
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
+use Src\Application\Repositories\PermissionRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class FindAllPermissionsUseCase
 {

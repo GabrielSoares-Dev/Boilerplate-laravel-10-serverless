@@ -3,17 +3,17 @@
 namespace Src\Infra\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Src\Application\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Permission\Delete\DeletePermissionUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Application\UseCases\Permission\CreatePermissionUseCase;
 use Src\Application\UseCases\Permission\DeletePermissionUseCase;
 use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
-use Src\Domain\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Permission\Delete\DeletePermissionUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\Authorize;

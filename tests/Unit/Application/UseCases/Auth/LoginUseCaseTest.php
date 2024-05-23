@@ -4,12 +4,12 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Auth\Login\LoginUseCaseOutputDto;
+use Src\Application\Repositories\UserRepositoryInterface;
+use Src\Application\Services\AuthServiceInterface;
 use Src\Application\UseCases\Auth\LoginUseCase;
-use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Auth\Login\LoginUseCaseOutputDto;
-use Src\Domain\Repositories\UserRepositoryInterface;
-use Src\Domain\Services\AuthServiceInterface;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class LoginUseCaseTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 namespace Src\Application\UseCases\Role;
 
+use Src\Application\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
+use Src\Application\Repositories\RoleRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 
 class DeleteRoleUseCase
 {

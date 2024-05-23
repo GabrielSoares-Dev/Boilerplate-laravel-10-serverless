@@ -2,8 +2,8 @@
 
 namespace Src\Infra\Services\LoggerService;
 
-use Src\Domain\Services\LoggerServiceInterface;
 use Illuminate\Support\Facades\Log;
+use Src\Application\Services\LoggerServiceInterface;
 
 class LoggerService implements LoggerServiceInterface
 {

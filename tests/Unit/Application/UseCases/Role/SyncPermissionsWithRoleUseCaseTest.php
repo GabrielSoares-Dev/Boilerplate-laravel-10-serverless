@@ -4,11 +4,11 @@ namespace Tests\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\Mocks\LoggerMock;
+use Src\Application\Dtos\UseCases\Role\SyncPermissionsWithRole\SyncPermissionsWithRoleUseCaseInputDto;
+use Src\Application\Repositories\PermissionRepositoryInterface;
+use Src\Application\Repositories\RoleRepositoryInterface;
 use Src\Application\UseCases\Role\SyncPermissionsWithRoleUseCase;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
-use Src\Domain\Repositories\RoleRepositoryInterface;
-use Src\Domain\Dtos\UseCases\Role\SyncPermissionsWithRole\SyncPermissionsWithRoleUseCaseInputDto;
+use Tests\Helpers\Mocks\LoggerMock;
 
 class SyncPermissionsWithRoleUseCaseTest extends TestCase
 {

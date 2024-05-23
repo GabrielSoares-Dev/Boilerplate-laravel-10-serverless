@@ -3,8 +3,14 @@
 namespace Src\Infra\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Src\Application\Dtos\UseCases\Role\Create\CreateRoleUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Role\Find\FindRoleUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Role\SyncPermissionsWithRole\SyncPermissionsWithRoleUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
+use Src\Application\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Application\UseCases\Role\CreateRoleUseCase;
 use Src\Application\UseCases\Role\DeleteRoleUseCase;
 use Src\Application\UseCases\Role\FindAllRolesUseCase;
@@ -16,17 +22,7 @@ use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\Authorize;
 use Src\Infra\Helpers\BaseResponse;
-use Src\Domain\Dtos\UseCases\Role\Create\CreateRoleUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Role\Find\FindRoleUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Role\Delete\DeleteRoleUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Role\SyncPermissionsWithRole\SyncPermissionsWithRoleUseCaseInputDto;
-use Src\Domain\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissionsWithRoleUseCaseInputDto;
-use Src\Infra\Http\Requests\Role\{
-    RoleRequest,
-    SyncPermissionsWithRoleRequest,
-    UnsyncPermissionsWithRoleRequest
-};
+use Src\Infra\Http\Requests\Role\{RoleRequest, SyncPermissionsWithRoleRequest, UnsyncPermissionsWithRoleRequest};
 
 class RoleController extends Controller
 {

@@ -2,12 +2,12 @@
 
 namespace Src\Application\UseCases\Permission;
 
+use Src\Application\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
+use Src\Application\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
-use Src\Domain\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
+use Src\Application\Repositories\PermissionRepositoryInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Domain\Entities\Permission;
-use Src\Domain\Services\LoggerServiceInterface;
-use Src\Domain\Repositories\PermissionRepositoryInterface;
 
 class UpdatePermissionUseCase
 {

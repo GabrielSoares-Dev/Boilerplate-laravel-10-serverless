@@ -3,14 +3,14 @@
 namespace Src\Infra\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Src\Application\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
-use Src\Domain\Services\LoggerServiceInterface;
+use Src\Application\Services\LoggerServiceInterface;
 use Src\Application\UseCases\User\CreateUserUseCase;
 use Src\Domain\Enums\HttpCode;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\BaseResponse;
 use Src\Infra\Http\Requests\User\UserRequest;
-use Src\Domain\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 
 class UserController extends Controller
 {

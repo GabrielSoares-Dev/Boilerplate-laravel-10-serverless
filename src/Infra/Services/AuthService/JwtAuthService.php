@@ -3,7 +3,7 @@
 namespace Src\Infra\Services\AuthService;
 
 use Illuminate\Support\Facades\Auth;
-use Src\Domain\Services\AuthServiceInterface;
+use Src\Application\Services\AuthServiceInterface;
 use Src\Infra\Models\User;
 
 class JwtAuthService implements AuthServiceInterface
