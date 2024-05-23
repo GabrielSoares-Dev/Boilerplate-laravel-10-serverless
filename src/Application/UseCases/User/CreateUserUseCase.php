@@ -6,8 +6,7 @@ use Src\Application\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\Repositories\UserRepositoryInterface;
 use Src\Application\Services\LoggerServiceInterface;
-use Src\Domain\Dtos\Repositories\User\{Src\Application\Dtos\Repositories\User\AssignRoleRepositoryInputDto,
-    Src\Application\Dtos\Repositories\User\CreateUserRepositoryInputDto};
+use Src\Application\Dtos\Repositories\User\{AssignRoleRepositoryInputDto,CreateUserRepositoryInputDto};
 use Src\Domain\Entities\User;
 use Src\Domain\Enums\Role;
 
@@ -39,7 +38,7 @@ class CreateUserUseCase
 
     protected function assignRole(string $email): void
     {
-        $input = new \Src\Application\Dtos\Repositories\User\AssignRoleRepositoryInputDto(Role::ADMIN, $email);
+        $input = new AssignRoleRepositoryInputDto(Role::ADMIN, $email);
 
         $this->repository->assignRole($input);
     }
@@ -56,7 +55,7 @@ class CreateUserUseCase
 
         if ($this->foundUserBySameEmail($email)) throw new BusinessException('User already exists');
 
-        $data = new \Src\Application\Dtos\Repositories\User\CreateUserRepositoryInputDto(...(array) $input);
+        $data = new CreateUserRepositoryInputDto(...(array) $input);
 
         $this->repository->create($data);
 
