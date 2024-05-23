@@ -6,7 +6,7 @@ use Src\Application\Dtos\UseCases\User\CreateUserUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\Repositories\UserRepositoryInterface;
 use Src\Application\Services\LoggerServiceInterface;
-use Src\Application\Dtos\Repositories\User\{AssignRoleRepositoryInputDto,CreateUserRepositoryInputDto};
+use Src\Application\Dtos\Repositories\User\{AssignRoleRepositoryInputDto, CreateUserRepositoryInputDto};
 use Src\Domain\Entities\User;
 use Src\Domain\Enums\Role;
 
@@ -62,6 +62,5 @@ class CreateUserUseCase
         $this->assignRole($email);
 
         $this->loggerService->info('FINISH CreateUserUseCase');
-
     }
 }

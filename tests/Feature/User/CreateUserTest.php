@@ -17,7 +17,7 @@ class CreateUserTest extends TestCase
         $this->seed();
         $input = [
             'name' => 'Boilerplate',
-            'email' => 'boilerplate@gmail.com.br',
+            'email' => 'boilerplate@gmail.com',
             'phoneNumber' => '11942421224',
             'password' => 'Boilerplate@2023',
         ];

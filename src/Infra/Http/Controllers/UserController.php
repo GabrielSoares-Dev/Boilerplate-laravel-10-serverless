@@ -42,7 +42,6 @@ class UserController extends Controller
 
             return BaseResponse::success('User created successfully', HttpCode::CREATED);
         } catch (BusinessException $exception) {
-
             $errorMessage = $exception->getMessage();
 
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;

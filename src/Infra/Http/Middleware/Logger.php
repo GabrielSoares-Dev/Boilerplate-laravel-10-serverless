@@ -17,11 +17,11 @@ class Logger
 
     public function handle(Request $request, Closure $next): mixed
     {
-        $response = $next($request)->getContent();
+        $response = $next($request);
 
         $this->loggerService->debug('request', (object) $request->all());
-        $this->loggerService->debug('response', (object) $response);
+        $this->loggerService->debug('response', (object) $response->getContent());
 
-        return $next($request);
+        return $response;
     }
 }
