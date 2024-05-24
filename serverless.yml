@@ -8,6 +8,7 @@ provider:
         APP_NAME: TEST
 custom:
   functionsDir: ./src/Infra/Functions
+  stage: ${sls:stage}
 package:
     patterns:
         - '!node_modules/**'
@@ -15,10 +16,10 @@ package:
         - '!resources/assets/**'
         - '!storage/**'
         - '!tests/**'
+resources:
+   - "${file(devops/sns.yml)}"
 functions:
-    ${file(${self:custom.functionsDir}/Web/handler.yml)}
+   - ${file(${self:custom.functionsDir}/Web/handler.yml)}
+   - ${file(${self:custom.functionsDir}/Console/handler.yml)}
 plugins:
     - ./vendor/bref/bref
-
-
-

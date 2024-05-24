@@ -1,0 +1,5 @@
+ artisan:
+    handler: artisan
+    runtime: php-81-console
+    timeout: 720
+
