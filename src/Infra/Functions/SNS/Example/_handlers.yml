@@ -1,0 +1,8 @@
+ExampleSNS:
+    handler: Src\Infra\Functions\SNS\Example\HandlerSNS
+    runtime: php-81
+    timeout: 28
+    events:
+      - sns:
+          arn: !Ref ExampleSNS
+          topicName: example-sns-${self:custom.stage}

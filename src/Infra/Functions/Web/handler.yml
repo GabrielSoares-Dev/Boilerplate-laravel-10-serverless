@@ -4,3 +4,4 @@ web:
     timeout: 28
     events:
       - httpApi: '*'
+  

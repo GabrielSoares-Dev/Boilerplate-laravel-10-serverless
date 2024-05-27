@@ -6,8 +6,9 @@ use Bref\Context\Context;
 use Bref\Event\Sns\SnsEvent;
 use Bref\Event\Sns\SnsHandler;
 use Src\Application\Services\LoggerServiceInterface;
+use Src\Infra\Helpers\FunctionInputNormalizer;
 
-class ExampleHandler extends SnsHandler
+class HandlerSNS extends SnsHandler
 {
     protected LoggerServiceInterface $loggerService;
 
@@ -15,13 +16,14 @@ class ExampleHandler extends SnsHandler
     {
         $this->loggerService = $loggerService;
     }
-    
+
     public function handleSns(SnsEvent $event, Context $context): void
     {
-        foreach ($event->getRecords() as $record) {
-            $message = $record->getMessage();
+        $this->loggerService->debug('event', (object) $event);
+        $this->loggerService->debug('context', (object) $context);
 
-            $this->loggerService->debug("testtt", (object) $message);
-        }
+        $input = FunctionInputNormalizer::fromSNS($event);
+        $this->loggerService->debug('input', (object) $input);
+
     }
 }
