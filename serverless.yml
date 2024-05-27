@@ -6,7 +6,9 @@ provider:
     environment:
         APP_ENV: ${sls:stage}
         APP_NAME: TEST
-
+custom:
+  functionsDir: Src/Infra/Functions
+  stage: ${sls:stage}
 package:
     patterns:
         - '!node_modules/**'
@@ -14,11 +16,11 @@ package:
         - '!resources/assets/**'
         - '!storage/**'
         - '!tests/**'
+resources:
+   - "${file(devops/sns.yml)}"
 functions:
-    web:
-        handler: public/index.php
-        runtime: php-81-fpm
-        events:
-            - httpApi: '*'
+   - ${file(${self:custom.functionsDir}/Web/handler.yml)}
+   - ${file(${self:custom.functionsDir}/Console/handler.yml)}
+   - ${file(${self:custom.functionsDir}/SNS/Example/_handlers.yml)}
 plugins:
     - ./vendor/bref/bref
