@@ -1,0 +1,9 @@
+ExampleSQS:
+    handler: Src\Infra\Functions\SQS\Example\HandlerSQS
+    runtime: php-81
+    timeout: 28
+    events:
+      - sqs:
+          arn: !GetAtt ExampleSQS.Arn
+          batchSize: 1
+          maximumConcurrency: 20
