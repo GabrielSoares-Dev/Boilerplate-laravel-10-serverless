@@ -1,11 +1,34 @@
 service: boilerplate-laravel-10-serverless
-
 provider:
     name: aws
     region: us-east-2
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ssm:GetParameter
+        - ssm:GetParameters
+        - ssm:GetParametersByPath
+      Resource: 
+        - arn:aws:ssm:${self:provider.region}:${aws:accountId}:parameter/*
     environment:
-        APP_ENV: ${sls:stage}
-        APP_NAME: TEST
+      APP_ENV: ${self:custom.stage}
+      APP_NAME: ${self:service}-${self:custom.stage}
+      APP_KEY: ${ssm:/${self:custom.stage}/${self:service}/app-key}
+      APP_DEBUG: false
+      LOG_LEVEL: debug
+      DB_CONNECTION: mysql
+      DB_DATABASE: Boilerplate-laravel-10-clean-architecture
+      DB_HOST: ${ssm:/${self:custom.stage}/database/mysql/host}
+      DB_PORT: ${ssm:/${self:custom.stage}/database/mysql/port}
+      DB_USERNAME: ${ssm:/${self:custom.stage}/database/mysql/username/admin}
+      DB_PASSWORD: ${ssm:/${self:custom.stage}/database/mysql/password/admin}
+      BROADCAST_DRIVER: log
+      CACHE_DRIVER: file
+      FILESYSTEM_DISK: local
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: file
+      SESSION_LIFETIME: 120
+      JWT_SECRET: ${ssm:/${self:custom.stage}/${self:service}/jwt-secret}
 custom:
   functionsDir: Src/Infra/Functions
   stage: ${sls:stage}
@@ -16,11 +39,14 @@ package:
         - '!resources/assets/**'
         - '!storage/**'
         - '!tests/**'
+        - '!.env'
 resources:
    - "${file(devops/sns.yml)}"
+   - "${file(devops/sqs.yml)}"
 functions:
    - ${file(${self:custom.functionsDir}/Web/handler.yml)}
    - ${file(${self:custom.functionsDir}/Console/handler.yml)}
    - ${file(${self:custom.functionsDir}/SNS/Example/_handlers.yml)}
+   - ${file(${self:custom.functionsDir}/SQS/Example/_handlers.yml)}
 plugins:
-    - ./vendor/bref/bref
+  - ./vendor/bref/bref

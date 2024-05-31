@@ -1,14 +1,14 @@
 <?php
 
-namespace Src\Infra\Functions\SNS\Example;
+namespace Src\Infra\Functions\SQS\Example;
 
 use Bref\Context\Context;
-use Bref\Event\Sns\SnsEvent;
-use Bref\Event\Sns\SnsHandler;
+use Bref\Event\Sqs\SqsEvent;
+use Bref\Event\Sqs\SqsHandler;
 use Src\Application\Services\LoggerServiceInterface;
 use Src\Infra\Helpers\FunctionInputNormalizer;
 
-class HandlerSNS extends SnsHandler
+class HandlerSQS extends SqsHandler
 {
     protected LoggerServiceInterface $loggerService;
 
@@ -17,12 +17,12 @@ class HandlerSNS extends SnsHandler
         $this->loggerService = $loggerService;
     }
 
-    public function handleSns(SnsEvent $event, Context $context): void
+    public function handleSqs(SqsEvent $event, Context $context): void
     {
         $this->loggerService->debug('event', (object) $event);
         $this->loggerService->debug('context', (object) $context);
 
-        $input = FunctionInputNormalizer::fromSNS($event);
+        $input = FunctionInputNormalizer::fromSQS($event);
         $this->loggerService->debug('input', (object) $input);
     }
 }
