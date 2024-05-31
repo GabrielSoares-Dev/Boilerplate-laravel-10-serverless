@@ -32,6 +32,8 @@ provider:
 custom:
   functionsDir: Src/Infra/Functions
   stage: ${sls:stage}
+  exampleSNSTopicName: example-sns-${self:custom.stage}
+  exampleSQSQueueName: example-sqs-${self:custom.stage}
 package:
     patterns:
         - '!node_modules/**'

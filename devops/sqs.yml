@@ -2,4 +2,4 @@ Resources:
   ExampleSQS:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: example-sqs-${self:custom.stage}
+      QueueName: ${self:custom.exampleSQSQueueName}
