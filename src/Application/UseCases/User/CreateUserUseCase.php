@@ -49,6 +49,7 @@ class CreateUserUseCase
 
         $this->loggerService->debug('Input CreateUserUseCase', $input);
 
+        $this->valid($input);
         $email = $input->email;
 
         if ($this->foundUserBySameEmail($email)) throw new BusinessException('User already exists');
