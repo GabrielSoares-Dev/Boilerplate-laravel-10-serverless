@@ -2,9 +2,7 @@ version: '3.5'
 services:
   boilerplate-laravel-10-serverless:
     container_name: boilerplate-laravel-10-serverless
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    build: .
     volumes:
       - .:/app/boilerplate-laravel-10-serverless
       - volume-boilerplate-laravel-10-serverless-vendor:/app/boilerplate-laravel-10-serverless/vendor
