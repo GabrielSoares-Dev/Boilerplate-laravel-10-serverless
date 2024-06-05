@@ -4,34 +4,33 @@ provider:
     name: aws
     region: us-east-2
     httpApi:
-      id: 7lag8qxcr7
+      id: ${ssm:/${self:custom.stage}/api-gw/${self:service}/id}
     iam:
      role:
        statements:
        - Effect: Allow
          Action:
          - ssm:GetParameter
-         - ssm:GetParameters
          Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/*
     environment:
       APP_ENV: ${self:custom.stage}
       APP_NAME: ${self:service}-${self:custom.stage}
-      # APP_KEY: ${ssm:/${self:custom.stage}/${self:service}/app-key}
+      APP_KEY: ${ssm:/${self:custom.stage}/${self:service}/app-key}
       APP_DEBUG: false
       LOG_LEVEL: debug
       DB_CONNECTION: mysql
       DB_DATABASE: Boilerplate-laravel-10-clean-architecture
-      # DB_HOST: ${ssm:/${self:custom.stage}/database/mysql/host}
-      # DB_PORT: ${ssm:/${self:custom.stage}/database/mysql/port}
-      # DB_USERNAME: ${ssm:/${self:custom.stage}/database/mysql/username/admin}
-      # DB_PASSWORD: ${ssm:/${self:custom.stage}/database/mysql/password/admin}
+      DB_HOST: ${ssm:/${self:custom.stage}/database/mysql/host}
+      DB_PORT: ${ssm:/${self:custom.stage}/database/mysql/port}
+      DB_USERNAME: ${ssm:/${self:custom.stage}/database/mysql/username/admin}
+      DB_PASSWORD: ${ssm:/${self:custom.stage}/database/mysql/password/admin}
       BROADCAST_DRIVER: log
       CACHE_DRIVER: file
       FILESYSTEM_DISK: local
       QUEUE_CONNECTION: sync
       SESSION_DRIVER: file
       SESSION_LIFETIME: 120
-      # JWT_SECRET: ${ssm:/${self:custom.stage}/${self:service}/jwt-secret}
+      JWT_SECRET: ${ssm:/${self:custom.stage}/${self:service}/jwt-secret}
 custom:
   functionsDir: Src/Infra/Functions
   stage: ${sls:stage}
