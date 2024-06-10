@@ -1,15 +1,17 @@
 service: boilerplate-laravel-10-serverless
+
 provider:
     name: aws
     region: us-east-2
-    iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - ssm:GetParameter
-        - ssm:GetParameters
-        - ssm:GetParametersByPath
-      Resource: 
-        - arn:aws:ssm:${self:provider.region}:${aws:accountId}:parameter/*
+    httpApi:
+      id: ${ssm:/${self:custom.stage}/api-gw/${self:service}/id}
+    iam:
+     role:
+       statements:
+       - Effect: Allow
+         Action:
+         - ssm:GetParameter
+         Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/*
     environment:
       APP_ENV: ${self:custom.stage}
       APP_NAME: ${self:service}-${self:custom.stage}
@@ -32,6 +34,8 @@ provider:
 custom:
   functionsDir: Src/Infra/Functions
   stage: ${sls:stage}
+  exampleSNSTopicName: example-sns-${self:custom.stage}
+  exampleSQSQueueName: example-sqs-${self:custom.stage}
 package:
     patterns:
         - '!node_modules/**'

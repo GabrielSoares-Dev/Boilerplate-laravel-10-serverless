@@ -1,28 +1,30 @@
 name: DEPLOY - DEV
-# on:
-#   push:
-#     branches:
-#     #   - master
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+env:
+  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEV}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEV}}
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositorio
-        uses: actions/checkout@v1
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
-          username: ${{secrets.DOCKER_HUB_USERNAME}}
-          password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
-      - uses: docker/build-push-action@v4
+          php-version: "8.1"
+      - uses: actions/checkout@v3
+      - name: Install Composer Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          push: true
-          context: .
-          file: Dockerfile.prod
-          tags: gabrielsoaresdev/boilerplate-laravel-10:latest
-      - name: Update image in stack
-        uses: distributhor/workflow-webhook@v2
-        env:
-          webhook_url: ${{secrets.WEB_HOOK_DOCKER_URL}}
-          webhook_secret: 'Y0uR5ecr3t'
-          verify_ssl: false
+          node-version: "18.x"
+      - name: Install Node Dependencies
+        run: npm ci
+    # - name: Configure aws credentials
+      # run: npx serverless config credentials --provider aws --key "key" --secret "secret"
+      - name: npx serverless deploy
+        run: npm ci

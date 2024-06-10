@@ -2,4 +2,4 @@ Resources:
   ExampleSNS:
     Type: AWS::SNS::Topic
     Properties:
-      TopicName: example-sns-${self:custom.stage}
+      TopicName: ${self:custom.exampleSNSTopicName}
