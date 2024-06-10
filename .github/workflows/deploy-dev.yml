@@ -21,7 +21,7 @@ jobs:
           node-version: "18.x"
       - name: Install Node Dependencies
         run: npm ci
-    # - name: Configure aws credentials
-      # run: npx serverless config credentials --provider aws --key "key" --secret "secret"
-      - name: Serverless
+      - name: Configure aws credentials
+        run: npx serverless config credentials --provider aws --key "${{secrets.AWS_ACCESS_KEY_ID_DEV}}" --secret "${{secrets.AWS_SECRET_ACCESS_KEY_DEV}}"
+      - name: Deploy
         run: npx serverless deploy
