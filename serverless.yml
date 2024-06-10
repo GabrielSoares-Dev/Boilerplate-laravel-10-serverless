@@ -32,7 +32,7 @@ provider:
       SESSION_LIFETIME: 120
       JWT_SECRET: ${ssm:/${self:custom.stage}/${self:service}/jwt-secret}
 custom:
-  functionsDir: Src/Infra/Functions
+  functionsDir: src/Infra/Functions
   stage: ${sls:stage}
   exampleSNSTopicName: example-sns-${self:custom.stage}
   exampleSQSQueueName: example-sqs-${self:custom.stage}
