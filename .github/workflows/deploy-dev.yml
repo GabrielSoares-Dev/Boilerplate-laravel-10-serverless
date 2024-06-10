@@ -29,8 +29,8 @@ jobs:
       - name: Install Node Dependencies
         run: npm ci
 
-    # - name: Clear config
-      # run: php artisan config:clear
+      - name: Clear config
+        run: php artisan config:clear
       - name: Deploy
         run: npx serverless deploy
         if: ${{github.event.inputs.run-migration == 'true'}}
