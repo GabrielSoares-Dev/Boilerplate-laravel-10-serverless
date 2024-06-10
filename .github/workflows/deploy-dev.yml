@@ -23,5 +23,5 @@ jobs:
         run: npm ci
     # - name: Configure aws credentials
       # run: npx serverless config credentials --provider aws --key "key" --secret "secret"
-      - name: npx serverless deploy
-        run: npm ci
+      - name: Serverless
+        run: npx serverless deploy
