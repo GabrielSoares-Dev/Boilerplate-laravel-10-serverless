@@ -1,0 +1,36 @@
+name: DEPLOY - PROD
+on:
+  workflow_dispatch:
+    inputs:
+      run-migration:
+        type: boolean
+        default: false
+        description: Run migration into database
+env:
+  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_PROD}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_PROD}}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: "8.1"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+      - name: Install Composer Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Install Node Dependencies
+        run: npm ci
+      - name: Clear config
+        run: php artisan config:clear
+      - name: Deploy
+        run: npx serverless deploy
+      - name: Run migration
+        run: npx serverless bref:cli --args="migrate --force"
+        if: ${{github.event.inputs.run-migration == 'true'}}
