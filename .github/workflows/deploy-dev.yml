@@ -1,9 +1,6 @@
 name: DEPLOY - DEV
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
 env:
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEV}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEV}}
