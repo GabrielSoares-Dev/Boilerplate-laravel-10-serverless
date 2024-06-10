@@ -31,6 +31,6 @@ jobs:
         run: php artisan config:clear
       - name: Deploy
         run: npx serverless deploy
-        if: ${{github.event.inputs.run-migration == 'true'}}
       - name: Run migration
         run: npx serverless bref:cli --args="migrate --force"
+        if: ${{github.event.inputs.run-migration == 'true'}}
