@@ -3,3 +3,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: ${self:custom.exampleSQSQueueName}
+  TESTSQS:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: test-queue
