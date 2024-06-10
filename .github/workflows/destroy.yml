@@ -25,4 +25,4 @@ jobs:
       - name: Clear config
         run: php artisan config:clear
       - name: Destroy
-        run: npx serverless destroy
+        run: npx serverless remove
