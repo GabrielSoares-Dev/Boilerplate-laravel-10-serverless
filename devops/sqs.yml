@@ -1,9 +1,5 @@
 Resources:
-  # ExampleSQS:
-  #   Type: AWS::SQS::Queue
-  #   Properties:
-  #     QueueName: ${self:custom.exampleSQSQueueName}
-  TESTSQS:
+  ExampleSQS:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: test-queue
+      QueueName: ${self:custom.exampleSQSQueueName}
