@@ -43,7 +43,6 @@ package:
         - '!node_modules/**'
         - '!public/storage'
         - '!resources/assets/**'
-        - '!storage/**'
         - '!tests/**'
         - '!.env'
 resources:
