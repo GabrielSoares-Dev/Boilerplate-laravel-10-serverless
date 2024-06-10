@@ -22,7 +22,5 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Install Node Dependencies
         run: npm ci
-      - name: Show
-        run: ls
       - name: Deploy
         run: npx serverless deploy
