@@ -1,6 +1,6 @@
 # Laravel 10 Boilerplate with serverless framework
 
-This Laravel 10 boilerplate provides a robust initial structure for web development, using Laravel version 10 and PHP 8.1. It includes various tools to enhance development efficiency, ensuring coding best practices, testing, and ease of deployment.
+This Laravel 10 boilerplate provides a robust initial structure for web development, using Laravel version 10 and PHP 8.1. It includes various tools to enhance development efficiency, ensuring coding best practices, testing, and ease of deployment. Additionally, it is designed to be used with the Serverless Framework and Laravel Bref for deploying serverless applications.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ Before you begin, make sure you have the following tools installed in your devel
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/GabrielSoares-Dev/Boilerplate-laravel-10-clean-architecture.git
+   git clone https://github.com/GabrielSoares-Dev/Boilerplate-laravel-10-serverless.git
 
 
 2. **Start the container:**
@@ -69,6 +69,9 @@ Before you begin, make sure you have the following tools installed in your devel
 
    ```bash
    php artisan db:prepare
+
+
+## For more information about Bref, open this link https://bref.sh/docs
 
 ## Docs
 
