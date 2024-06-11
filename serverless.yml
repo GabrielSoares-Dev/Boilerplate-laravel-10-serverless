@@ -32,7 +32,7 @@ provider:
       QUEUE_CONNECTION: sync
       SESSION_DRIVER: file
       SESSION_LIFETIME: 120
-      MAIL_MAILER: log
+      MAIL_MAILER: array
       MAIL_HOST: localhost
       MAIL_PORT: 1025
       MAIL_USERNAME: null
