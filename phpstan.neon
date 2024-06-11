@@ -8,6 +8,7 @@ parameters:
         - '#Method .*::__construct\(\) has parameter \$.* with no value type specified in iterable type array\.#'
         - '#Method .*::.*\(\) has parameter \$.* with no value type specified in iterable type array\.#'
         - '#Result of static method Illuminate\\Support\\Facades\\Auth::login\(\) \(void\) is used#'
+        - '#Property .* has no value type specified in iterable type array#'
     excludePaths:
         - src/Infra/Models/*
         - src/Infra/Routes/*

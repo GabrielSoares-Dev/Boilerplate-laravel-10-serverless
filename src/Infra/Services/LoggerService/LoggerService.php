@@ -4,7 +4,7 @@ namespace Src\Infra\Services\LoggerService;
 
 use Src\Application\Services\LoggerServiceInterface;
 use Bref\Logger\StderrLogger;
-use Psr\Log\LogLevel;
+use Src\Infra\Factories\LoggerFactory;
 
 class LoggerService implements LoggerServiceInterface
 {
@@ -15,7 +15,9 @@ class LoggerService implements LoggerServiceInterface
     public function __construct()
     {
         $this->context = env('APP_NAME');
-        $this->logger = new StderrLogger(LogLevel::DEBUG);
+        $level = env('LOG_LEVEL');
+        $loggerFactory = new LoggerFactory($level);
+        $this->logger = $loggerFactory->build();
     }
 
     protected function generateMessage(string $message): string
