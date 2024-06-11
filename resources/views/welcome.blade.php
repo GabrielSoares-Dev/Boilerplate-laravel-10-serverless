@@ -9,7 +9,7 @@
     <title>Boilerplate laravel 10</title>
 </head>
 
-<body>
+<body style="background-color: blue;">
     <h1>Boilerplate laravel 10 serverless</h1>
 </body>
 

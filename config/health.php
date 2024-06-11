@@ -4,7 +4,7 @@ return [
 
     'result_stores' => [Spatie\Health\ResultStores\InMemoryHealthResultStore::class],
     'notifications' => [
-        'enabled' => true,
+        'enabled' => false,
         'notifications' => [
             Spatie\Health\Notifications\CheckFailedNotification::class => ['mail'],
         ],
