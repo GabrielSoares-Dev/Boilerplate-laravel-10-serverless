@@ -20,7 +20,7 @@ class Logger
         $response = $next($request);
 
         $this->loggerService->debug('request', (object) $request->all());
-        $this->loggerService->debug('response', $response->original);
+        $this->loggerService->debug('response', (object) $response->original);
 
         return $response;
     }
