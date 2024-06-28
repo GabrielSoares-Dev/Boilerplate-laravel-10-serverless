@@ -1,4 +1,4 @@
-web:
+api:
   handler: public/index.php
   runtime: php-81-fpm
   timeout: 28

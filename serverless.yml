@@ -50,7 +50,7 @@ resources:
    - "${file(devops/sns.yml)}"
    - "${file(devops/sqs.yml)}"
 functions:
-   - ${file(${self:custom.functionsDir}/Web/handler.yml)}
+   - ${file(${self:custom.functionsDir}/Api/handler.yml)}
    - ${file(${self:custom.functionsDir}/Console/handler.yml)}
    - ${file(${self:custom.functionsDir}/SNS/Example/_handlers.yml)}
    - ${file(${self:custom.functionsDir}/SQS/Example/_handlers.yml)}
