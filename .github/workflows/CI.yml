@@ -5,8 +5,8 @@ on:
     branches:
       - master
 jobs:
-  terraform:
-    name: deploy
+  CI:
+    name: CI
     uses: GabrielSoares-Dev/workflows/.github/workflows/laravel-serverless-CI.yml@master
     with:
       php_version: '8.1'
