@@ -7,7 +7,7 @@ on:
         default: false
         description: Run migration into database
 jobs:
-  deploy:
+  serverless:
     name: deploy
     uses: GabrielSoares-Dev/workflows/.github/workflows/laravel-serverless-deploy.yml@master
     with:
