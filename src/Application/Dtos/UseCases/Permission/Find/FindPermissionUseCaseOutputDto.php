@@ -10,6 +10,5 @@ class FindPermissionUseCaseOutputDto
         public readonly string $guard_name,
         public readonly string $created_at,
         public readonly string $updated_at
-    ) {
-    }
+    ) {}
 }

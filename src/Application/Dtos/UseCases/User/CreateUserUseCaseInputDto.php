@@ -9,6 +9,5 @@ class CreateUserUseCaseInputDto
         public readonly string $email,
         public readonly string $phoneNumber,
         public readonly string $password
-    ) {
-    }
+    ) {}
 }

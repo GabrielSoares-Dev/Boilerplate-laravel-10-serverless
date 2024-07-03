@@ -9,6 +9,5 @@ class CreateUserRepositoryInputDto
         public readonly string $email,
         public readonly string $phoneNumber,
         public readonly string $password
-    ) {
-    }
+    ) {}
 }

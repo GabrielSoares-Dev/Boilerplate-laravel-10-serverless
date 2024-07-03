@@ -4,7 +4,5 @@ namespace Src\Application\Dtos\UseCases\Auth\Login;
 
 class LoginUseCaseOutputDto
 {
-    public function __construct(public readonly string $token)
-    {
-    }
+    public function __construct(public readonly string $token) {}
 }

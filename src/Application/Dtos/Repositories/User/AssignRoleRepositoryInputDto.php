@@ -7,6 +7,5 @@ class AssignRoleRepositoryInputDto
     public function __construct(
         public readonly string $role,
         public readonly string $email
-    ) {
-    }
+    ) {}
 }
