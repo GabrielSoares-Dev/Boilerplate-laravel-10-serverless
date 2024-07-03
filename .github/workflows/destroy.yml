@@ -1,28 +1,12 @@
 name: DESTROY - DEV
 on:
-  workflow_dispatch:
-env:
-  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEV}}
-  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEV}}
+   workflow_dispatch:
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup PHP
-        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: "8.1"
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18.x"
-      - name: Install Composer Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      - name: Install Node Dependencies
-        run: npm ci
-      - name: Clear config
-        run: php artisan config:clear
-      - name: Destroy
-        run: npx serverless remove
+  serverless:
+    name: destroy
+    uses: GabrielSoares-Dev/workflows/.github/workflows/laravel-serverless-destroy.yml@master
+    with:
+      php_version: '8.1'
+    secrets:
+      aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID_DEV}}
+      aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY_DEV}}
