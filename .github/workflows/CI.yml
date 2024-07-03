@@ -5,7 +5,7 @@ on:
     branches:
       - master
 jobs:
-  CI:
+  serverless:
     name: CI
     uses: GabrielSoares-Dev/workflows/.github/workflows/laravel-serverless-CI.yml@master
     with:
