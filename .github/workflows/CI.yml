@@ -1,23 +1,12 @@
 name: CI
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - master
 jobs:
-  CI:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '8.1'
-    - uses: actions/checkout@v3
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Code style
-      run: composer lint:test
-    - name: Code analyses
-      run: composer code:analyses
-    - name: Tests and coverage
-      run: composer test:coverage
+  terraform:
+    name: deploy
+    uses: GabrielSoares-Dev/workflows/.github/workflows/laravel-serverless-CI.yml@master
+    with:
+      php_version: '8.1'
