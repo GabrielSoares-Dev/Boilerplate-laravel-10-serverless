@@ -11,19 +11,12 @@ use Src\Domain\Entities\Role;
 
 class UpdateRoleUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected RoleRepositoryInterface $repository;
+    public function __construct(
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly RoleRepositoryInterface $repository
+    ) {}
 
     protected string $defaultGuardName = 'api';
-
-    public function __construct(
-        LoggerServiceInterface $loggerService,
-        RoleRepositoryInterface $repository
-    ) {
-        $this->loggerService = $loggerService;
-        $this->repository = $repository;
-    }
 
     protected function valid(string $name): void
     {

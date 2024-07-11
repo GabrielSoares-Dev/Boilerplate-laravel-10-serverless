@@ -8,12 +8,7 @@ use Src\Application\Services\LoggerServiceInterface;
 
 class Logger
 {
-    protected LoggerServiceInterface $loggerService;
-
-    public function __construct(LoggerServiceInterface $loggerService)
-    {
-        $this->loggerService = $loggerService;
-    }
+    public function __construct(protected readonly LoggerServiceInterface $loggerService) {}
 
     public function handle(Request $request, Closure $next): mixed
     {

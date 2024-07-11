@@ -12,17 +12,10 @@ use Src\Domain\Enums\Role;
 
 class CreateUserUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected UserRepositoryInterface $repository;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        UserRepositoryInterface $repository
-    ) {
-        $this->loggerService = $loggerService;
-        $this->repository = $repository;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly UserRepositoryInterface $repository
+    ) {}
 
     protected function valid(CreateUserUseCaseInputDto $input): void
     {

@@ -26,41 +26,16 @@ use Src\Infra\Http\Requests\Role\{RoleRequest, SyncPermissionsWithRoleRequest, U
 
 class RoleController extends Controller
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected CreateRoleUseCase $createRoleUseCase;
-
-    protected DeleteRoleUseCase $deleteRoleUseCase;
-
-    protected UpdateRoleUseCase $updateRoleUseCase;
-
-    protected FindAllRolesUseCase $findAllRolesUseCase;
-
-    protected FindRoleUseCase $findRoleUseCase;
-
-    protected SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase;
-
-    protected UnsyncPermissionsWithRoleUseCase $unsyncPermissionsWithRoleUseCase;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        CreateRoleUseCase $createRoleUseCase,
-        FindAllRolesUseCase $findAllRolesUseCase,
-        FindRoleUseCase $findRoleUseCase,
-        DeleteRoleUseCase $deleteRoleUseCase,
-        UpdateRoleUseCase $updateRoleUseCase,
-        SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase,
-        UnsyncPermissionsWithRoleUseCase $unsyncPermissionsWithRoleUseCase
-    ) {
-        $this->loggerService = $loggerService;
-        $this->createRoleUseCase = $createRoleUseCase;
-        $this->findAllRolesUseCase = $findAllRolesUseCase;
-        $this->findRoleUseCase = $findRoleUseCase;
-        $this->deleteRoleUseCase = $deleteRoleUseCase;
-        $this->updateRoleUseCase = $updateRoleUseCase;
-        $this->syncPermissionsWithRoleUseCase = $syncPermissionsWithRoleUseCase;
-        $this->unsyncPermissionsWithRoleUseCase = $unsyncPermissionsWithRoleUseCase;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly CreateRoleUseCase $createRoleUseCase,
+        protected readonly FindAllRolesUseCase $findAllRolesUseCase,
+        protected readonly FindRoleUseCase $findRoleUseCase,
+        protected readonly DeleteRoleUseCase $deleteRoleUseCase,
+        protected readonly UpdateRoleUseCase $updateRoleUseCase,
+        protected readonly SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase,
+        protected readonly UnsyncPermissionsWithRoleUseCase $unsyncPermissionsWithRoleUseCase
+    ) {}
 
     public function index(): JsonResponse
     {

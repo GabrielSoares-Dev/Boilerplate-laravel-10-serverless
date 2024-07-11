@@ -8,17 +8,10 @@ use Src\Application\Services\LoggerServiceInterface;
 
 class CheckAuthenticationUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected AuthServiceInterface $authService;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        AuthServiceInterface $authService
-    ) {
-        $this->loggerService = $loggerService;
-        $this->authService = $authService;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly AuthServiceInterface $authService
+    ) {}
 
     public function run(): void
     {

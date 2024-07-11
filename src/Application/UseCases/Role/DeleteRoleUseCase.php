@@ -9,17 +9,10 @@ use Src\Application\Services\LoggerServiceInterface;
 
 class DeleteRoleUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected RoleRepositoryInterface $repository;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        RoleRepositoryInterface $repository
-    ) {
-        $this->loggerService = $loggerService;
-        $this->repository = $repository;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly RoleRepositoryInterface $repository
+    ) {}
 
     public function run(DeleteRoleUseCaseInputDto $input): void
     {

@@ -7,17 +7,10 @@ use Src\Application\Services\LoggerServiceInterface;
 
 class FindAllPermissionsUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected PermissionRepositoryInterface $repository;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        PermissionRepositoryInterface $repository
-    ) {
-        $this->loggerService = $loggerService;
-        $this->repository = $repository;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly PermissionRepositoryInterface $repository
+    ) {}
 
     public function run(): array
     {

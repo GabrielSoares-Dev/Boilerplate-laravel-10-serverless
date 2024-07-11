@@ -11,23 +11,13 @@ use Src\Application\Services\LoggerServiceInterface;
 
 class SyncPermissionsWithRoleUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected RoleRepositoryInterface $roleRepository;
-
-    protected PermissionRepositoryInterface $permissionRepository;
+    public function __construct(
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly RoleRepositoryInterface $roleRepository,
+        protected readonly PermissionRepositoryInterface $permissionRepository
+    ) {}
 
     protected string $defaultGuardName = 'api';
-
-    public function __construct(
-        LoggerServiceInterface $loggerService,
-        RoleRepositoryInterface $roleRepository,
-        PermissionRepositoryInterface $permissionRepository
-    ) {
-        $this->loggerService = $loggerService;
-        $this->roleRepository = $roleRepository;
-        $this->permissionRepository = $permissionRepository;
-    }
 
     protected function foundPermission(string $name): bool
     {

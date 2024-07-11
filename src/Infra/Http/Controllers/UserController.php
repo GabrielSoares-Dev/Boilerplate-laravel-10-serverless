@@ -14,17 +14,10 @@ use Src\Infra\Http\Requests\User\UserRequest;
 
 class UserController extends Controller
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected CreateUserUseCase $createUserUseCase;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        CreateUserUseCase $createUserUseCase
-    ) {
-        $this->loggerService = $loggerService;
-        $this->createUserUseCase = $createUserUseCase;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly CreateUserUseCase $createUserUseCase
+    ) {}
 
     public function store(UserRequest $request): JsonResponse
     {

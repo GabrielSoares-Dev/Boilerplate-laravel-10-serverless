@@ -12,12 +12,7 @@ use stdClass;
 
 class RoleEloquentRepository implements RoleRepositoryInterface
 {
-    protected Role $model;
-
-    public function __construct(Role $model)
-    {
-        $this->model = $model;
-    }
+    public function __construct(protected readonly Role $model) {}
 
     public function create(CreateRoleRepositoryInputDto $input): stdClass
     {

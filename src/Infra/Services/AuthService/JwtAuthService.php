@@ -8,12 +8,7 @@ use Src\Infra\Models\User;
 
 class JwtAuthService implements AuthServiceInterface
 {
-    protected User $model;
-
-    public function __construct(User $model)
-    {
-        $this->model = $model;
-    }
+    public function __construct(protected readonly User $model) {}
 
     public function generateToken(string $email): string
     {

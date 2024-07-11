@@ -11,21 +11,11 @@ use Src\Application\Services\LoggerServiceInterface;
 
 class LoginUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected AuthServiceInterface $authService;
-
-    protected UserRepositoryInterface $userRepository;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        AuthServiceInterface $authService,
-        UserRepositoryInterface $userRepository
-    ) {
-        $this->loggerService = $loggerService;
-        $this->authService = $authService;
-        $this->userRepository = $userRepository;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly AuthServiceInterface $authService,
+        protected readonly UserRepositoryInterface $userRepository
+    ) {}
 
     protected function validateCredentials(string $email, string $password): void
     {

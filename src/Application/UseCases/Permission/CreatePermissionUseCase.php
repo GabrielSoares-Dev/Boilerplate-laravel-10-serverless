@@ -11,19 +11,12 @@ use Src\Domain\Entities\Permission;
 
 class CreatePermissionUseCase
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected PermissionRepositoryInterface $repository;
+    public function __construct(
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly PermissionRepositoryInterface $repository
+    ) {}
 
     protected string $defaultGuardName = 'api';
-
-    public function __construct(
-        LoggerServiceInterface $loggerService,
-        PermissionRepositoryInterface $repository
-    ) {
-        $this->loggerService = $loggerService;
-        $this->repository = $repository;
-    }
 
     protected function valid(string $name, string $guardName): void
     {

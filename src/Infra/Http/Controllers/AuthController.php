@@ -15,21 +15,11 @@ use Src\Infra\Http\Requests\Auth\LoginRequest;
 
 class AuthController extends Controller
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected LoginUseCase $loginUseCase;
-
-    protected LogoutUseCase $logoutUseCase;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        LoginUseCase $loginUseCase,
-        LogoutUseCase $logoutUseCase
-    ) {
-        $this->loggerService = $loggerService;
-        $this->loginUseCase = $loginUseCase;
-        $this->logoutUseCase = $logoutUseCase;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly LoginUseCase $loginUseCase,
+        protected readonly LogoutUseCase $logoutUseCase
+    ) {}
 
     public function login(LoginRequest $request): JsonResponse
     {

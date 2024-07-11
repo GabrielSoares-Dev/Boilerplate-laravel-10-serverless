@@ -22,34 +22,14 @@ use Src\Infra\Http\Requests\Permission\PermissionRequest;
 
 class PermissionController extends Controller
 {
-    protected LoggerServiceInterface $loggerService;
-
-    protected FindAllPermissionsUseCase $findAllPermissionsUseCase;
-
-    protected CreatePermissionUseCase $createPermissionUseCase;
-
-    protected DeletePermissionUseCase $deletePermissionUseCase;
-
-    protected FindPermissionUseCase $findPermissionUseCase;
-
-    protected UpdatePermissionUseCase $updatePermissionUseCase;
-
     public function __construct(
-        LoggerServiceInterface $loggerService,
-        FindAllPermissionsUseCase $findAllPermissionsUseCase,
-        CreatePermissionUseCase $createPermissionUseCase,
-        DeletePermissionUseCase $deletePermissionUseCase,
-        FindPermissionUseCase $findPermissionUseCase,
-        UpdatePermissionUseCase $updatePermissionUseCase
-
-    ) {
-        $this->loggerService = $loggerService;
-        $this->findAllPermissionsUseCase = $findAllPermissionsUseCase;
-        $this->createPermissionUseCase = $createPermissionUseCase;
-        $this->deletePermissionUseCase = $deletePermissionUseCase;
-        $this->findPermissionUseCase = $findPermissionUseCase;
-        $this->updatePermissionUseCase = $updatePermissionUseCase;
-    }
+        protected readonly LoggerServiceInterface $loggerService,
+        protected readonly FindAllPermissionsUseCase $findAllPermissionsUseCase,
+        protected readonly CreatePermissionUseCase $createPermissionUseCase,
+        protected readonly DeletePermissionUseCase $deletePermissionUseCase,
+        protected readonly FindPermissionUseCase $findPermissionUseCase,
+        protected readonly UpdatePermissionUseCase $updatePermissionUseCase
+    ) {}
 
     public function index(): JsonResponse
     {
