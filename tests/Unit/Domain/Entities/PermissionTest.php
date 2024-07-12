@@ -3,15 +3,16 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use Src\Application\Dtos\Entities\Permission\PermissionEntityDto;
 use Src\Domain\Entities\Permission;
 
 class PermissionTest extends TestCase
 {
     public function test_should_create_permission(): void
     {
-        $entity = new Permission();
+        $entity = new Permission(new PermissionEntityDto('create_permission'));
 
-        $entity->create('create_permission', 'api');
+        $entity->create();
 
         $this->assertTrue(true);
     }
@@ -19,50 +20,30 @@ class PermissionTest extends TestCase
     public function test_should_create_permission_failure_when_name_is_invalid(): void
     {
 
-        $entity = new Permission();
+        $entity = new Permission(new PermissionEntityDto(''));
 
         $this->expectExceptionMessage('Invalid name');
 
-        $entity->create('', 'api');
-    }
-
-    public function test_should_create_permission_failure_when_guard_name_is_invalid(): void
-    {
-
-        $entity = new Permission();
-
-        $this->expectExceptionMessage('Invalid guard name');
-
-        $entity->create('create_permission', 'test');
+        $entity->create();
     }
 
     public function test_should_update(): void
     {
 
-        $entity = new Permission();
+        $entity = new Permission(new PermissionEntityDto('create_permission'));
 
-        $entity->update('create_permission', 'api');
+        $entity->update();
 
         $this->assertTrue(true);
-    }
-
-    public function test_should_update_guard_name_invalid(): void
-    {
-
-        $entity = new Permission();
-
-        $this->expectExceptionMessage('Invalid guard name');
-
-        $entity->update('create_permission', 'test');
     }
 
     public function test_should_update_name_invalid(): void
     {
 
-        $entity = new Permission();
+        $entity = new Permission(new PermissionEntityDto(''));
 
         $this->expectExceptionMessage('Invalid name');
 
-        $entity->update('', 'api');
+        $entity->update();
     }
 }

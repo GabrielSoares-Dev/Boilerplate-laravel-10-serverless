@@ -2,6 +2,7 @@
 
 namespace Src\Application\UseCases\Permission;
 
+use Src\Application\Dtos\Entities\Permission\PermissionEntityDto;
 use Src\Application\Dtos\Repositories\Permission\CreatePermissionRepositoryInputDto;
 use Src\Application\Dtos\UseCases\Permission\Create\CreatePermissionUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
@@ -18,11 +19,11 @@ class CreatePermissionUseCase
 
     protected string $defaultGuardName = 'api';
 
-    protected function valid(string $name, string $guardName): void
+    protected function validate(string $name): void
     {
-        $entity = new Permission();
+        $entity = new Permission(new PermissionEntityDto($name));
 
-        $entity->create($name, $guardName);
+        $entity->create();
     }
 
     protected function alreadyExists(string $name, string $guardName): bool
@@ -39,7 +40,7 @@ class CreatePermissionUseCase
         $name = $input->name;
         $guardName = $this->defaultGuardName;
 
-        $this->valid($name, $guardName);
+        $this->validate($name);
 
         $alreadyExists = $this->alreadyExists($name, $guardName);
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Application\Helpers;
+namespace Src\Application\Services;
 
-interface CryptographyInterface
+interface CryptographyServiceInterface
 {
     public function compare(string $hash, string $value): bool;
 }

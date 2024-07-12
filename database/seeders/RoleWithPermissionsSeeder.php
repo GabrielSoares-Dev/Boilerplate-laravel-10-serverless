@@ -27,15 +27,12 @@ class RoleWithPermissionsSeeder extends Seeder
         ];
         $role = Role::findByName(RoleEnum::ADMIN);
 
-        
-
         foreach ($permissions as $permission) {
-        
-            $alreadySync = $role-($permission);
 
-            if(!$alreadySync) $role->givePermissionTo($permission);
+            $alreadySync = $role->hasPermissionTo($permission);
+
+            if (!$alreadySync) $role->givePermissionTo($permission);
         }
-       
     }
 
     public function run(): void

@@ -8,6 +8,7 @@ use Src\Application\Repositories\UserRepositoryInterface;
 use Src\Application\Services\LoggerServiceInterface;
 use Src\Application\Dtos\Repositories\User\{AssignRoleRepositoryInputDto, CreateUserRepositoryInputDto};
 use Src\Domain\Entities\User;
+use Src\Application\Dtos\Entities\User\UserEntityDto;
 use Src\Domain\Enums\Role;
 
 class CreateUserUseCase
@@ -17,9 +18,9 @@ class CreateUserUseCase
         protected readonly UserRepositoryInterface $repository
     ) {}
 
-    protected function valid(CreateUserUseCaseInputDto $input): void
+    protected function validate(CreateUserUseCaseInputDto $input): void
     {
-        $entity = new User(...(array) $input);
+        $entity = new User(new UserEntityDto(...(array) $input));
 
         $entity->create();
     }
@@ -42,7 +43,7 @@ class CreateUserUseCase
 
         $this->loggerService->debug('Input CreateUserUseCase', $input);
 
-        $this->valid($input);
+        $this->validate($input);
         $email = $input->email;
 
         if ($this->foundUserBySameEmail($email)) throw new BusinessException('User already exists');

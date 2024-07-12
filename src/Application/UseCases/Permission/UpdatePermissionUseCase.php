@@ -2,6 +2,7 @@
 
 namespace Src\Application\UseCases\Permission;
 
+use Src\Application\Dtos\Entities\Permission\PermissionEntityDto;
 use Src\Application\Dtos\Repositories\Permission\UpdatePermissionRepositoryInputDto;
 use Src\Application\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
@@ -18,11 +19,11 @@ class UpdatePermissionUseCase
 
     protected string $defaultGuardName = 'api';
 
-    protected function valid(string $name, string $guardName): void
+    protected function validate(string $name): void
     {
-        $entity = new Permission();
+        $entity = new Permission(new PermissionEntityDto($name));
 
-        $entity->create($name, $guardName);
+        $entity->create();
     }
 
     public function run(UpdatePermissionUseCaseInputDto $input): void
@@ -33,9 +34,8 @@ class UpdatePermissionUseCase
 
         $id = $input->id;
         $name = $input->name;
-        $guardName = $this->defaultGuardName;
 
-        $this->valid($name, $guardName);
+        $this->validate($name);
 
         $data = new UpdatePermissionRepositoryInputDto($name);
 

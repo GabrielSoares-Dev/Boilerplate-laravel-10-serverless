@@ -8,6 +8,7 @@ use Src\Application\Exceptions\BusinessException;
 use Src\Application\Repositories\RoleRepositoryInterface;
 use Src\Application\Services\LoggerServiceInterface;
 use Src\Domain\Entities\Role;
+use Src\Application\Dtos\Entities\Role\RoleEntityDto;
 
 class CreateRoleUseCase
 {
@@ -18,11 +19,11 @@ class CreateRoleUseCase
 
     protected string $defaultGuardName = 'api';
 
-    protected function valid(string $name, string $guardName): void
+    protected function validate(string $name): void
     {
-        $entity = new Role();
+        $entity = new Role(new RoleEntityDto($name));
 
-        $entity->create($name, $guardName);
+        $entity->create();
     }
 
     protected function alreadyExists(string $name, string $guardName): bool
@@ -39,7 +40,7 @@ class CreateRoleUseCase
         $name = $input->name;
         $guardName = $this->defaultGuardName;
 
-        $this->valid($name, $guardName);
+        $this->validate($name);
 
         $alreadyExists = $this->alreadyExists($name, $guardName);
 

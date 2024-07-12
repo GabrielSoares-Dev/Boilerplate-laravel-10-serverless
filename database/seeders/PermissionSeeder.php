@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Src\Domain\Enums\Permission as PermissionEnum;
 
-
 class PermissionSeeder extends Seeder
 {
     protected string $defaultGuardName = 'api';
@@ -30,7 +29,7 @@ class PermissionSeeder extends Seeder
 
         ];
 
-        foreach ($permissions as $permission) Permission::findOrCreate($permission, $this->defaultGuardName); 
-        
+        foreach ($permissions as $permission) Permission::findOrCreate($permission, $this->defaultGuardName);
+
     }
 }

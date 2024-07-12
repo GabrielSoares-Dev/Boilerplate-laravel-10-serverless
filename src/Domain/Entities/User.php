@@ -3,41 +3,44 @@
 namespace Src\Domain\Entities;
 
 use Src\Application\Exceptions\BusinessException;
+use Src\Application\Dtos\Entities\User\UserEntityDto;
 
 class User
 {
-    protected string $name;
+    public function __construct(private readonly UserEntityDto $input) {}
 
-    protected string $email;
-
-    protected string $phoneNumber;
-
-    protected string $password;
-
-    public function __construct(string $name, string $email, string $phoneNumber, string $password)
+    protected function validateName(): bool
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->phoneNumber = $phoneNumber;
-        $this->password = $password;
+        return !empty($this->input->name);
+    }
+
+    protected function validateEmail(): bool
+    {
+        $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+
+        return (bool) preg_match($emailRegex, $this->input->email);
+    }
+
+    protected function validatePhoneNumber(): bool
+    {
+        return strlen($this->input->phoneNumber) === 11;
+    }
+
+    protected function validatePassword(): bool
+    {
+        $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/';
+
+        return (bool) preg_match($passwordRegex, $this->input->password);
     }
 
     public function create(): void
     {
-        $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-        $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/';
+        if (!$this->validateName()) throw new BusinessException('Invalid name');
 
-        $invalidName = empty($this->name);
-        $invalidEmail = !(bool) preg_match($emailRegex, $this->email);
-        $invalidPhoneNumber = strlen($this->phoneNumber) !== 11;
-        $invalidPassword = !(bool) preg_match($passwordRegex, $this->password);
+        if (!$this->validateEmail())  throw new BusinessException('Invalid email');
 
-        if ($invalidName) throw new BusinessException('Invalid name');
+        if (!$this->validatePhoneNumber()) throw new BusinessException('Invalid phone number');
 
-        if ($invalidEmail)  throw new BusinessException('Invalid email');
-
-        if ($invalidPhoneNumber) throw new BusinessException('Invalid phone number');
-
-        if ($invalidPassword) throw new BusinessException('Invalid password');
+        if (!$this->validatePassword()) throw new BusinessException('Invalid password');
     }
 }

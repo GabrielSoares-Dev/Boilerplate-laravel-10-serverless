@@ -8,6 +8,7 @@ use Src\Application\Exceptions\BusinessException;
 use Src\Application\Repositories\RoleRepositoryInterface;
 use Src\Application\Services\LoggerServiceInterface;
 use Src\Domain\Entities\Role;
+use Src\Application\Dtos\Entities\Role\RoleEntityDto;
 
 class UpdateRoleUseCase
 {
@@ -18,13 +19,11 @@ class UpdateRoleUseCase
 
     protected string $defaultGuardName = 'api';
 
-    protected function valid(string $name): void
+    protected function validate(string $name): void
     {
-        $guardName = $this->defaultGuardName;
+        $entity = new Role(new RoleEntityDto($name));
 
-        $entity = new Role();
-
-        $entity->update($name, $guardName);
+        $entity->update();
     }
 
     public function run(UpdateRoleUseCaseInputDto $input): void
@@ -36,7 +35,7 @@ class UpdateRoleUseCase
         $id = $input->id;
         $name = $input->name;
 
-        $this->valid($name);
+        $this->validate($name);
 
         $data = new UpdateRoleRepositoryInputDto($name);
         $updated = (bool) $this->repository->update($data, $id);

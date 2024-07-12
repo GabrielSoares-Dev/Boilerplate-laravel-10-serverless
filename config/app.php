@@ -25,7 +25,6 @@ return [
         Src\Infra\Providers\AuthServiceProvider::class,
         Src\Infra\Providers\ServiceServiceProvider::class,
         Src\Infra\Providers\RepositoryServiceProvider::class,
-        Src\Infra\Providers\HelperServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         Src\Infra\Providers\EventServiceProvider::class,
         Src\Infra\Providers\RouteServiceProvider::class,

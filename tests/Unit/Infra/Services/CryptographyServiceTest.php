@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Src\Infra\Helpers\Cryptography;
+use Src\Infra\Services\CryptographyService\CryptographyService;
 use Tests\TestCase;
 
-class CryptographyTest extends TestCase
+class CryptographyServiceTest extends TestCase
 {
     public function test_should_compare_hash_and_value(): void
     {
@@ -15,9 +15,9 @@ class CryptographyTest extends TestCase
             'value' => 'Boilerplate@2023',
         ];
 
-        $cryptography = new Cryptography();
+        $service = new CryptographyService();
 
-        $output = $cryptography->compare($input['hash'], $input['value']);
+        $output = $service->compare($input['hash'], $input['value']);
 
         $expectedOutput = true;
 
