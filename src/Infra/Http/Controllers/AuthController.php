@@ -16,9 +16,9 @@ use Src\Infra\Http\Requests\Auth\LoginRequest;
 class AuthController extends Controller
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly LoginUseCase $loginUseCase,
-        protected readonly LogoutUseCase $logoutUseCase
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly LoginUseCase $loginUseCase,
+        private readonly LogoutUseCase $logoutUseCase
     ) {}
 
     public function login(LoginRequest $request): JsonResponse

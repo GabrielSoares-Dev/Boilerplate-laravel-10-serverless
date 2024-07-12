@@ -10,7 +10,7 @@ class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/user';
+    private $path = '/v1/user';
 
     public function test_user_created(): void
     {

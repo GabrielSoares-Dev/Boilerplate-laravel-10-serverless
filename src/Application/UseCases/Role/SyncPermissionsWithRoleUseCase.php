@@ -12,21 +12,21 @@ use Src\Application\Services\LoggerServiceInterface;
 class SyncPermissionsWithRoleUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly RoleRepositoryInterface $roleRepository,
-        protected readonly PermissionRepositoryInterface $permissionRepository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly RoleRepositoryInterface $roleRepository,
+        private readonly PermissionRepositoryInterface $permissionRepository
     ) {}
 
-    protected string $defaultGuardName = 'api';
+    private string $defaultGuardName = 'api';
 
-    protected function foundPermission(string $name): bool
+    private function foundPermission(string $name): bool
     {
         $guardName = $this->defaultGuardName;
 
         return (bool) $this->permissionRepository->findByName($name, $guardName);
     }
 
-    protected function validPermissions(array $permissions): void
+    private function validPermissions(array $permissions): void
     {
         foreach ($permissions as $permission) {
             $notFound = !$this->foundPermission($permission);
@@ -35,14 +35,14 @@ class SyncPermissionsWithRoleUseCase
         }
     }
 
-    protected function foundRole(string $name): bool
+    private function foundRole(string $name): bool
     {
         $guardName = $this->defaultGuardName;
 
         return (bool) $this->roleRepository->findByName($name, $guardName);
     }
 
-    protected function validRole(string $role): void
+    private function validRole(string $role): void
     {
         $notFound = !$this->foundRole($role);
 

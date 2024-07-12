@@ -13,20 +13,20 @@ use Src\Domain\Entities\Permission;
 class CreatePermissionUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly PermissionRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly PermissionRepositoryInterface $repository
     ) {}
 
-    protected string $defaultGuardName = 'api';
+    private string $defaultGuardName = 'api';
 
-    protected function validate(string $name): void
+    private function validate(string $name): void
     {
         $entity = new Permission(new PermissionEntityDto($name));
 
         $entity->create();
     }
 
-    protected function alreadyExists(string $name, string $guardName): bool
+    private function alreadyExists(string $name, string $guardName): bool
     {
         return !empty($this->repository->findByName($name, $guardName));
     }

@@ -10,12 +10,7 @@ use Src\Infra\Helpers\FunctionInputNormalizer;
 
 class HandlerSQS extends SqsHandler
 {
-    protected LoggerServiceInterface $loggerService;
-
-    public function __construct(LoggerServiceInterface $loggerService)
-    {
-        $this->loggerService = $loggerService;
-    }
+    public function __construct(private readonly LoggerServiceInterface $loggerService) {}
 
     public function handleSqs(SqsEvent $event, Context $context): void
     {

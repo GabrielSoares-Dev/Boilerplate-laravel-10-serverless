@@ -12,9 +12,9 @@ class CreatePermissionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/permission';
+    private $path = '/v1/permission';
 
-    protected $permission = PermissionEnum::CREATE_PERMISSION;
+    private $permission = PermissionEnum::CREATE_PERMISSION;
 
     public function test_created(): void
     {

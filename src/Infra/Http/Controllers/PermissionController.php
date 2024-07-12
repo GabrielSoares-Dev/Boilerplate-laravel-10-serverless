@@ -24,12 +24,12 @@ use Src\Infra\Http\Requests\Permission\PermissionRequest;
 class PermissionController extends Controller
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly FindAllPermissionsUseCase $findAllPermissionsUseCase,
-        protected readonly CreatePermissionUseCase $createPermissionUseCase,
-        protected readonly DeletePermissionUseCase $deletePermissionUseCase,
-        protected readonly FindPermissionUseCase $findPermissionUseCase,
-        protected readonly UpdatePermissionUseCase $updatePermissionUseCase
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly FindAllPermissionsUseCase $findAllPermissionsUseCase,
+        private readonly CreatePermissionUseCase $createPermissionUseCase,
+        private readonly DeletePermissionUseCase $deletePermissionUseCase,
+        private readonly FindPermissionUseCase $findPermissionUseCase,
+        private readonly UpdatePermissionUseCase $updatePermissionUseCase
     ) {}
 
     public function index(): JsonResponse

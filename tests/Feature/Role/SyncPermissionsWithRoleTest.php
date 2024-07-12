@@ -13,9 +13,9 @@ class SyncPermissionsWithRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/role/sync-permissions';
+    private $path = '/v1/role/sync-permissions';
 
-    protected $permission = PermissionEnum::SYNC_ROLE_WITH_PERMISSIONS;
+    private $permission = PermissionEnum::SYNC_ROLE_WITH_PERMISSIONS;
 
     public function test_sync(): void
     {

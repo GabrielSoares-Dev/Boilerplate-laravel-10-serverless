@@ -12,9 +12,9 @@ class FindAllPermissionsTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/permission';
+    private $path = '/v1/permission';
 
-    protected $permission = PermissionEnum::READ_ALL_PERMISSIONS;
+    private $permission = PermissionEnum::READ_ALL_PERMISSIONS;
 
     public function test_found(): void
     {

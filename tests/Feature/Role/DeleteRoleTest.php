@@ -12,9 +12,9 @@ class DeleteRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/role';
+    private $path = '/v1/role';
 
-    protected $permission = PermissionEnum::DELETE_ROLE;
+    private $permission = PermissionEnum::DELETE_ROLE;
 
     public function test_deleted(): void
     {

@@ -10,7 +10,7 @@ use stdClass;
 
 class PermissionEloquentRepository implements PermissionRepositoryInterface
 {
-    public function __construct(protected readonly Permission $model) {}
+    public function __construct(private readonly Permission $model) {}
 
     public function create(CreatePermissionRepositoryInputDto $input): stdClass
     {

@@ -13,20 +13,20 @@ use Src\Application\Dtos\Entities\Role\RoleEntityDto;
 class CreateRoleUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly RoleRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly RoleRepositoryInterface $repository
     ) {}
 
-    protected string $defaultGuardName = 'api';
+    private string $defaultGuardName = 'api';
 
-    protected function validate(string $name): void
+    private function validate(string $name): void
     {
         $entity = new Role(new RoleEntityDto($name));
 
         $entity->create();
     }
 
-    protected function alreadyExists(string $name, string $guardName): bool
+    private function alreadyExists(string $name, string $guardName): bool
     {
         return !empty($this->repository->findByName($name, $guardName));
     }

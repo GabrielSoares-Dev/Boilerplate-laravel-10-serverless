@@ -9,7 +9,7 @@ class Role
 {
     public function __construct(private readonly RoleEntityDto $input) {}
 
-    protected function validateName(): bool
+    private function validateName(): bool
     {
         return !empty($this->input->name);
     }

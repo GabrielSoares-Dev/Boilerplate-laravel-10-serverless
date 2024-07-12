@@ -8,7 +8,7 @@ use Src\Application\UseCases\Auth\CheckAuthenticationUseCase;
 
 class Authenticate
 {
-    public function __construct(protected readonly CheckAuthenticationUseCase $checkAuthenticationUseCase) {}
+    public function __construct(private readonly CheckAuthenticationUseCase $checkAuthenticationUseCase) {}
 
     public function handle(Request $request, Closure $next): mixed
     {

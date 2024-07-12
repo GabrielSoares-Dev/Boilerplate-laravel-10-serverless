@@ -10,7 +10,7 @@ use stdClass;
 
 class UserEloquentRepository implements UserRepositoryInterface
 {
-    public function __construct(protected readonly User $model) {}
+    public function __construct(private readonly User $model) {}
 
     public function create(CreateUserRepositoryInputDto $input): stdClass
     {

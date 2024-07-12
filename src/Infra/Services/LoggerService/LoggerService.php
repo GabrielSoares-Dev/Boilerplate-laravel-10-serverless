@@ -8,9 +8,9 @@ use Src\Infra\Factories\LoggerFactory;
 
 class LoggerService implements LoggerServiceInterface
 {
-    protected string $context;
+    private string $context;
 
-    protected StderrLogger $logger;
+    private StderrLogger $logger;
 
     public function __construct()
     {
@@ -20,12 +20,12 @@ class LoggerService implements LoggerServiceInterface
         $this->logger = $loggerFactory->build();
     }
 
-    protected function generateMessage(string $message): string
+    private function generateMessage(string $message): string
     {
         return "$this->context $message";
     }
 
-    protected function generateMessageWithInput(string $message): string
+    private function generateMessageWithInput(string $message): string
     {
         return "$this->context $message {input}";
     }

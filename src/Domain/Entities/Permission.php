@@ -9,7 +9,7 @@ class Permission
 {
     public function __construct(private readonly PermissionEntityDto $input) {}
 
-    protected function validateName(): bool
+    private function validateName(): bool
     {
         return !empty($this->input->name);
     }

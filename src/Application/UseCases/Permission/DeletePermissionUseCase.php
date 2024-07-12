@@ -10,8 +10,8 @@ use Src\Application\Services\LoggerServiceInterface;
 class DeletePermissionUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly PermissionRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly PermissionRepositoryInterface $repository
     ) {}
 
     public function run(DeletePermissionUseCaseInputDto $input): void

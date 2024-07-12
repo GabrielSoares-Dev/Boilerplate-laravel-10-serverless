@@ -13,13 +13,11 @@ use Src\Application\Dtos\Entities\Role\RoleEntityDto;
 class UpdateRoleUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly RoleRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly RoleRepositoryInterface $repository
     ) {}
 
-    protected string $defaultGuardName = 'api';
-
-    protected function validate(string $name): void
+    private function validate(string $name): void
     {
         $entity = new Role(new RoleEntityDto($name));
 

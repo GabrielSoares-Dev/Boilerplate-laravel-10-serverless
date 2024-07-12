@@ -9,24 +9,24 @@ class User
 {
     public function __construct(private readonly UserEntityDto $input) {}
 
-    protected function validateName(): bool
+    private function validateName(): bool
     {
         return !empty($this->input->name);
     }
 
-    protected function validateEmail(): bool
+    private function validateEmail(): bool
     {
         $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 
         return (bool) preg_match($emailRegex, $this->input->email);
     }
 
-    protected function validatePhoneNumber(): bool
+    private function validatePhoneNumber(): bool
     {
         return strlen($this->input->phoneNumber) === 11;
     }
 
-    protected function validatePassword(): bool
+    private function validatePassword(): bool
     {
         $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/';
 

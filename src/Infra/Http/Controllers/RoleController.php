@@ -28,14 +28,14 @@ use Src\Infra\Http\Requests\Role\{RoleRequest, SyncPermissionsWithRoleRequest, U
 class RoleController extends Controller
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly CreateRoleUseCase $createRoleUseCase,
-        protected readonly FindAllRolesUseCase $findAllRolesUseCase,
-        protected readonly FindRoleUseCase $findRoleUseCase,
-        protected readonly DeleteRoleUseCase $deleteRoleUseCase,
-        protected readonly UpdateRoleUseCase $updateRoleUseCase,
-        protected readonly SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase,
-        protected readonly UnsyncPermissionsWithRoleUseCase $unsyncPermissionsWithRoleUseCase
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly CreateRoleUseCase $createRoleUseCase,
+        private readonly FindAllRolesUseCase $findAllRolesUseCase,
+        private readonly FindRoleUseCase $findRoleUseCase,
+        private readonly DeleteRoleUseCase $deleteRoleUseCase,
+        private readonly UpdateRoleUseCase $updateRoleUseCase,
+        private readonly SyncPermissionsWithRoleUseCase $syncPermissionsWithRoleUseCase,
+        private readonly UnsyncPermissionsWithRoleUseCase $unsyncPermissionsWithRoleUseCase
     ) {}
 
     public function index(): JsonResponse

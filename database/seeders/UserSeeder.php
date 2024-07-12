@@ -8,7 +8,7 @@ use Src\Infra\Models\User;
 
 class UserSeeder extends Seeder
 {
-    protected function admin()
+    private function admin()
     {
         $email = 'admin@gmail.com';
 

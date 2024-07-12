@@ -7,9 +7,9 @@ use Psr\Log\LogLevel;
 
 class LoggerFactory
 {
-    protected string $level;
+    private string $level;
 
-    protected array $levels;
+    private array $levels;
 
     public function __construct(string $level)
     {

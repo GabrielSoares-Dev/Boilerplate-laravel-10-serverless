@@ -9,7 +9,7 @@ use Src\Domain\Enums\Permission as PermissionEnum;
 
 class RoleWithPermissionsSeeder extends Seeder
 {
-    protected function adminRole()
+    private function adminRole()
     {
         $permissions = [
             PermissionEnum::CREATE_PERMISSION,

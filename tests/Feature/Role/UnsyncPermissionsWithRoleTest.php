@@ -13,9 +13,9 @@ class UnsyncPermissionsWithRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/role/unsync-permissions';
+    private $path = '/v1/role/unsync-permissions';
 
-    protected $permission = PermissionEnum::UNSYNC_ROLE_WITH_PERMISSIONS;
+    private $permission = PermissionEnum::UNSYNC_ROLE_WITH_PERMISSIONS;
 
     public function test_unsync(): void
     {

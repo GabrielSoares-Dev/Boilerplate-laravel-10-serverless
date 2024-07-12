@@ -8,7 +8,7 @@ use Src\Domain\Enums\Role as RoleEnum;
 
 class RoleSeeder extends Seeder
 {
-    protected $defaultGuardName = 'api';
+    private $defaultGuardName = 'api';
 
     public function run(): void
     {

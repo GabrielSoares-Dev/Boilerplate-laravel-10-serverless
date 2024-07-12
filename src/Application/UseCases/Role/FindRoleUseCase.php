@@ -11,8 +11,8 @@ use Src\Application\Services\LoggerServiceInterface;
 class FindRoleUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly RoleRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly RoleRepositoryInterface $repository
     ) {}
 
     public function run(FindRoleUseCaseInputDto $input): FindRoleUseCaseOutputDto

@@ -8,7 +8,7 @@ use Src\Domain\Enums\Permission as PermissionEnum;
 
 class PermissionSeeder extends Seeder
 {
-    protected string $defaultGuardName = 'api';
+    private string $defaultGuardName = 'api';
 
     public function run(): void
     {

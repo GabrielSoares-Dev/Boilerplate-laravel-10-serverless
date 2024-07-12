@@ -15,8 +15,8 @@ use Src\Infra\Http\Requests\User\UserRequest;
 class UserController extends Controller
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly CreateUserUseCase $createUserUseCase
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly CreateUserUseCase $createUserUseCase
     ) {}
 
     public function store(UserRequest $request): JsonResponse

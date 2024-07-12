@@ -11,8 +11,8 @@ use Src\Application\Services\LoggerServiceInterface;
 class FindPermissionUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly PermissionRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly PermissionRepositoryInterface $repository
     ) {}
 
     public function run(FindPermissionUseCaseInputDto $input): FindPermissionUseCaseOutputDto

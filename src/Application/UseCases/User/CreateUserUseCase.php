@@ -14,23 +14,23 @@ use Src\Domain\Enums\Role;
 class CreateUserUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly UserRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly UserRepositoryInterface $repository
     ) {}
 
-    protected function validate(CreateUserUseCaseInputDto $input): void
+    private function validate(CreateUserUseCaseInputDto $input): void
     {
         $entity = new User(new UserEntityDto(...(array) $input));
 
         $entity->create();
     }
 
-    protected function foundUserBySameEmail(string $email): bool
+    private function foundUserBySameEmail(string $email): bool
     {
         return (bool) $this->repository->findByEmail($email);
     }
 
-    protected function assignRole(string $email): void
+    private function assignRole(string $email): void
     {
         $input = new AssignRoleRepositoryInputDto(Role::ADMIN, $email);
 

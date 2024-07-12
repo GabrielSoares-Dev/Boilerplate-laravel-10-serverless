@@ -12,9 +12,9 @@ class FindPermissionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/permission';
+    private $path = '/v1/permission';
 
-    protected $permission = PermissionEnum::READ_PERMISSION;
+    private $permission = PermissionEnum::READ_PERMISSION;
 
     public function test_find(): void
     {

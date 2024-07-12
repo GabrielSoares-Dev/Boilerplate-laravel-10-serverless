@@ -11,7 +11,7 @@ class LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/auth/logout';
+    private $path = '/v1/auth/logout';
 
     public function test_logged_out(): void
     {

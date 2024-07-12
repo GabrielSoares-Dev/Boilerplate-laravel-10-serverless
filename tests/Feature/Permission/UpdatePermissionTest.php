@@ -12,9 +12,9 @@ class UpdatePermissionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $path = '/v1/permission';
+    private $path = '/v1/permission';
 
-    protected $permission = PermissionEnum::UPDATE_PERMISSION;
+    private $permission = PermissionEnum::UPDATE_PERMISSION;
 
     public function test_updated(): void
     {

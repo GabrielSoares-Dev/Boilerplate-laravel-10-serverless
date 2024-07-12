@@ -8,8 +8,8 @@ use Src\Application\Services\LoggerServiceInterface;
 class FindAllRolesUseCase
 {
     public function __construct(
-        protected readonly LoggerServiceInterface $loggerService,
-        protected readonly RoleRepositoryInterface $repository
+        private readonly LoggerServiceInterface $loggerService,
+        private readonly RoleRepositoryInterface $repository
     ) {}
 
     public function run(): array
