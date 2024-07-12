@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Tests\Helpers\Mocks\AuthorizeMock;
+use Src\Domain\Enums\Permission as PermissionEnum;
 use Tests\TestCase;
 
 class DeletePermissionTest extends TestCase
@@ -13,7 +14,7 @@ class DeletePermissionTest extends TestCase
 
     protected $path = '/v1/permission';
 
-    protected $permission = 'delete_permission';
+    protected $permission = PermissionEnum::DELETE_PERMISSION;
 
     public function test_deleted(): void
     {

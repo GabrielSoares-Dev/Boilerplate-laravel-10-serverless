@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
+use Src\Domain\Enums\Permission as PermissionEnum;
 use Tests\TestCase;
 
 class FindAllRolesTest extends TestCase
@@ -13,7 +14,7 @@ class FindAllRolesTest extends TestCase
 
     protected $path = '/v1/role';
 
-    protected $permission = 'read_all_roles';
+    protected $permission = PermissionEnum::READ_ALL_ROLES;
 
     public function test_found(): void
     {

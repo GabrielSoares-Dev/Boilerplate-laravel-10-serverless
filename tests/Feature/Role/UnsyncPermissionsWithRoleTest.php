@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
+use Src\Domain\Enums\Permission as PermissionEnum;
 use Tests\TestCase;
 
 class UnsyncPermissionsWithRoleTest extends TestCase
@@ -14,7 +15,7 @@ class UnsyncPermissionsWithRoleTest extends TestCase
 
     protected $path = '/v1/role/unsync-permissions';
 
-    protected $permission = 'unsync_role_with_permissions';
+    protected $permission = PermissionEnum::UNSYNC_ROLE_WITH_PERMISSIONS;
 
     public function test_unsync(): void
     {

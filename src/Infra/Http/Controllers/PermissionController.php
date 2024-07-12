@@ -15,6 +15,7 @@ use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
 use Src\Application\UseCases\Permission\FindPermissionUseCase;
 use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
 use Src\Domain\Enums\HttpCode;
+use Src\Domain\Enums\Permission;
 use Src\Infra\Exceptions\HttpException;
 use Src\Infra\Helpers\Authorize;
 use Src\Infra\Helpers\BaseResponse;
@@ -33,7 +34,7 @@ class PermissionController extends Controller
 
     public function index(): JsonResponse
     {
-        Authorize::hasPermission('read_all_permissions');
+        Authorize::hasPermission(Permission::READ_ALL_PERMISSIONS);
 
         try {
 
@@ -60,7 +61,7 @@ class PermissionController extends Controller
 
     public function store(PermissionRequest $request): JsonResponse
     {
-        Authorize::hasPermission('create_permission');
+        Authorize::hasPermission(Permission::CREATE_PERMISSION);
 
         $input = new CreatePermissionUseCaseInputDto(...$request->all());
 
@@ -93,7 +94,7 @@ class PermissionController extends Controller
 
     public function show(int $id): JsonResponse
     {
-        Authorize::hasPermission('read_permission');
+        Authorize::hasPermission(Permission::READ_PERMISSION);
 
         $input = new FindPermissionUseCaseInputDto($id);
 
@@ -128,7 +129,7 @@ class PermissionController extends Controller
 
     public function update(PermissionRequest $request, int $id): JsonResponse
     {
-        Authorize::hasPermission('update_permission');
+        Authorize::hasPermission(Permission::UPDATE_PERMISSION);
 
         $name = $request->input('name');
 
@@ -163,7 +164,7 @@ class PermissionController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        Authorize::hasPermission('delete_permission');
+        Authorize::hasPermission(Permission::DELETE_PERMISSION);
 
         $input = new DeletePermissionUseCaseInputDto($id);
 

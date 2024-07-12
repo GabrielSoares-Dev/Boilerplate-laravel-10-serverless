@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
+use Src\Domain\Enums\Permission as PermissionEnum;
 use Tests\TestCase;
 
 class UpdateRoleTest extends TestCase
@@ -13,7 +14,7 @@ class UpdateRoleTest extends TestCase
 
     protected $path = '/v1/role';
 
-    protected $permission = 'update_role';
+    protected $permission = PermissionEnum::UPDATE_ROLE;
 
     public function test_updated(): void
     {

@@ -10,15 +10,18 @@ class UserSeeder extends Seeder
 {
     protected function admin()
     {
+        $email = 'admin@gmail.com';
 
         $input = [
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => $email,
             'phone_number' => 11942421224,
             'password' => 'admin@1234',
         ];
 
-        User::create($input)->assignRole(RoleEnum::ADMIN);
+        $alreadyExist = User::where('email', $email)->first();
+
+        if (!$alreadyExist) User::create($input)->assignRole(RoleEnum::ADMIN);
     }
 
     public function run(): void

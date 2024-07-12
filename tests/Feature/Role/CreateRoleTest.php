@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
+use Src\Domain\Enums\Permission as PermissionEnum;
 use Tests\TestCase;
 
 class CreateRoleTest extends TestCase
@@ -13,7 +14,7 @@ class CreateRoleTest extends TestCase
 
     protected $path = '/v1/role';
 
-    protected $permission = 'create_role';
+    protected $permission = PermissionEnum::CREATE_ROLE;
 
     public function test_created(): void
     {

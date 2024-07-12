@@ -5,29 +5,37 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Src\Domain\Enums\Role as RoleEnum;
+use Src\Domain\Enums\Permission as PermissionEnum;
 
 class RoleWithPermissionsSeeder extends Seeder
 {
     protected function adminRole()
     {
         $permissions = [
-            'create_permission',
-            'read_all_permissions',
-            'delete_permission',
-            'read_permission',
-            'update_permission',
-            'create_role',
-            'read_all_roles',
-            'delete_role',
-            'read_role',
-            'update_role',
-            'sync_role_with_permissions',
-            'unsync_role_with_permissions',
+            PermissionEnum::CREATE_PERMISSION,
+            PermissionEnum::READ_ALL_PERMISSIONS,
+            PermissionEnum::DELETE_PERMISSION,
+            PermissionEnum::READ_PERMISSION,
+            PermissionEnum::UPDATE_PERMISSION,
+            PermissionEnum::CREATE_ROLE,
+            PermissionEnum::READ_ALL_ROLES,
+            PermissionEnum::DELETE_ROLE,
+            PermissionEnum::READ_ROLE,
+            PermissionEnum::UPDATE_ROLE,
+            PermissionEnum::SYNC_ROLE_WITH_PERMISSIONS,
+            PermissionEnum::UNSYNC_ROLE_WITH_PERMISSIONS,
         ];
-
         $role = Role::findByName(RoleEnum::ADMIN);
 
-        $role->syncPermissions($permissions);
+        
+
+        foreach ($permissions as $permission) {
+        
+            $alreadySync = $role-($permission);
+
+            if(!$alreadySync) $role->givePermissionTo($permission);
+        }
+       
     }
 
     public function run(): void

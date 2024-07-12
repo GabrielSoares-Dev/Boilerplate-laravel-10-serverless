@@ -14,13 +14,6 @@ class RoleSeeder extends Seeder
     {
         $roles = [RoleEnum::ADMIN];
 
-        foreach ($roles as $role) {
-            $input = [
-                'name' => $role,
-                'guard_name' => $this->defaultGuardName,
-            ];
-
-            Role::create($input);
-        }
+        foreach ($roles as $role) Role::findOrCreate($role, $this->defaultGuardName);
     }
 }

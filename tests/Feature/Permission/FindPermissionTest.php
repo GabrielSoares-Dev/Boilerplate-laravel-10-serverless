@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Tests\Helpers\Mocks\AuthorizeMock;
+use Src\Domain\Enums\Permission as PermissionEnum;
 use Tests\TestCase;
 
 class FindPermissionTest extends TestCase
@@ -13,7 +14,7 @@ class FindPermissionTest extends TestCase
 
     protected $path = '/v1/permission';
 
-    protected $permission = 'read_permission';
+    protected $permission = PermissionEnum::READ_PERMISSION;
 
     public function test_find(): void
     {

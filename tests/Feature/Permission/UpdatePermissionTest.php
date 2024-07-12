@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Tests\Helpers\Mocks\AuthorizeMock;
+use Src\Domain\Enums\Permission as PermissionEnum;
 use Tests\TestCase;
 
 class UpdatePermissionTest extends TestCase
@@ -13,7 +14,7 @@ class UpdatePermissionTest extends TestCase
 
     protected $path = '/v1/permission';
 
-    protected $permission = 'update_permission';
+    protected $permission = PermissionEnum::UPDATE_PERMISSION;
 
     public function test_updated(): void
     {
