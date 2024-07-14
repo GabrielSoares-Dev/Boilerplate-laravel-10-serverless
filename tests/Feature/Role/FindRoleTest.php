@@ -5,31 +5,29 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
-use Src\Domain\Enums\Permission as PermissionEnum;
-use Tests\TestCase;
+use Src\Domain\Enums\Role as RoleEnum;
+use Tests\AuthenticatedTestCase;
 
-class FindRoleTest extends TestCase
+class FindRoleTest extends AuthenticatedTestCase
 {
     use RefreshDatabase;
 
     private $path = '/v1/role';
 
-    private $permission = PermissionEnum::READ_ROLE;
+    protected $role = RoleEnum::ADMIN;
 
     public function test_find(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $role = Role::create(['name' => 'test', 'guard_name' => 'api', 'created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
 
         $id = $role->id;
-        $output = $this->get("$this->path/$id");
+        $output = $this->get("$this->path/$id", $this->headers);
 
         $expectedOutput = [
             'statusCode' => 200,
             'message' => 'Role found',
             'content' => [
-                'id' => 1,
+                'id' => $id,
                 'name' => 'test',
                 'guard_name' => 'api',
                 'created_at' => '2023-12-23T20:23:11.000000Z',
@@ -44,10 +42,8 @@ class FindRoleTest extends TestCase
 
     public function test_invalid_id(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $id = 300;
-        $output = $this->get("$this->path/$id");
+        $output = $this->get("$this->path/$id", $this->headers);
 
         $expectedOutput = [
             'statusCode' => 400,

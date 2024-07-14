@@ -5,37 +5,26 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Tests\Helpers\Mocks\AuthorizeMock;
-use Src\Domain\Enums\Permission as PermissionEnum;
-use Tests\TestCase;
+use Src\Domain\Enums\Role;
+use Tests\AuthenticatedTestCase;
 
-class FindAllPermissionsTest extends TestCase
+class FindAllPermissionsTest extends AuthenticatedTestCase
 {
     use RefreshDatabase;
 
     private $path = '/v1/permission';
 
-    private $permission = PermissionEnum::READ_ALL_PERMISSIONS;
+    protected $role = Role::ADMIN;
 
     public function test_found(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
-        Permission::create(['name' => 'test', 'guard_name' => 'api', 'created_at' => '2023-12-23 20:23:11', 'updated_at' => '2023-12-23 20:23:11']);
-
-        $output = $this->get($this->path);
+        $createdPermissions = Permission::all()->toArray();
+        $output = $this->get($this->path, [], $this->headers);
 
         $expectedOutput = [
             'statusCode' => 200,
             'message' => 'Found permissions',
-            'content' => [
-                [
-                    'id' => 1,
-                    'name' => 'test',
-                    'guard_name' => 'api',
-                    'created_at' => '2023-12-23T20:23:11.000000Z',
-                    'updated_at' => '2023-12-23T20:23:11.000000Z',
-                ],
-            ],
+            'content' => $createdPermissions,
         ];
 
         $output->assertStatus(200);

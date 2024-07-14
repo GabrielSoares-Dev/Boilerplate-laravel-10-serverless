@@ -5,25 +5,23 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Tests\Helpers\Mocks\AuthorizeMock;
-use Src\Domain\Enums\Permission as PermissionEnum;
-use Tests\TestCase;
+use Src\Domain\Enums\Role;
+use Tests\AuthenticatedTestCase;
 
-class DeletePermissionTest extends TestCase
+class DeletePermissionTest extends AuthenticatedTestCase
 {
     use RefreshDatabase;
 
     private $path = '/v1/permission';
 
-    private $permission = PermissionEnum::DELETE_PERMISSION;
+    protected $role = Role::ADMIN;
 
     public function test_deleted(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $permission->id;
-        $output = $this->delete("$this->path/$id");
+        $output = $this->delete("$this->path/$id", [], $this->headers);
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -36,10 +34,8 @@ class DeletePermissionTest extends TestCase
 
     public function test_invalid_id(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $id = 300;
-        $output = $this->delete("$this->path/$id");
+        $output = $this->delete("$this->path/$id", [], $this->headers);
 
         $expectedOutput = [
             'statusCode' => 400,

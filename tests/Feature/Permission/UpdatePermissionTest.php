@@ -5,28 +5,27 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Tests\Helpers\Mocks\AuthorizeMock;
-use Src\Domain\Enums\Permission as PermissionEnum;
-use Tests\TestCase;
+use Src\Domain\Enums\Role;
+use Tests\AuthenticatedTestCase;
 
-class UpdatePermissionTest extends TestCase
+class UpdatePermissionTest extends AuthenticatedTestCase
 {
     use RefreshDatabase;
 
     private $path = '/v1/permission';
 
-    private $permission = PermissionEnum::UPDATE_PERMISSION;
+    private $input = [
+        'name' => 'new name',
+    ];
+
+    protected $role = Role::ADMIN;
 
     public function test_updated(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $permission = Permission::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $permission->id;
-        $input = [
-            'name' => 'new name',
-        ];
-        $output = $this->put("$this->path/$id", $input);
+        $output = $this->put("$this->path/$id", $this->input, $this->headers);
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -39,13 +38,8 @@ class UpdatePermissionTest extends TestCase
 
     public function test_invalid_id(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $id = 300;
-        $input = [
-            'name' => 'new name',
-        ];
-        $output = $this->put("$this->path/$id", $input);
+        $output = $this->put("$this->path/$id", $this->input, $this->headers);
 
         $expectedOutput = [
             'statusCode' => 400,

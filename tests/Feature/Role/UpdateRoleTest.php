@@ -5,28 +5,28 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
-use Src\Domain\Enums\Permission as PermissionEnum;
-use Tests\TestCase;
+use Src\Domain\Enums\Role as RoleEnum;
+use Tests\AuthenticatedTestCase;
 
-class UpdateRoleTest extends TestCase
+class UpdateRoleTest extends AuthenticatedTestCase
 {
     use RefreshDatabase;
 
     private $path = '/v1/role';
 
-    private $permission = PermissionEnum::UPDATE_ROLE;
+    private $input = [
+        'name' => 'new name',
+    ];
+
+    protected $role = RoleEnum::ADMIN;
 
     public function test_updated(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $role = Role::create(['name' => 'test', 'guard_name' => 'api']);
 
         $id = $role->id;
-        $input = [
-            'name' => 'new name',
-        ];
-        $output = $this->put("$this->path/$id", $input);
+
+        $output = $this->put("$this->path/$id", $this->input, $this->headers);
 
         $expectedOutput = [
             'statusCode' => 200,
@@ -39,13 +39,8 @@ class UpdateRoleTest extends TestCase
 
     public function test_invalid_id(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $id = 300;
-        $input = [
-            'name' => 'new name',
-        ];
-        $output = $this->put("$this->path/$id", $input);
+        $output = $this->put("$this->path/$id", $this->input, $this->headers);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -58,10 +53,8 @@ class UpdateRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         $id = 300;
-        $output = $this->put("$this->path/$id");
+        $output = $this->put("$this->path/$id", [], $this->headers);
 
         $expectedOutput = [
             'errors' => [
@@ -81,10 +74,7 @@ class UpdateRoleTest extends TestCase
         $this->withoutMiddleware();
 
         $id = 300;
-        $input = [
-            'name' => 'new name',
-        ];
-        $output = $this->put("$this->path/$id", $input);
+        $output = $this->put("$this->path/$id", $this->input);
 
         $expectedOutput = [
             'statusCode' => 403,

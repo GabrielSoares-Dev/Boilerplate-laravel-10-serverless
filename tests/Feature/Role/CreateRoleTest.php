@@ -5,26 +5,24 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
-use Src\Domain\Enums\Permission as PermissionEnum;
-use Tests\TestCase;
+use Src\Domain\Enums\Role as RoleEnum;
+use Tests\AuthenticatedTestCase;
 
-class CreateRoleTest extends TestCase
+class CreateRoleTest extends AuthenticatedTestCase
 {
     use RefreshDatabase;
 
     private $path = '/v1/role';
 
-    private $permission = PermissionEnum::CREATE_ROLE;
+    private $input = [
+        'name' => 'test',
+    ];
+
+    protected $role = RoleEnum::ADMIN;
 
     public function test_created(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
-
-        $input = [
-            'name' => 'test',
-        ];
-        $output = $this->post($this->path, $input);
+        $output = $this->post($this->path, $this->input, $this->headers);
 
         $expectedOutput = [
             'statusCode' => 201,
@@ -37,14 +35,9 @@ class CreateRoleTest extends TestCase
 
     public function test_already_exists(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
         Role::create(['name' => 'test', 'guard_name' => 'api']);
 
-        $input = [
-            'name' => 'test',
-        ];
-        $output = $this->post($this->path, $input);
+        $output = $this->post($this->path, $this->input, $this->headers);
 
         $expectedOutput = [
             'statusCode' => 400,
@@ -57,9 +50,7 @@ class CreateRoleTest extends TestCase
 
     public function test_empty_fields(): void
     {
-        AuthorizeMock::hasPermissionMock($this->permission);
-        $this->withoutMiddleware();
-        $output = $this->post($this->path);
+        $output = $this->post($this->path, [], $this->headers);
 
         $expectedOutput = [
             'errors' => [
