@@ -9,17 +9,24 @@ use Src\Application\Dtos\UseCases\Permission\Find\FindPermissionUseCaseInputDto;
 use Src\Application\Dtos\UseCases\Permission\Update\UpdatePermissionUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\Services\LoggerServiceInterface;
-use Src\Application\UseCases\Permission\CreatePermissionUseCase;
-use Src\Application\UseCases\Permission\DeletePermissionUseCase;
-use Src\Application\UseCases\Permission\FindAllPermissionsUseCase;
-use Src\Application\UseCases\Permission\FindPermissionUseCase;
-use Src\Application\UseCases\Permission\UpdatePermissionUseCase;
-use Src\Domain\Enums\HttpCode;
-use Src\Domain\Enums\Permission;
+use Src\Application\UseCases\Permission\{
+    CreatePermissionUseCase,
+    DeletePermissionUseCase,
+    FindAllPermissionsUseCase,
+    FindPermissionUseCase,
+    UpdatePermissionUseCase
+};
+use Src\Domain\Enums\{
+    HttpCode,
+    Permission
+};
 use Src\Infra\Exceptions\HttpException;
-use Src\Infra\Helpers\Authorize;
-use Src\Infra\Helpers\BaseResponse;
+use Src\Infra\Helpers\{
+    Authorize,
+    BaseResponse
+};
 use Src\Infra\Http\Requests\Permission\PermissionRequest;
+use Src\Infra\Http\Resources\Permission\PermissionResource;
 
 class PermissionController extends Controller
 {
@@ -41,12 +48,20 @@ class PermissionController extends Controller
             $this->loggerService->info('START PermissionController index');
 
             $output = $this->findAllPermissionsUseCase->run();
-
             $this->loggerService->debug('Output PermissionController index', (object) $output);
 
+            $transformedOutput = collect($output)->map(function ($item) {
+                return (object) [
+                    'id' => $item['id'],
+                    'name' => $item['name'],
+                    'created_at' => $item['created_at'],
+                    'updated_at' => $item['updated_at'],
+                ];
+            });
+            $content = PermissionResource::collection($transformedOutput);
             $this->loggerService->info('FINISH PermissionController index');
 
-            return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $output);
+            return BaseResponse::successWithContent('Found permissions', HttpCode::OK, $content);
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();
@@ -105,12 +120,12 @@ class PermissionController extends Controller
             $this->loggerService->debug('Input PermissionController show', $input);
 
             $output = $this->findPermissionUseCase->run($input);
-
             $this->loggerService->debug('Output PermissionController show', $output);
 
+            $content = new PermissionResource($output);
             $this->loggerService->info('FINISH PermissionController show');
 
-            return BaseResponse::successWithContent('Permission found', HttpCode::OK, $output);
+            return BaseResponse::successWithContent('Permission found', HttpCode::OK, $content);
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();

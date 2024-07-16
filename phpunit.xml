@@ -21,6 +21,8 @@
             <directory>src/Domain/Repositories</directory>
             <directory>src/Domain/Helpers</directory>
             <directory>src/Infra/*</directory>
+            <directory>src/Application/Mappers</directory>
+            <directory>src/Application/Dtos/Mappers</directory>
         </exclude>
     </source>
     <php>

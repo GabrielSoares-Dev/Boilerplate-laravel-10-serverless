@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Permission;
 use Tests\Helpers\Mocks\AuthorizeMock;
 use Src\Domain\Enums\Role;
 use Tests\AuthenticatedTestCase;
+use Src\Infra\Http\Resources\Permission\PermissionResource;
 
 class FindAllPermissionsTest extends AuthenticatedTestCase
 {
@@ -18,13 +19,13 @@ class FindAllPermissionsTest extends AuthenticatedTestCase
 
     public function test_found(): void
     {
-        $createdPermissions = Permission::all()->toArray();
-        $output = $this->get($this->path, [], $this->headers);
+        $createdPermissions = Permission::all();
 
+        $output = $this->get($this->path, [], $this->headers);
         $expectedOutput = [
             'statusCode' => 200,
             'message' => 'Found permissions',
-            'content' => $createdPermissions,
+            'content' => PermissionResource::collection($createdPermissions)->response()->getData(true)['data'],
         ];
 
         $output->assertStatus(200);

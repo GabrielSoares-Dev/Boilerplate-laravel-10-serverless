@@ -29,9 +29,8 @@ class FindPermissionTest extends AuthenticatedTestCase
             'content' => [
                 'id' => $permission->id,
                 'name' => 'test',
-                'guard_name' => 'api',
-                'created_at' => '2023-12-23T20:23:11.000000Z',
-                'updated_at' => '2023-12-23T20:23:11.000000Z',
+                'createdAt' => '2023-12-23T20:23:11.000000Z',
+                'updatedAt' => '2023-12-23T20:23:11.000000Z',
 
             ],
         ];

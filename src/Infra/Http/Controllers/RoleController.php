@@ -11,19 +11,30 @@ use Src\Application\Dtos\UseCases\Role\UnsyncPermissionsWithRole\UnsyncPermissio
 use Src\Application\Dtos\UseCases\Role\Update\UpdateRoleUseCaseInputDto;
 use Src\Application\Exceptions\BusinessException;
 use Src\Application\Services\LoggerServiceInterface;
-use Src\Application\UseCases\Role\CreateRoleUseCase;
-use Src\Application\UseCases\Role\DeleteRoleUseCase;
-use Src\Application\UseCases\Role\FindAllRolesUseCase;
-use Src\Application\UseCases\Role\FindRoleUseCase;
-use Src\Application\UseCases\Role\SyncPermissionsWithRoleUseCase;
-use Src\Application\UseCases\Role\UnsyncPermissionsWithRoleUseCase;
-use Src\Application\UseCases\Role\UpdateRoleUseCase;
-use Src\Domain\Enums\HttpCode;
-use Src\Domain\Enums\Permission;
+use Src\Application\UseCases\Role\{
+    CreateRoleUseCase,
+    DeleteRoleUseCase,
+    FindAllRolesUseCase,
+    FindRoleUseCase,
+    SyncPermissionsWithRoleUseCase,
+    UnsyncPermissionsWithRoleUseCase,
+    UpdateRoleUseCase
+};
+use Src\Domain\Enums\{
+    HttpCode,
+    Permission
+};
 use Src\Infra\Exceptions\HttpException;
-use Src\Infra\Helpers\Authorize;
-use Src\Infra\Helpers\BaseResponse;
-use Src\Infra\Http\Requests\Role\{RoleRequest, SyncPermissionsWithRoleRequest, UnsyncPermissionsWithRoleRequest};
+use Src\Infra\Helpers\{
+    Authorize,
+    BaseResponse
+};
+use Src\Infra\Http\Requests\Role\{
+    RoleRequest,
+    SyncPermissionsWithRoleRequest,
+    UnsyncPermissionsWithRoleRequest
+};
+use Src\Infra\Http\Resources\Role\RoleResource;
 
 class RoleController extends Controller
 {
@@ -47,20 +58,23 @@ class RoleController extends Controller
             $this->loggerService->info('START RoleController index');
 
             $output = $this->findAllRolesUseCase->run();
-
             $this->loggerService->debug('Output RoleController index', (object) $output);
-
+            $transformedOutput = collect($output)->map(function ($item) {
+                return (object) [
+                    'id' => $item['id'],
+                    'name' => $item['name'],
+                    'created_at' => $item['created_at'],
+                    'updated_at' => $item['updated_at'],
+                ];
+            });
+            $content = RoleResource::collection($transformedOutput);
             $this->loggerService->info('FINISH RoleController index');
 
-            return BaseResponse::successWithContent('Found roles', HttpCode::OK, $output);
+            return BaseResponse::successWithContent('Found roles', HttpCode::OK, $content);
         } catch (BusinessException $exception) {
-
             $errorMessage = $exception->getMessage();
-
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
-
             $this->loggerService->error('Error RoleController index', $exception);
-
             throw new HttpException($errorMessage, $httpCode);
         }
     }
@@ -68,13 +82,10 @@ class RoleController extends Controller
     public function store(RoleRequest $request): JsonResponse
     {
         Authorize::hasPermission(Permission::CREATE_ROLE);
-
         $input = new CreateRoleUseCaseInputDto(...$request->all());
 
         try {
-
             $this->loggerService->info('START RoleController store');
-
             $this->loggerService->debug('Input RoleController store', $input);
 
             $this->createRoleUseCase->run($input);
@@ -83,17 +94,13 @@ class RoleController extends Controller
 
             return BaseResponse::success('Role created successfully', HttpCode::CREATED);
         } catch (BusinessException $exception) {
-
             $errorMessage = $exception->getMessage();
-
             $httpCode = HttpCode::INTERNAL_SERVER_ERROR;
-
             $isAlreadyExistsError = $errorMessage === 'Role already exists';
 
             if ($isAlreadyExistsError) $httpCode = HttpCode::BAD_REQUEST;
 
             $this->loggerService->error('Error RoleController store', (object) ['message' => $errorMessage]);
-
             throw new HttpException($errorMessage, $httpCode);
         }
     }
@@ -111,12 +118,12 @@ class RoleController extends Controller
             $this->loggerService->debug('Input RoleController show', $input);
 
             $output = $this->findRoleUseCase->run($input);
-
             $this->loggerService->debug('Output RoleController show', $output);
 
+            $content = new RoleResource($output);
             $this->loggerService->info('FINISH RoleController show');
 
-            return BaseResponse::successWithContent('Role found', HttpCode::OK, $output);
+            return BaseResponse::successWithContent('Role found', HttpCode::OK, $content);
         } catch (BusinessException $exception) {
 
             $errorMessage = $exception->getMessage();

@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use Tests\Helpers\Mocks\AuthorizeMock;
 use Src\Domain\Enums\Role as RoleEnum;
 use Tests\AuthenticatedTestCase;
+use Src\Infra\Http\Resources\Role\RoleResource;
 
 class FindAllRolesTest extends AuthenticatedTestCase
 {
@@ -18,12 +19,12 @@ class FindAllRolesTest extends AuthenticatedTestCase
 
     public function test_found(): void
     {
-        $createdRoles = Role::all()->toArray();
+        $createdRoles = Role::all();
         $output = $this->get($this->path, $this->headers);
         $expectedOutput = [
             'statusCode' => 200,
             'message' => 'Found roles',
-            'content' => $createdRoles,
+            'content' => RoleResource::collection($createdRoles)->response()->getData(true)['data'],
         ];
 
         $output->assertStatus(200);
