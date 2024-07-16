@@ -77,6 +77,6 @@ Before you begin, make sure you have the following tools installed in your devel
 
 You can find the complete API documentation at the following Postman link:
 
-[![Running on postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/12430293/2s9YkgC5De)
+[![Running on postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/37022898/2sA3kRHi7w)
 
 ## By Gabriel Soares Maciel
